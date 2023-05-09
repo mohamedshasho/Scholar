@@ -5,6 +5,49 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+
+    <color name="primary">#FF5DBDBC</color>
+    <color name="primary_variant">#FF343587</color>
+    <color name="secondary">#FFFFD064</color>
+    <color name="secondary_variant">#FF49A8D8</color>
+    <color name="card_background_light">#FDFDFD</color>
+    <color name="card_background_dark">#1D1D1D</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!--
+
+
+val md_theme_light_primary = Color(0xFF83D350)
+val md_theme_light_onPrimary = Color(0xFFFDFDFD)
+val md_theme_light_primaryContainer = Color(0xFF5A7B0A)
+val md_theme_light_onPrimaryContainer = Color(0xFF231F20)
+val md_theme_light_secondary = Color(0xFFFAB037)
+val md_theme_light_onSecondary = Color(0xFFFDFDFD)
+val md_theme_light_tertiary = Color(0xFFFED48A)
+val md_theme_light_onTertiary = Color(0xFFFFFFFF)
+val md_theme_light_background = Color(0xFFFDFDFD)
+val md_theme_light_onBackground = Color(0xFF231F20)
+val md_theme_light_surface = Color(0xFFEFEFEF)
+val md_theme_light_onSurface = Color(0xFF231F20)
+val md_theme_light_error = Color(0xFFC73E1D)
+val md_theme_light_onError = Color(0xFF231F20)
+
+    primary = md_theme_dark_primary,
+    onPrimary = md_theme_dark_onPrimary,
+    primaryVariant = md_theme_dark_primaryContainer,
+    secondary = md_theme_dark_secondary,
+    onSecondary = md_theme_dark_onSecondary,
+    background = md_theme_dark_background,
+    onBackground = md_theme_dark_onBackground,
+    surface = md_theme_dark_surface,
+    onSurface = md_theme_dark_onSurface,
+    error = md_theme_dark_error,
+    onError = md_theme_dark_onError
+
+
+    -->
 </resources>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:id="@+id/material_subject_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+            <ImageView
+                android:id="@+id/story_item_student_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_rounded_corners"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/background_rounded_icon" />
+
+            <ImageView
+                android:id="@+id/story_item_student_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_person"
+                android:src="@drawable/ic_story"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/story_item_student_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/story_item_student_name" />
+
+            <TextView
+                android:id="@+id/story_item_student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:text="student name"
+                android:textAppearance="@style/TextBody2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/story_item_student_image"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/teacher_profile_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="story name"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextBody1" />
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/teacher_profile_skills_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:text="description "
+            android:textAppearance="@style/TextBody2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            >
+
+            <TextView
+                android:id="@+id/teacher_profile_number_views_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="2dp"
+                android:text="2020/20/20"
+                android:textAppearance="@style/TextSubTitle2" />
+            <ImageView
+                android:id="@+id/teacher_profile_number_views_image"
+                android:layout_width="18dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_time"
+                app:tint="?attr/colorPrimaryVariant" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
