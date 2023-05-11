@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.MaterialSubjectItemBinding
-import com.scholar.data.model.MaterialSubject
+import com.scholar.data.model.CategoryLocal
 
-class MaterialSubjectAdapter(private val items: List<MaterialSubject>) :
+class MaterialSubjectAdapter(private val items: List<CategoryLocal>) :
     RecyclerView.Adapter<MaterialSubjectAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,7 +20,7 @@ class MaterialSubjectAdapter(private val items: List<MaterialSubject>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        holder.binding.materialSubjectText.text = item.name
+//        holder.binding.materialSubjectText.text = item.name
 
     }
 

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/NestedScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,18 +55,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/material_subjects"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textAppearance="@style/TextBody1"/>
 
-            <TextView
-                android:id="@+id/home_material_subject_see_all_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="@string/see_all"
-                android:textColor="?attr/colorSecondaryVariant"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/home_material_subject_see_all_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="end"-->
+<!--                android:text="@string/see_all"-->
+<!--                android:textColor="?attr/colorSecondaryVariant"-->
+<!--                android:textSize="11sp"-->
+<!--                android:textStyle="bold" />-->
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -84,8 +87,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="15dp"
             android:text="@string/stages"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textAppearance="@style/TextBody1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_materials_subjects_recyclerView" />
@@ -166,8 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/some_subjects"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textAppearance="@style/TextBody1"/>
 
             <TextView
                 android:id="@+id/home_subjects_see_all_text"
@@ -176,8 +177,7 @@
                 android:gravity="end"
                 android:text="@string/see_all"
                 android:textColor="?attr/colorSecondaryVariant"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextSubTitle2" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

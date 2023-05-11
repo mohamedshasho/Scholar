@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.TeacherProfileItemBinding
-import com.scholar.data.model.MaterialSubject
+import com.scholar.data.model.CategoryLocal
 
-class TeacherProfileAdapter(private val items: List<MaterialSubject>) :
+class TeacherProfileAdapter(private val items: List<CategoryLocal>) :
     RecyclerView.Adapter<TeacherProfileAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

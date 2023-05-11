@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.SubjectItemBinding
-import com.scholar.data.model.MaterialSubject
+import com.scholar.data.model.CategoryLocal
 
-class SubjectAdapter(private val items: List<MaterialSubject>) :
+class SubjectAdapter(private val items: List<CategoryLocal>) :
     RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,7 +20,7 @@ class SubjectAdapter(private val items: List<MaterialSubject>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        holder.binding.materialSubjectText.text = item.name
+//        holder.binding.materialSubjectText.text = item.name
 
     }
     class ViewHolder(val binding: SubjectItemBinding) :

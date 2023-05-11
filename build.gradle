@@ -5,6 +5,11 @@ buildscript {
         activity_version = "1.7.1"
         fragment_version = "1.5.7"
         nav_version = "2.5.3"
+        
+        submodulesPlatform = [
+                domain: ':domain',
+                data  : ':data',
+        ]
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

@@ -3,23 +3,30 @@ package com.scholar.center.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialSubjectAdapter
 import com.scholar.center.adapter.SubjectAdapter
 import com.scholar.center.databinding.FragmentHomeBinding
-import com.scholar.data.model.MaterialSubject
+import com.scholar.center.ui.MainFragmentDirections
+import com.scholar.data.model.CategoryLocal
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+    private val viewModel: HomeVM by viewModels()
+
     private var binding: FragmentHomeBinding? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentHomeBinding.bind(view)
 
+R.string.unknown_err_body
         val mSubjects = listOf(
-            MaterialSubject(name = "name1", image = ""),
-            MaterialSubject(name = "name2", image = ""),
-            MaterialSubject(name = "name3", image = ""),
-            MaterialSubject(name = "name4", image = "")
+            CategoryLocal(name = "name1", image = ""),
+            CategoryLocal(name = "name2", image = ""),
+            CategoryLocal(name = "name3", image = ""),
+            CategoryLocal(name = "name4", image = "")
         )
         val materialSubjectAdapter = MaterialSubjectAdapter(mSubjects)
 
@@ -37,7 +44,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter = subjectAdapter
         }
 
+        val navController = findNavController()
+        val rootNavController = activity?.findNavController(R.id.root_nav_host_fragment)
 
+        binding?.homeSubjectsSeeAllText?.setOnClickListener {
+            rootNavController?.navigate(MainFragmentDirections.actionHomeToSubjects())
+        }
     }
 
 }
