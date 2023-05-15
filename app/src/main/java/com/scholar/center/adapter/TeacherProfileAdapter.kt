@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.TeacherProfileItemBinding
 import com.scholar.data.model.CategoryLocal
 
-class TeacherProfileAdapter(private val items: List<CategoryLocal>) :
+class TeacherProfileAdapter(private val items: List<CategoryLocal>, val onClick: (Int) -> Unit) :
     RecyclerView.Adapter<TeacherProfileAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,8 +19,10 @@ class TeacherProfileAdapter(private val items: List<CategoryLocal>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
+        holder.itemView.setOnClickListener { onClick(item.id) }
 
     }
+
     class ViewHolder(val binding: TeacherProfileItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

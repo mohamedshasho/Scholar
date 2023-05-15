@@ -9,7 +9,7 @@
 
 
     <Toolbar
-        android:id="@+id/subjects_toolbar"
+        android:id="@+id/classes_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -17,14 +17,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
-        <!-- Add a TextView with the title, set its gravity to center -->
-        <!-- Add an ImageView for the arrow back icon -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
             <ImageView
-                android:id="@+id/subjects_toolbar_back_button"
+                android:id="@+id/classes_toolbar_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -37,12 +35,12 @@
                 />
             <!-- Add a TextView for the centered title -->
             <TextView
-                android:id="@+id/subjects_toolbar_title"
+                android:id="@+id/classes_toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="@string/subjects"
+                android:text="@string/stage_name"
                 android:textAppearance="@style/TextH5"/>
 
         </RelativeLayout>
@@ -50,42 +48,24 @@
 
 
     <LinearLayout
-        android:id="@+id/subjects_searchView_layout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/background_search_field"
-        android:gravity="center"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subjects_toolbar">
-
-        <SearchView
-            android:id="@+id/subjects_searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/search_view_border"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/what_are_you_going_to_find"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/subjects_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="20dp"
-        android:paddingTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:clipToPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subjects_searchView_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/classes_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/classes_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:paddingHorizontal="10dp"
+            android:clipToPadding="false"
+            />
+    </LinearLayout>
 
 
 

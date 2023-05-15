@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.scholar.center.ui.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_home_to_subjects"
@@ -19,13 +19,68 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_main_to_teacher"
+            app:destination="@id/teacherFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="teacher_id"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_main_to_classes"
+            app:destination="@id/classesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="stage_id"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+
+
     </fragment>
 
     <include app:graph="@navigation/main_nav_graph" />
 
     <fragment
         android:id="@+id/subjectsFragment"
-        android:name="com.scholar.center.ui.subject.SubjectsFragment"
+        android:name="com.scholar.center.ui.subjects.SubjectsFragment"
         android:label="fragment_subjects"
         tools:layout="@layout/fragment_subjects" />
+
+    <fragment
+        android:id="@+id/teacherFragment"
+        android:name="com.scholar.center.ui.teacher.TeacherFragment"
+        android:label="TeacherFragment"
+        tools:layout="@layout/fragment_teacher" />
+    <fragment
+        android:id="@+id/classesFragment"
+        android:name="com.scholar.center.ui.classes.ClassesFragment"
+        android:label="ClassesFragment"
+        tools:layout="@layout/fragment_classes">
+        <action
+            android:id="@+id/action_classes_to_classGroup"
+            app:destination="@id/classGroupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="class_id"
+
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/classGroupFragment"
+        android:name="com.scholar.center.ui.classgroup.ClassGroupFragment"
+        android:label="fragment_class_group"
+        tools:layout="@layout/fragment_class_group" />
 </navigation>

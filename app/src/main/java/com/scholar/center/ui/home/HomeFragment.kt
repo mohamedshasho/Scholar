@@ -21,14 +21,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentHomeBinding.bind(view)
 
-R.string.unknown_err_body
         val mSubjects = listOf(
             CategoryLocal(name = "name1", image = ""),
             CategoryLocal(name = "name2", image = ""),
             CategoryLocal(name = "name3", image = ""),
             CategoryLocal(name = "name4", image = "")
         )
-        val materialSubjectAdapter = MaterialSubjectAdapter(mSubjects)
+        val materialSubjectAdapter = MaterialSubjectAdapter(mSubjects){ }
 
         val subjectAdapter = SubjectAdapter(mSubjects)
 
@@ -47,6 +46,15 @@ R.string.unknown_err_body
         val navController = findNavController()
         val rootNavController = activity?.findNavController(R.id.root_nav_host_fragment)
 
+        binding?.homeStagePrimaryButton?.setOnClickListener {
+            rootNavController?.navigate(MainFragmentDirections.actionMainToClasses(stageId = 0))
+        }
+        binding?.homeStageMediumButton?.setOnClickListener {
+            rootNavController?.navigate(MainFragmentDirections.actionMainToClasses(stageId = 1))
+        }
+        binding?.homeStageSecondaryButton?.setOnClickListener {
+            rootNavController?.navigate(MainFragmentDirections.actionMainToClasses(stageId = 2))
+        }
         binding?.homeSubjectsSeeAllText?.setOnClickListener {
             rootNavController?.navigate(MainFragmentDirections.actionHomeToSubjects())
         }
