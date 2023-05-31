@@ -9,9 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         >
-
 
         <Toolbar
             android:id="@+id/class_group_toolbar"
@@ -82,7 +80,8 @@
             android:nestedScrollingEnabled="false"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
-            android:paddingVertical="20dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

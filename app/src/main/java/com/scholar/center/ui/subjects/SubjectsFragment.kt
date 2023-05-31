@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.SubjectAdapter
 import com.scholar.center.databinding.FragmentSubjectsBinding
+import com.scholar.center.ui.MainFragmentDirections
 
 
 class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
@@ -18,9 +19,14 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentSubjectsBinding.bind(view)
 
-        val subjectsAdapter = SubjectAdapter(viewModel.mSubjects)
+        val subjectsAdapter = SubjectAdapter(viewModel.mSubjects,
+            navigateToTeacher = { teacherID ->
+                findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
+            }
+        )
         binding.subjectsRecyclerView.run {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = subjectsAdapter
         }
 

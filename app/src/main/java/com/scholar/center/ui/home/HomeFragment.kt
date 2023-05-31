@@ -29,7 +29,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
         val materialSubjectAdapter = MaterialSubjectAdapter(mSubjects){ }
 
-        val subjectAdapter = SubjectAdapter(mSubjects)
+        val subjectAdapter = SubjectAdapter(mSubjects,
+            navigateToTeacher = { teacherID ->
+                findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
+            }
+        )
 
         binding?.homeMaterialsSubjectsRecyclerView?.apply {
             layoutManager =

@@ -41,4 +41,15 @@
     <string name="qualifications">Qualifications</string>
     <string name="stage_name">Stage name</string>
     <string name="class_name">class name</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_new_account"><u>Create new Account</u></string>
+    <string name="phone_number_or_email">Phone Number or Email</string>
+    <string name="password">Password</string>
+    <string name="no_account_yet">No account yet?</string>
+    <string name="password_field">Password edit text</string>
+    <string name="have_account_yet">Have an account?</string>
+    <string name="login_underline"><u>Login</u></string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>

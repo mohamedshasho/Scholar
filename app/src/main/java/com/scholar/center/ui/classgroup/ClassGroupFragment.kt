@@ -9,6 +9,7 @@ import com.scholar.center.R
 import com.scholar.center.adapter.MaterialSubjectAdapter
 import com.scholar.center.adapter.SubjectAdapter
 import com.scholar.center.databinding.FragmentClassGroupBinding
+import com.scholar.center.ui.MainFragmentDirections
 import com.scholar.data.model.CategoryLocal
 
 
@@ -28,7 +29,11 @@ class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
             materialSubjectAdapter?.setItemSelected(position)
         }
 
-        val subjectAdapter = SubjectAdapter(mSubjects)
+        val subjectAdapter = SubjectAdapter(mSubjects,
+            navigateToTeacher = { teacherID ->
+                findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
+            }
+        )
 
         binding.classGroupMaterialsSubjectsRecyclerView.apply {
             layoutManager =

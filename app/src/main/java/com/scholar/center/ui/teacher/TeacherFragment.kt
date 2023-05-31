@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.scholar.center.R
 import com.scholar.center.adapter.TeacherPagerAdapter
 import com.scholar.center.databinding.FragmentTeacherBinding
+import com.scholar.center.ui.teacher.materials.TeacherMaterialsFragment
 import com.scholar.center.ui.teacher.personal.PersonalFragment
 import com.scholar.center.ui.teacher.qualifications.QualificationsFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +39,10 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
         val tabLayout = binding.teacherTabLayout
         val viewPager = binding.teacherViewPager
 
-        val fragments = listOf(PersonalFragment(), QualificationsFragment(),QualificationsFragment())
+        val fragments = listOf(
+            PersonalFragment(), QualificationsFragment(),
+            TeacherMaterialsFragment()
+        )
         viewPager.adapter = TeacherPagerAdapter(
             fragments = fragments,
             fragmentActivity = requireActivity()

@@ -2,13 +2,11 @@ package com.scholar.data.repo
 
 import com.scholar.data.dao.CategoryDao
 import com.scholar.data.toLocal
-import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Category
 import com.scholar.domain.model.ErrorException
 import com.scholar.domain.model.NetworkResult
 import com.scholar.domain.repo.CategoryRepository
 import com.scholar.domain.service.ApiService
-import kotlinx.coroutines.flow.Flow
 
 class CategoryRepositoryImp(
     private val apiService: ApiService,
@@ -22,7 +20,6 @@ class CategoryRepositoryImp(
                     categoryDao.insert(categoryNetwork.toLocal())
                     categoryNetwork
                 }
-//                response.data
             }
             is NetworkResult.Error -> {
                 if (response.error != null)

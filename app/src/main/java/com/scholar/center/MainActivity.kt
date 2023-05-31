@@ -3,6 +3,7 @@ package com.scholar.center
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.scholar.center.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +19,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.rootNavHostFragment.id) as NavHostFragment
+
+        val navController = navHostFragment.navController
+
+//        val startDestination = if (true) {
+//            R.id.mainFragment // Replace with the ID of your home fragment
+//        } else {
+//            R.id.mainFragment // Replace with the ID of your login fragment
+//        }
+//
+//        val navGraph = navController.navInflater.inflate(R.navigation.root_nav_graph)
+//        navGraph.setStartDestination(startDestination)
+//        navController.graph = navGraph
 
 
 
