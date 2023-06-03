@@ -15,9 +15,11 @@ import com.scholar.center.databinding.FragmentTeacherBinding
 import com.scholar.center.ui.teacher.materials.TeacherMaterialsFragment
 import com.scholar.center.ui.teacher.personal.PersonalFragment
 import com.scholar.center.ui.teacher.qualifications.QualificationsFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TeacherFragment : Fragment(R.layout.fragment_teacher) {
 
     private val viewModel: TeacherVM by viewModels()

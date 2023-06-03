@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.MaterialSubjectItemBinding
-import com.scholar.data.model.CategoryLocal
+import com.scholar.domain.model.Category
 import com.google.android.material.R.attr as theme
 
 class MaterialSubjectAdapter(
-    private val items: List<CategoryLocal>,
-    private val onClick: (position: Int) -> Unit,
-) :
-    RecyclerView.Adapter<MaterialSubjectAdapter.ViewHolder>() {
+    private var items: List<Category> = emptyList(),
+    private val onClick: ((position: Int) -> Unit)? = null,
+) : RecyclerView.Adapter<MaterialSubjectAdapter.ViewHolder>() {
 
     private var itemSelected = -1
 
@@ -28,7 +27,7 @@ class MaterialSubjectAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.itemView.setOnClickListener {
-            onClick(position)
+            onClick?.invoke(position)
         }
         if (itemSelected == position) {
             val selectedColor = getThemeColor(
@@ -62,6 +61,11 @@ class MaterialSubjectAdapter(
         itemSelected = position
         notifyItemChanged(itemSelected)
         notifyItemChanged(previousSelected)
+    }
+
+    fun setMaterialSubjectList(subjects: List<Category>) {
+        items = subjects
+        notifyItemChanged(0, subjects.size)
     }
 
     class ViewHolder(val binding: MaterialSubjectItemBinding) :

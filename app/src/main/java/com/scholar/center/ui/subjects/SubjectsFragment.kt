@@ -10,8 +10,9 @@ import com.scholar.center.R
 import com.scholar.center.adapter.SubjectAdapter
 import com.scholar.center.databinding.FragmentSubjectsBinding
 import com.scholar.center.ui.MainFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
 

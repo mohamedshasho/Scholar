@@ -11,9 +11,6 @@ class CategoryNetwork(
     override val image:String?,
 ) : Category
 
-
-
-
 interface Category{
     val id:Int
     val name:String

@@ -24,15 +24,14 @@ class MainActivity : AppCompatActivity() {
 
         val navController = navHostFragment.navController
 
-//        val startDestination = if (true) {
-//            R.id.mainFragment // Replace with the ID of your home fragment
-//        } else {
-//            R.id.mainFragment // Replace with the ID of your login fragment
-//        }
-//
-//        val navGraph = navController.navInflater.inflate(R.navigation.root_nav_graph)
-//        navGraph.setStartDestination(startDestination)
-//        navController.graph = navGraph
+        val startDestination = if (true) {
+            R.id.mainFragment // Replace with the ID of your home fragment
+        } else {
+            R.id.loginFragment // Replace with the ID of your login fragment
+        }
+        val navGraph = navController.navInflater.inflate(R.navigation.root_nav_graph)
+        navGraph.setStartDestination(startDestination)
+        navController.graph = navGraph
 
 
 
