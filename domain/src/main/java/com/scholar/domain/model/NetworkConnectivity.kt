@@ -5,10 +5,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-
 interface NetworkConnectivity {
     fun isNetworkAvailable(): Boolean
 }
+
 class NetworkConnectivityChecker(val context: Context) : NetworkConnectivity {
 
     override fun isNetworkAvailable(): Boolean {

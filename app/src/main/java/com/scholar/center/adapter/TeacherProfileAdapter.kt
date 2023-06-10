@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.TeacherProfileItemBinding
-import com.scholar.data.model.CategoryLocal
+import com.scholar.domain.model.Teacher
 
-class TeacherProfileAdapter(private val items: List<CategoryLocal>, val onClick: (Int) -> Unit) :
+class TeacherProfileAdapter(
+    private val items: List<Teacher> = emptyList(),
+    val onClick: (Int) -> Unit,
+) :
     RecyclerView.Adapter<TeacherProfileAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

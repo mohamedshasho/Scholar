@@ -1,8 +1,9 @@
-package com.scholar.data.model
+package com.scholar.data.source.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.scholar.domain.model.Category
+import com.scholar.domain.model.CategoryNetwork
 
 @Entity(tableName = "categories")
 data class CategoryLocal(
@@ -11,3 +12,8 @@ data class CategoryLocal(
     override val name: String,
     override val image: String?,
 ) : Category
+
+
+fun CategoryNetwork.toLocal() = CategoryLocal(id, name, image)
+
+fun List<CategoryNetwork>.toLocal() = map(CategoryNetwork::toLocal)

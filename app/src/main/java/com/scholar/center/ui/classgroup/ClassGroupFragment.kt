@@ -7,10 +7,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialSubjectAdapter
-import com.scholar.center.adapter.SubjectAdapter
+import com.scholar.center.adapter.MaterialAdapter
 import com.scholar.center.databinding.FragmentClassGroupBinding
 import com.scholar.center.ui.MainFragmentDirections
-import com.scholar.data.model.CategoryLocal
 
 
 class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
@@ -19,17 +18,11 @@ class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentClassGroupBinding.bind(view)
 
-        val mSubjects = listOf(
-            CategoryLocal(name = "name1", image = ""),
-            CategoryLocal(name = "name2", image = ""),
-            CategoryLocal(name = "name3", image = ""),
-            CategoryLocal(name = "name4", image = "")
-        )
-        materialSubjectAdapter = MaterialSubjectAdapter(mSubjects) { position ->
+        materialSubjectAdapter = MaterialSubjectAdapter { position ->
             materialSubjectAdapter?.setItemSelected(position)
         }
 
-        val subjectAdapter = SubjectAdapter(mSubjects,
+        val materialAdapter = MaterialAdapter(
             navigateToTeacher = { teacherID ->
                 findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
             }
@@ -45,7 +38,7 @@ class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
         binding.classGroupSubjectsRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = subjectAdapter
+            adapter = materialAdapter
             setHasFixedSize(true)
         }
 

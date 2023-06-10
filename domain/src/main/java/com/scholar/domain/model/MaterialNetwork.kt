@@ -2,16 +2,16 @@ package com.scholar.domain.model
 
 
 
-data class SubjectNetwork(
+data class MaterialNetwork(
     override val id: Int,
     override val title: String,
     override val description: String?,
     override val price: Double?,
     override val content: String?,
-) : Subject
+) : Material
 
 
-interface Subject {
+interface Material {
     val id: Int
     val title: String
     val description: String?

@@ -1,32 +1,49 @@
 package com.scholar.center.ui.subjects
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.scholar.data.model.CategoryLocal
+import androidx.lifecycle.viewModelScope
+import com.scholar.center.model.UiState
+import com.scholar.domain.model.Material
+import com.scholar.domain.model.Resource
+import com.scholar.domain.repo.MaterialRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class SubjectsVM  @Inject constructor() : ViewModel() {
+class SubjectsVM @Inject constructor(
+    private val materialRepository: MaterialRepository,
+) : ViewModel() {
 
-    val mSubjects = listOf(
-        CategoryLocal(name = "name1", image = ""),
-        CategoryLocal(name = "name2", image = ""),
-        CategoryLocal(name = "name3", image = ""),
-        CategoryLocal(name = "name3", image = ""),
-        CategoryLocal(name = "name3", image = ""),
-        CategoryLocal(name = "name3", image = ""),
-        CategoryLocal(name = "name3", image = ""),
-        CategoryLocal(name = "name3", image = ""),
-        CategoryLocal(name = "name4", image = "")
-    )
+    private val _uiState = MutableStateFlow<UiState<List<Material>>>(UiState.Idle)
+    val uiState = _uiState.asStateFlow()
 
-    fun getN() = 5
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("lifecycleViewModel", "onCleared Subjects VM: ")
+    init {
+        getMaterials()
     }
+
+
+    private fun getMaterials() {
+        viewModelScope.launch {
+            _uiState.update { UiState.Loading }
+            when (val result = materialRepository.getMaterialsFromNetwork()) {
+                is Resource.Success -> {
+                    result.data?.let { list ->
+                        _uiState.update {
+                            UiState.Success(list)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    _uiState.update { UiState.Error(result.message) }
+                }
+            }
+        }
+    }
+
 
 }

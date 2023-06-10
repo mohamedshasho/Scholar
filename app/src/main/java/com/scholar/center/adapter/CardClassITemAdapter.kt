@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.CardViewClassItemBinding
-import com.scholar.data.model.CategoryLocal
+import com.scholar.domain.model.Category
 
 class CardClassITemAdapter(
-    private val items: List<CategoryLocal>,
+    private val items: List<Category> = emptyList(),
     private val onClick: (Int) -> Unit,
 ) :
     RecyclerView.Adapter<CardClassITemAdapter.ViewHolder>() {

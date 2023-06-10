@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.StoryItemBinding
-import com.scholar.data.model.CategoryLocal
+import com.scholar.domain.model.Category
 
-class StoryAdapter(private val items: List<CategoryLocal>) :
+class StoryAdapter(private val items: List<Category> = emptyList()) :
     RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

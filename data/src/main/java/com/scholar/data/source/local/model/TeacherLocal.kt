@@ -1,8 +1,9 @@
-package com.scholar.data.model
+package com.scholar.data.source.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.scholar.domain.model.Teacher
+import com.scholar.domain.model.TeacherNetwork
 
 
 @Entity(tableName = "teachers")
@@ -18,3 +19,8 @@ data class TeacherLocal(
     override val qualification: String?,
     override val views: Int,
 ) : Teacher
+
+
+fun TeacherNetwork.toLocal() =
+    TeacherLocal(id, name, age, profile, bio, lastSeen, skills, qualification, views)
+fun List<TeacherNetwork>.toLocal() = map(TeacherNetwork::toLocal)

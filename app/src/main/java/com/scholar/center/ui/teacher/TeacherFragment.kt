@@ -34,7 +34,7 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.teacher.collectLatest {
-                    binding.teacherToolbarTitle.text = it
+                    binding.teacherToolbarTitle.text = it?.name ?: ""
                 }
             }
         }

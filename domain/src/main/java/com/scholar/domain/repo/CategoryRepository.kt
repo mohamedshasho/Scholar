@@ -2,9 +2,10 @@ package com.scholar.domain.repo
 
 import com.scholar.domain.model.Category
 import com.scholar.domain.model.Resource
+import kotlinx.coroutines.flow.Flow
 
 
 interface CategoryRepository {
-    suspend fun getCategoriesFromNetwork(): Resource<List<Category>>
-    suspend fun getCategoriesFromLocal(): List<Category>
+    suspend fun refresh()
+    suspend fun observeCategories(): Flow<List<Category>>
 }

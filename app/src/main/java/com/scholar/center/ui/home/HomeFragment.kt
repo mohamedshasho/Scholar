@@ -4,21 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialSubjectAdapter
-import com.scholar.center.adapter.SubjectAdapter
+import com.scholar.center.adapter.MaterialAdapter
 import com.scholar.center.databinding.FragmentHomeBinding
-import com.scholar.center.model.UiState
 import com.scholar.center.ui.MainFragmentDirections
-import com.scholar.data.model.CategoryLocal
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -30,18 +25,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentHomeBinding.bind(view)
 
-        val shimmer = binding.homeMaterialsSubjectsShimmerLayout
+        val categoriesShimmer = binding.homeMaterialsSubjectsShimmerLayout
+        val materialsShimmer = binding.homeMaterialsShimmerLayout
 
 
-        val mSubjects = listOf(
-            CategoryLocal(name = "name1", image = ""),
-            CategoryLocal(name = "name2", image = ""),
-            CategoryLocal(name = "name3", image = ""),
-            CategoryLocal(name = "name4", image = "")
-        )
-
-
-        val subjectAdapter = SubjectAdapter(mSubjects,
+        val materialAdapter = MaterialAdapter(
             navigateToTeacher = { teacherID ->
                 findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
             }
@@ -53,33 +41,33 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter = materialSubjectAdapter
         }
         lifecycleScope.launch {
-            viewModel.categories.collectLatest { state ->
-                when (state) {
-                    is UiState.Loading -> {
-                        shimmer.startShimmer()
-                    }
-                    is UiState.Success -> {
-                        shimmer.stopShimmer()
-                        shimmer.hideShimmer()
-                        state.data?.let { subjects ->
-                            materialSubjectAdapter.setMaterialSubjectList(subjects)
-                        }
-
-                    }
-                    else -> {
-                        shimmer.stopShimmer()
-                        shimmer.hideShimmer()
-                    }
+            launch {
+                viewModel.categories.collect { categories ->
+                    materialSubjectAdapter.setMaterialSubjectList(categories)
                 }
-
-
+            }
+            launch {
+                viewModel.materials.collect { materials ->
+                    materialAdapter.setList(materials)
+                }
+            }
+            viewModel.loading.collect { loading ->
+                if (loading) {
+                    categoriesShimmer.startShimmer()
+                    materialsShimmer.startShimmer()
+                } else {
+                    categoriesShimmer.stopShimmer()
+                    categoriesShimmer.visibility = View.GONE
+                    materialsShimmer.stopShimmer()
+                    materialsShimmer.visibility = View.GONE
+                }
             }
         }
 
         binding.homeSubjectsRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = subjectAdapter
+            adapter = materialAdapter
         }
 
         val navController = findNavController()
