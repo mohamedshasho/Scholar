@@ -52,4 +52,13 @@
     <string name="have_account_yet">Have an account?</string>
     <string name="login_underline"><u>Login</u></string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="material_details">Material details</string>
+    <string name="type">Type</string>
+    <string name="price">Price</string>
+    <string name="purchase">Purchase</string>
+    <string name="description">Description</string>
+    <string name="syr">%d SYR</string>
+    <string name="view">View</string>
+    <string name="information">Information</string>
+    <string name="reviews">Reviews</string>
 </resources>

@@ -25,7 +25,8 @@ class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
         val materialAdapter = MaterialAdapter(
             navigateToTeacher = { teacherID ->
                 findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
-            }
+            },
+            navigateToDetails = {}
         )
 
         binding.classGroupMaterialsSubjectsRecyclerView.apply {

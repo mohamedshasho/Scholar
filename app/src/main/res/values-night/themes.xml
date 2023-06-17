@@ -22,7 +22,10 @@
         <item name="android:textStyle">bold</item>
         <!-- Add more attributes as needed -->
     </style>
-
+    <style name="TextH6" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
     <style name="TextBody1" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>

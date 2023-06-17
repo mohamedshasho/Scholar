@@ -8,7 +8,8 @@ import com.scholar.domain.model.Material
 
 class MaterialAdapter(
     private var items: List<Material> = emptyList(),
-    private val navigateToTeacher: (Int) -> Unit,
+    private val navigateToTeacher: ((Int) -> Unit)? = null,
+    private val navigateToDetails: (Int) -> Unit,
 ) :
     RecyclerView.Adapter<MaterialAdapter.ViewHolder>() {
 
@@ -25,12 +26,14 @@ class MaterialAdapter(
 
         holder.binding.materialSubjectText.text = item.title
         item.price?.let { holder.binding.materialSubjectPriceText.text = it.toString() }
-
+        holder.itemView.setOnClickListener {
+            navigateToDetails(item.id)
+        }
         holder.binding.materialSubjectTeacherText.setOnClickListener {
-            navigateToTeacher.invoke(1)
+            navigateToTeacher?.invoke(1)
         }
         holder.binding.materialSubjectTeacherImage.setOnClickListener {
-            navigateToTeacher.invoke(1)
+            navigateToTeacher?.invoke(1)
         }
     }
 

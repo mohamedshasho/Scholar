@@ -11,7 +11,7 @@ data class MaterialLocal(
     override val id: Int,
     override val title: String,
     override val description: String?,
-    override val price: Double?,
+    override val price: Int?,
     override val content: String?,
 ) : Material
 

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.material.MaterialFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:orientation="vertical"
+        android:layout_marginBottom="120dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/material_card_bottom"
+            >
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:paddingHorizontal="10dp">
+
+                <ImageView
+                    android:id="@+id/material_toolbar_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/background_rounded_icon"
+                    android:elevation="5dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="?attr/colorOnSecondary" />
+                <!-- Add a TextView for the centered title -->
+                <TextView
+                    android:id="@+id/material_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/material_details"
+                    android:textAppearance="@style/TextH5" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/material_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp">
+
+                <TextView
+                    android:id="@+id/material_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/material"
+                    android:textAppearance="@style/TextBody1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/material_class"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/type"
+                        android:textAppearance="@style/TextBody2" />
+
+                    <ImageView
+                        android:id="@+id/material_star_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/image_rounded_corners"
+                        android:src="@drawable/ic_star"
+                        app:tint="?attr/colorSecondary" />
+
+                    <TextView
+                        android:id="@+id/material_star_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500"
+                        android:textAppearance="@style/TextSubTitle2" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/material_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_story" />
+
+            <LinearLayout
+                android:id="@+id/material_class_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:layout_gravity="center_vertical"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/material_class_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/class_name"
+                    android:textAppearance="@style/TextBody1" />
+
+                <TextView
+                    android:id="@+id/material_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10h"
+                    android:textAppearance="@style/TextSubTitle2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/card_background_rounded"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/material_teacher_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/material_teacher_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:padding="8dp"
+                    android:text="teacher name"
+                    android:textAppearance="@style/TextBody2" />
+            </LinearLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/material_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="?attr/colorSecondary"
+                app:tabMode="auto"
+                app:tabSelectedTextColor="?attr/colorSecondaryVariant"
+                app:tabTextColor="?attr/colorOnSecondary" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/material_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+   <androidx.cardview.widget.CardView
+       android:id="@+id/material_card_bottom"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:cardElevation="20dp"
+       app:cardCornerRadius="20dp"
+       app:cardBackgroundColor="?attr/colorPrimaryContainer"
+       android:layout_marginBottom="-8dp"
+       >
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:paddingHorizontal="10dp"
+           android:paddingVertical="20dp"
+          >
+           <LinearLayout
+               android:id="@+id/material_price_layout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:paddingVertical="5dp"
+               android:layout_gravity="center_vertical">
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="@string/price"
+                   android:textAppearance="@style/TextBody1" />
+
+               <TextView
+                   android:id="@+id/material_price_value"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/syr"
+                   android:textAppearance="@style/TextBody2" />
+           </LinearLayout>
+
+           <Button
+               android:id="@+id/material_price_button"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:backgroundTint="@color/button_background_color"
+               android:padding="12dp"
+               android:text="@string/purchase"
+               android:textAllCaps="false"
+               android:textColor="@color/button_text_color"
+               android:textSize="16sp"
+               app:cornerRadius="16dp" />
+
+       </LinearLayout>
+
+   </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

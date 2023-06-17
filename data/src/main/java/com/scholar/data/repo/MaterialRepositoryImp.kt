@@ -31,6 +31,9 @@ class MaterialRepositoryImp(
         return Resource.Success(localMaterials)
     }
 
+    override suspend fun getMaterialFromLocal(id: Int): Material {
+       return localDataSource.getMaterial(id)
+    }
     override suspend fun getMaterialsFromNetwork(): Resource<List<Material>> {
         val networkMaterials = remoteDataSource.loadMaterials()
         val localMaterials = withContext(dispatcher) {

@@ -14,9 +14,9 @@ class TeacherMaterialsFragment : Fragment(R.layout.fragment_teacher_materials) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTeacherMaterialsBinding.bind(view)
 
-        val subjectsAdapter = MaterialAdapter {
-
-        }
+        val subjectsAdapter = MaterialAdapter(
+            navigateToDetails = {}
+        )
 
         binding.teacherMaterialsRecyclerView.run {
             layoutManager =

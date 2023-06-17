@@ -9,4 +9,5 @@ interface MaterialRepository {
     suspend fun getSomeMaterials(): Resource<List<Material>>
     suspend fun getMaterialsFromNetwork(): Resource<List<Material>>
     suspend fun observeMaterials(): Flow<List<Material>>
+    suspend fun getMaterialFromLocal(id: Int): Material
 }

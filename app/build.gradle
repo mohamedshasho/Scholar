@@ -72,4 +72,5 @@ kapt {
 }
 hilt {
     enableExperimentalClasspathAggregation = true
+    enableAggregatingTask = true
 }

@@ -21,17 +21,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeVM by viewModels()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentHomeBinding.bind(view)
 
         val categoriesShimmer = binding.homeMaterialsSubjectsShimmerLayout
         val materialsShimmer = binding.homeMaterialsShimmerLayout
 
+        val navController = findNavController()
+        val rootNavController = activity?.findNavController(R.id.root_nav_host_fragment)
 
         val materialAdapter = MaterialAdapter(
             navigateToTeacher = { teacherID ->
-                findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
+                rootNavController?.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
+            },
+            navigateToDetails = { id ->
+                rootNavController?.navigate(MainFragmentDirections.actionMainToMaterial(id))
             }
         )
         val materialSubjectAdapter = MaterialSubjectAdapter()
@@ -40,25 +44,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = materialSubjectAdapter
         }
+
         lifecycleScope.launch {
-            launch {
-                viewModel.categories.collect { categories ->
-                    materialSubjectAdapter.setMaterialSubjectList(categories)
-                }
+            viewModel.materials.collect { materials ->
+                materialAdapter.setList(materials)
             }
-            launch {
-                viewModel.materials.collect { materials ->
-                    materialAdapter.setList(materials)
-                }
+        }
+        lifecycleScope.launch {
+            viewModel.categories.collect { categories ->
+                materialSubjectAdapter.setMaterialSubjectList(categories)
             }
+        }
+        lifecycleScope.launch {
             viewModel.loading.collect { loading ->
                 if (loading) {
                     categoriesShimmer.startShimmer()
                     materialsShimmer.startShimmer()
                 } else {
                     categoriesShimmer.stopShimmer()
-                    categoriesShimmer.visibility = View.GONE
                     materialsShimmer.stopShimmer()
+                    categoriesShimmer.visibility = View.GONE
                     materialsShimmer.visibility = View.GONE
                 }
             }
@@ -70,8 +75,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter = materialAdapter
         }
 
-        val navController = findNavController()
-        val rootNavController = activity?.findNavController(R.id.root_nav_host_fragment)
+
 
         binding.homeStagePrimaryButton.setOnClickListener {
             rootNavController?.navigate(MainFragmentDirections.actionMainToClasses(stageId = 0))

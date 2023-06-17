@@ -19,28 +19,28 @@ class MaterialNetworkDataSource @Inject constructor(
                 id = 1,
                 title = "Material 1",
                 description = "description 1",
-                price = 5.2,
+                price = 5000,
                 content = null
             ),
             MaterialNetwork(
                 id = 2,
                 title = "Material 2",
                 description = "description 2",
-                price = 5.2,
+                price = null,
                 content = null
             ),
             MaterialNetwork(
                 id = 3,
                 title = "Material 3",
                 description = "description 3",
-                price = 5.2,
+                price = 1999,
                 content = null
             ),
             MaterialNetwork(
                 id = 4,
                 title = "Material 4",
                 description = "description 4",
-                price = 5.2,
+                price = 10000,
                 content = null
             ),
         )

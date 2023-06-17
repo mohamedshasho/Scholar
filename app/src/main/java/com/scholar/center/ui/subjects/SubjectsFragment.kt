@@ -28,7 +28,8 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         val subjectsAdapter = MaterialAdapter(
             navigateToTeacher = { teacherID ->
                 findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
-            }
+            },
+            navigateToDetails = {}
         )
 
         binding.subjectsRecyclerView.run {
