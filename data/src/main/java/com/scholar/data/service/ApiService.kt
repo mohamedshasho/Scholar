@@ -1,4 +1,4 @@
-package com.scholar.data.source.network.service
+package com.scholar.data.service
 
 import com.scholar.domain.model.*
 import retrofit2.http.Field

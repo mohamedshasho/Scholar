@@ -1,11 +1,10 @@
 package com.scholar.di
 
 import android.content.Context
+import com.scholar.data.service.ApiService
 import com.scholar.domain.model.NetworkConnectivity
 import com.scholar.domain.model.NetworkConnectivityChecker
 import com.scholar.domain.model.NetworkResultCallAdapterFactory
-import com.scholar.domain.repo.CategoryRepository
-import com.scholar.domain.usecase.CategoryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +32,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): com.scholar.data.source.network.service.ApiService {
+    fun provideRetrofit(okHttpClient: OkHttpClient): ApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://127.0.0.1:8000")
             .client(okHttpClient)
@@ -41,7 +40,7 @@ object NetworkModule {
             .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
             .build()
 
-        return retrofit.create(com.scholar.data.source.network.service.ApiService::class.java)
+        return retrofit.create(ApiService::class.java)
     }
 
     @Singleton

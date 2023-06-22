@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.scholar.domain.model.Category
 import com.scholar.domain.model.Material
 import com.scholar.domain.model.Resource
+import com.scholar.domain.model.Stage
 import com.scholar.domain.repo.MaterialRepository
 import com.scholar.domain.usecase.CategoryUseCase
+import com.scholar.domain.usecase.StageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +20,7 @@ import javax.inject.Inject
 class HomeVM @Inject constructor(
     private val categoryUseCase: CategoryUseCase,
     private val materialRepository: MaterialRepository,
+    private val stageUseCase: StageUseCase,
 ) : ViewModel() {
 
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
@@ -25,6 +28,9 @@ class HomeVM @Inject constructor(
 
     private val _materials = MutableStateFlow<List<Material>>(emptyList())
     val materials = _materials.asStateFlow()
+
+    private val _stages = MutableStateFlow<List<Stage>>(emptyList())
+    val stages = _stages.asStateFlow()
 
     private val _loading = MutableStateFlow(true)
     val loading = _loading.asStateFlow()
@@ -53,13 +59,19 @@ class HomeVM @Inject constructor(
                     }
                 }
             }
-            updateData(categories.await(), materials.await())
-            _loading.value=false
+            val stages = async { stageUseCase() }
+            updateData(categories.await(), stages.await(), materials.await())
+            _loading.value = false
         }
     }
 
-    private fun updateData(c: List<Category>, materials: List<Material>?) {
+    private fun updateData(
+        c: List<Category>,
+        stages: List<Stage>,
+        materials: List<Material>?,
+    ) {
         _categories.value = c
+        _stages.value = stages
         if (materials != null) {
             _materials.value = materials
         }

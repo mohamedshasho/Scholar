@@ -2,24 +2,11 @@ package com.scholar.di
 
 import android.content.Context
 import androidx.room.Room
+import com.scholar.data.repo.*
 import com.scholar.data.source.local.ScholarDb
-import com.scholar.data.source.local.dao.CategoryDao
-import com.scholar.data.source.local.dao.MaterialDao
-import com.scholar.data.source.local.dao.StoryDao
-import com.scholar.data.source.local.dao.TeacherDao
-import com.scholar.data.repo.CategoryRepositoryImp
-import com.scholar.data.repo.MaterialRepositoryImp
-import com.scholar.data.repo.StoryRepositoryImp
-import com.scholar.data.repo.TeacherRepositoryImp
-import com.scholar.data.source.network.CategoryNetworkDataSource
-import com.scholar.data.source.network.MaterialNetworkDataSource
-import com.scholar.data.source.network.StoryNetworkDataSource
-import com.scholar.data.source.network.TeacherNetworkDataSource
-import com.scholar.domain.repo.CategoryRepository
-import com.scholar.domain.repo.MaterialRepository
-import com.scholar.domain.repo.StoryRepository
-import com.scholar.domain.repo.TeacherRepository
-import com.scholar.data.source.network.service.ApiService
+import com.scholar.data.source.local.dao.*
+import com.scholar.data.source.network.*
+import com.scholar.domain.repo.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,6 +47,13 @@ object DataModule {
     @Provides
     fun provideTeacherDao(scholarDb: ScholarDb) = scholarDb.teacherDao()
 
+    @Singleton
+    @Provides
+    fun provideStageDao(scholarDb: ScholarDb) = scholarDb.stageDao()
+
+    @Singleton
+    @Provides
+    fun provideClassMateDao(scholarDb: ScholarDb) = scholarDb.classMateDao()
 
     @Singleton
     @Provides
@@ -92,8 +86,26 @@ object DataModule {
     fun provideMaterialRepository(
         materialNetworkDataSource: MaterialNetworkDataSource,
         materialDao: MaterialDao,
-        @DefaultDispatcher  dispatcher: CoroutineDispatcher,
+        @DefaultDispatcher dispatcher: CoroutineDispatcher,
     ): MaterialRepository =
-        MaterialRepositoryImp(materialNetworkDataSource, materialDao,dispatcher)
+        MaterialRepositoryImp(materialNetworkDataSource, materialDao, dispatcher)
+
+    @Singleton
+    @Provides
+    fun provideStageRepository(
+        stageNetworkDataSource: StageNetworkDataSource,
+        stageDao: StageDao,
+        @DefaultDispatcher dispatcher: CoroutineDispatcher,
+    ): StageRepository =
+        StageRepositoryImp(stageNetworkDataSource, stageDao, dispatcher)
+
+    @Singleton
+    @Provides
+    fun provideClassMateRepository(
+        networkDataSource: ClassMateNetworkDataSource,
+        classMateDao: ClassMateDao,
+        @DefaultDispatcher dispatcher: CoroutineDispatcher,
+    ): ClassMateRepository =
+        ClassMateRepositoryImp(networkDataSource, classMateDao, dispatcher)
 
 }

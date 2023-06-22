@@ -1,6 +1,6 @@
 package com.scholar.data.source.network
 
-import com.scholar.data.source.network.service.ApiService
+import com.scholar.data.service.ApiService
 import com.scholar.domain.model.CategoryNetwork
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex

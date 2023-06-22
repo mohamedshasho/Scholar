@@ -1,6 +1,6 @@
 package com.scholar.data.source.network
 
-import com.scholar.data.source.network.service.ApiService
+import com.scholar.data.service.ApiService
 import com.scholar.domain.model.MaterialNetwork
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
@@ -20,28 +20,46 @@ class MaterialNetworkDataSource @Inject constructor(
                 title = "Material 1",
                 description = "description 1",
                 price = 5000,
-                content = null
+                content = null,
+                id_category = 1,
+                id_class = 1,
+                id_subject = 1,
+                id_teacher = 1,
             ),
             MaterialNetwork(
                 id = 2,
                 title = "Material 2",
                 description = "description 2",
                 price = null,
-                content = null
+                content = null,
+                id_category = 1,
+                id_class = 1,
+                id_subject = 1,
+                id_teacher = 1,
+
             ),
             MaterialNetwork(
                 id = 3,
                 title = "Material 3",
                 description = "description 3",
                 price = 1999,
+                id_category = 1,
+                id_class = 1,
+                id_subject = 1,
+                id_teacher = 1,
                 content = null
             ),
+
             MaterialNetwork(
                 id = 4,
                 title = "Material 4",
                 description = "description 4",
                 price = 10000,
-                content = null
+                content = null,
+                id_category = 1,
+                id_class = 1,
+                id_subject = 1,
+                id_teacher = 1,
             ),
         )
 
