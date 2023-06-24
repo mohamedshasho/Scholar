@@ -3,6 +3,8 @@ package com.scholar.data.source.local.model
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.scholar.domain.model.ClassMate
+import com.scholar.domain.model.ClassMateNetwork
 
 @Entity(
     tableName = "classes",
@@ -16,7 +18,10 @@ import androidx.room.PrimaryKey
 )
 data class ClassMateLocal(
     @PrimaryKey
-    val id: Int,
+    override val id: Int,
     val stageId: Int,
-    val name: String,
-)
+    override val name: String,
+) : ClassMate
+
+fun ClassMateNetwork.toLocal() = ClassMateLocal(id, name = name, stageId = stageId)
+fun List<ClassMateNetwork>.toLocal() = map(ClassMateNetwork::toLocal)

@@ -10,4 +10,7 @@ interface ClassMateDao : BaseDao<ClassMateLocal> {
 
     @Query("select * from classes")
     fun observeClassesMate(): Flow<List<ClassMateLocal>>
+
+    @Query("delete from classes")
+    suspend fun deleteAll()
 }
