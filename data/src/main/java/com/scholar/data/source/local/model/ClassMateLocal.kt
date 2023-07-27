@@ -2,6 +2,7 @@ package com.scholar.data.source.local.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
 import com.scholar.domain.model.ClassMate
 import com.scholar.domain.model.ClassMateNetwork
@@ -12,7 +13,8 @@ import com.scholar.domain.model.ClassMateNetwork
         ForeignKey(
             childColumns = ["stageId"],
             entity = StageLocal::class,
-            parentColumns = ["id"]
+            parentColumns = ["id"],
+            onDelete = CASCADE
         ),
     ]
 )

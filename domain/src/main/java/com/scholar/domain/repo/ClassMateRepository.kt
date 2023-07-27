@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ClassMateRepository {
     suspend fun refresh()
-    suspend fun observeClassesMate(): Flow<List<ClassMate>>
+    suspend fun observeClassesMate(id: Int): Flow<List<ClassMate>>
 }

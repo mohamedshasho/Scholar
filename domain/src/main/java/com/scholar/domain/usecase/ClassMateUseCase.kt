@@ -9,10 +9,10 @@ class ClassMateUseCase(
     private val repository: ClassMateRepository,
     private val networkConnectivity: NetworkConnectivity,
 ) {
-    suspend operator fun invoke(): List<ClassMate> {
+    suspend operator fun invoke(id: Int): List<ClassMate> {
         if (networkConnectivity.isNetworkAvailable()) {
             repository.refresh()
         }
-        return repository.observeClassesMate().first()
+        return repository.observeClassesMate(id).first()
     }
 }

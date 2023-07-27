@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
+import com.scholar.center.adapter.TeacherComparator
 import com.scholar.center.adapter.TeacherProfileAdapter
 import com.scholar.center.databinding.FragmentTeachersBinding
 import com.scholar.center.ui.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TeachersFragment : Fragment(R.layout.fragment_teachers) {
@@ -23,7 +27,7 @@ class TeachersFragment : Fragment(R.layout.fragment_teachers) {
 
         val rootController = activity?.findNavController(R.id.root_nav_host_fragment)
 
-        val teacherProfileAdapter = TeacherProfileAdapter { id ->
+        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id ->
             rootController?.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = id))
         }
 
@@ -32,6 +36,10 @@ class TeachersFragment : Fragment(R.layout.fragment_teachers) {
                 GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
             adapter = teacherProfileAdapter
         }
-
+        lifecycleScope.launch {
+            viewModel.teachers.collectLatest { pagingData ->
+                teacherProfileAdapter.submitData(pagingData)
+            }
+        }
     }
 }

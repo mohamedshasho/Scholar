@@ -5,7 +5,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.scholar.center.R
 import com.scholar.center.databinding.MaterialSubjectItemBinding
+import com.scholar.center.unit.Constants.BASE_URL
 import com.scholar.domain.model.Category
 import com.google.android.material.R.attr as theme
 
@@ -43,6 +46,10 @@ class MaterialSubjectAdapter(
             holder.binding.materialSubjectCard.setCardBackgroundColor(unSelectedColor)
         }
         holder.binding.materialSubjectText.text = item.name
+
+        Glide.with(holder.itemView.context).load("${item.image}")
+            .placeholder(R.drawable.ic_book)
+            .into(holder.binding.materialSubjectImage)
 
     }
 

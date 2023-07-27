@@ -1,36 +1,51 @@
 package com.scholar.data.repo
 
-import com.scholar.data.source.local.dao.TeacherDao
-import com.scholar.data.source.local.model.toLocal
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.scholar.data.source.local.ScholarDb
+import com.scholar.data.source.local.paging.TeacherLocalPagingSource
 import com.scholar.data.source.network.TeacherNetworkDataSource
+import com.scholar.data.source.network.TeacherRemoteMediator
 import com.scholar.domain.model.Teacher
+import com.scholar.domain.model.TeacherWithSubjects
 import com.scholar.domain.repo.TeacherRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 
 
 class TeacherRepositoryImp(
     private val networkDataSource: TeacherNetworkDataSource,
-    private val localDataSource: TeacherDao,
+    private val scholarDb : ScholarDb,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : TeacherRepository {
 
 
     override suspend fun observeTeachers(): Flow<List<Teacher>> {
-        return localDataSource.getTeachers()
+        return scholarDb.teacherDao().getTeachers()
     }
 
-    override suspend fun getTeacherByIdFromLocal(id: Int) = localDataSource.getTeacherById(id)
+    override suspend fun getTeacherByIdFromLocal(id: Int) = scholarDb.teacherDao().getTeacherById(id)
 
     override suspend fun refresh() {
-        val networkTeachers = networkDataSource.loadTeachers()
-        localDataSource.deleteAll()
-        val localTeachers = withContext(dispatcher) {
-            networkTeachers.toLocal()
-        }
-        localDataSource.upsertAll(localTeachers)
+
     }
 
+
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getTeachersPagination(): Flow<PagingData<TeacherWithSubjects>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGER_SIZE
+            ),
+            remoteMediator = TeacherRemoteMediator(
+                teacherNetworkDataSource = networkDataSource,
+                scholarDb = scholarDb,
+            ),
+            pagingSourceFactory = { TeacherLocalPagingSource(scholarDb.teacherDao()) }
+        ).flow
+    }
 }
+private const val PAGER_SIZE = 10

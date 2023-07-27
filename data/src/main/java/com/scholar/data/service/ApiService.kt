@@ -7,17 +7,32 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
-    @GET("getCategories")
+
+
+    @GET("categories/list")
     suspend fun getCategories(): NetworkResult<List<CategoryNetwork>>
 
-    @GET("getAllTeachers")
-    suspend fun getTeachers(): NetworkResult<List<TeacherNetwork>>
+    @POST("teachers/list")
+    @FormUrlEncoded
+    suspend fun getTeachers(
+        @Field("limit") limit: Int = PER_PAGE,
+    ): NetworkResult<List<TeacherNetwork>>
 
-    @GET("getAllStory")
-    suspend fun getStories(): NetworkResult<List<StoryNetwork>>
+    @POST("stories/list")
+    @FormUrlEncoded
+    suspend fun getStories(
+        @Field("limit") limit: Int = PER_PAGE,
+    ): NetworkResult<List<StoryNetwork>>
 
     @GET("getAllMaterials")
     suspend fun getMaterials(): NetworkResult<List<MaterialNetwork>>
+
+
+    @GET("class-room/list")
+    suspend fun getClassRooms(): NetworkResult<List<ClassMateNetwork>>
+
+    @GET("stages/list")
+    suspend fun getStages(): NetworkResult<List<StageNetwork>>
 
     @POST("getSomeMaterials")
     @FormUrlEncoded
@@ -25,3 +40,5 @@ interface ApiService {
         @Field("limit") limit: Int,
     ): NetworkResult<List<MaterialNetwork>>
 }
+
+private const val PER_PAGE = 10

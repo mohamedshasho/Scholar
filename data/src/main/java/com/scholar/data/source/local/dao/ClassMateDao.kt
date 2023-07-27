@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ClassMateDao : BaseDao<ClassMateLocal> {
 
-    @Query("select * from classes")
-    fun observeClassesMate(): Flow<List<ClassMateLocal>>
+    @Query("select * from classes where stageId=:id")
+    fun observeClassesMate(id: Int): Flow<List<ClassMateLocal>>
 
     @Query("delete from classes")
     suspend fun deleteAll()

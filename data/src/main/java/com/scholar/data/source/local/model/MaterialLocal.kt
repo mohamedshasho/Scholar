@@ -12,7 +12,7 @@ import com.scholar.domain.model.MaterialNetwork
         ForeignKey(
             childColumns = ["teacherId"],
             entity = TeacherLocal::class,
-            parentColumns = ["id"]
+            parentColumns = ["teacher_id"]
         ),
         ForeignKey(
             childColumns = ["categoryId"],
@@ -22,7 +22,7 @@ import com.scholar.domain.model.MaterialNetwork
         ForeignKey(
             childColumns = ["subjectId"],
             entity = SubjectLocal::class,
-            parentColumns = ["id"]
+            parentColumns = ["subject_id"]
         ),
         ForeignKey(
             childColumns = ["classId"],

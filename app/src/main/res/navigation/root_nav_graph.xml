@@ -54,6 +54,18 @@
                 android:name="material_id"
                 app:argType="integer" />
         </action>
+        <action
+            android:id="@+id/action_main_to_storyDetail"
+            app:destination="@id/storyDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="story_id"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
 
 
     </fragment>
@@ -191,4 +203,9 @@
         android:name="com.scholar.center.ui.material.MaterialFragment"
         android:label="fragment_material"
         tools:layout="@layout/fragment_material" />
+    <fragment
+        android:id="@+id/storyDetailFragment"
+        android:name="com.scholar.center.ui.storyDetail.StoryDetailFragment"
+        android:label="fragment_story_detail"
+        tools:layout="@layout/fragment_story_detail" />
 </navigation>

@@ -68,18 +68,18 @@ object DataModule {
     @Provides
     fun provideTeacherRepository(
         teacherNetworkDataSource: TeacherNetworkDataSource,
-        teacherDao: TeacherDao,
+        scholarDb: ScholarDb,
         @DefaultDispatcher dispatcher: CoroutineDispatcher,
     ): TeacherRepository =
-        TeacherRepositoryImp(teacherNetworkDataSource, teacherDao, dispatcher)
+        TeacherRepositoryImp(teacherNetworkDataSource, scholarDb, dispatcher)
 
     @Singleton
     @Provides
     fun provideStoryRepository(
-        storyNetworkDataSource: StoryNetworkDataSource, storyDao: StoryDao,
+        storyNetworkDataSource: StoryNetworkDataSource, scholarDb: ScholarDb,
         @DefaultDispatcher dispatcher: CoroutineDispatcher,
     ): StoryRepository =
-        StoryRepositoryImp(storyNetworkDataSource, storyDao, dispatcher)
+        StoryRepositoryImp(storyNetworkDataSource, scholarDb, dispatcher)
 
     @Singleton
     @Provides

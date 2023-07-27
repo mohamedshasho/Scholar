@@ -24,5 +24,5 @@ class ClassMateRepositoryImp(
         localDataSource.upsertAll(localTeachers)
     }
 
-    override suspend fun observeClassesMate() = localDataSource.observeClassesMate()
+    override suspend fun observeClassesMate(id: Int) = localDataSource.observeClassesMate(id)
 }
