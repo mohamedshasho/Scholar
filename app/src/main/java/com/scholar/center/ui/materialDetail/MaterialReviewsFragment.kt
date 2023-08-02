@@ -1,4 +1,4 @@
-package com.scholar.center.ui.material
+package com.scholar.center.ui.materialDetail
 
 import android.os.Bundle
 import android.view.View

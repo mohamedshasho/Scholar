@@ -1,4 +1,4 @@
-package com.scholar.center.ui.subjects
+package com.scholar.center.ui.teacher.materials
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class SubjectsVM @Inject constructor(
-    private val materialRepository: MaterialRepository,
+class TeacherMaterialsVM @Inject constructor(
+    private val materialRepository: MaterialRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<Material>>>(UiState.Idle)
@@ -44,6 +44,5 @@ class SubjectsVM @Inject constructor(
             }
         }
     }
-
 
 }

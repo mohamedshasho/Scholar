@@ -20,14 +20,31 @@
             android:background="@drawable/background_search_field"
             android:gravity="center"
             android:paddingHorizontal="20dp">
-
-            <SearchView
+            
+            
+            <LinearLayout
                 android:id="@+id/home_searchView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@drawable/search_view_border"
-                android:iconifiedByDefault="false"
-                android:queryHint="@string/what_are_you_going_to_find" />
+                android:gravity="center_vertical"
+                android:paddingHorizontal="15dp"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"/>
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/what_are_you_going_to_find"
+                    android:textAppearance="@style/TextBody2"
+                    android:textColor="#aaa"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
@@ -142,7 +159,7 @@
                 android:textAppearance="@style/TextBody1" />
 
             <TextView
-                android:id="@+id/home_subjects_see_all_text"
+                android:id="@+id/home_materials_see_all_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"

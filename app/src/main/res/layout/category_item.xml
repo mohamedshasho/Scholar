@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/material_subject_card"
+    android:id="@+id/category_item_card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,14 +13,13 @@
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
-        android:id="@+id/material_subject_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         >
         <ImageView
-            android:id="@+id/material_subject_image"
+            android:id="@+id/category_item_image"
             android:layout_width="120dp"
             android:layout_height="100dp"
             android:src="@drawable/background_rounded_icon"
@@ -28,7 +27,7 @@
             />
 
         <TextView
-            android:id="@+id/material_subject_text"
+            android:id="@+id/category_item_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Text"

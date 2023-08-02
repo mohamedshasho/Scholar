@@ -8,123 +8,32 @@
         android:id="@+id/teacher_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:title="@string/subjects"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/teacher_toolbar_back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/background_rounded_icon"
-                android:elevation="5dp"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="?attr/colorOnSecondary" />
-            <!-- Add a TextView for the centered title -->
-            <TextView
-                android:id="@+id/teacher_toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/teachers"
-                android:textAppearance="@style/TextH5" />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/teacher_toolbar_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_rounded_icon"
+            android:elevation="5dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="?attr/colorOnSecondary" />
     </Toolbar>
 
-    <LinearLayout
-        android:id="@+id/teacher_personal_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/teacher_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_person"
+        app:civ_border_color="#ccc"
+        app:civ_border_width="1dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/teacher_toolbar">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="last seen:"
-                    android:textAppearance="@style/TextBody2" />
-
-                <TextView
-                    android:id="@+id/teacher_last_seen_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="4 days ago"
-                    android:textAppearance="@style/TextBody2" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone:"
-                    android:textAppearance="@style/TextBody2" />
-
-                <TextView
-                    android:id="@+id/teacher_phone_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="0999999999"
-                    android:textAppearance="@style/TextBody2" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Age:"
-                    android:textAppearance="@style/TextBody2" />
-
-                <TextView
-                    android:id="@+id/teacher_age_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="33"
-                    android:textAppearance="@style/TextBody2" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/image_rounded_corners"
-            android:src="@drawable/ic_person" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
     <com.google.android.material.divider.MaterialDivider
@@ -132,9 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/teacher_personal_layout" />
+        app:layout_constraintTop_toBottomOf="@id/teacher_profile" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -160,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorSecondary"
                 app:tabIndicatorColor="?attr/colorSecondaryVariant"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="?attr/colorSecondaryVariant"
                 app:tabTextColor="?attr/colorOnSecondary" />
 

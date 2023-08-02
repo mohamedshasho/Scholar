@@ -30,4 +30,3 @@ class StoryNetworkDataSource @Inject constructor(
     }
 }
 
-private const val SERVICE_LATENCY_IN_MILLIS = 2000L

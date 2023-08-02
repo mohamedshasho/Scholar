@@ -7,21 +7,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.scholar.center.R
-import com.scholar.center.databinding.MaterialSubjectItemBinding
-import com.scholar.center.unit.Constants.BASE_URL
+import com.scholar.center.databinding.CategoryItemBinding
 import com.scholar.domain.model.Category
 import com.google.android.material.R.attr as theme
 
-class MaterialSubjectAdapter(
+class CategoryAdapter(
     private var items: List<Category> = emptyList(),
     private val onClick: ((position: Int) -> Unit)? = null,
-) : RecyclerView.Adapter<MaterialSubjectAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private var itemSelected = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            MaterialSubjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -37,19 +35,19 @@ class MaterialSubjectAdapter(
                 holder.itemView.context,
                 theme.colorSecondaryVariant
             )
-            holder.binding.materialSubjectCard.setCardBackgroundColor(selectedColor)
+            holder.binding.categoryItemCard.setCardBackgroundColor(selectedColor)
         } else {
             val unSelectedColor = getThemeColor(
                 holder.itemView.context,
                 theme.colorPrimaryContainer
             )
-            holder.binding.materialSubjectCard.setCardBackgroundColor(unSelectedColor)
+            holder.binding.categoryItemCard.setCardBackgroundColor(unSelectedColor)
         }
-        holder.binding.materialSubjectText.text = item.name
+        holder.binding.categoryItemText.text = item.name
 
         Glide.with(holder.itemView.context).load("${item.image}")
             .placeholder(R.drawable.ic_book)
-            .into(holder.binding.materialSubjectImage)
+            .into(holder.binding.categoryItemImage)
 
     }
 
@@ -75,6 +73,6 @@ class MaterialSubjectAdapter(
         notifyItemChanged(0, subjects.size)
     }
 
-    class ViewHolder(val binding: MaterialSubjectItemBinding) :
+    class ViewHolder(val binding: CategoryItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

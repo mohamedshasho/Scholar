@@ -1,4 +1,4 @@
-package com.scholar.center.ui.material
+package com.scholar.center.ui.materialDetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MaterialVM @Inject constructor(
+class MaterialDetailVM @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val materialRepository: MaterialRepository,
 ) : ViewModel() {

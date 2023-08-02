@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings">الإعدادات</string>
+    <string name="teachers">المعلمون</string>
+    <string name="stories">القصص</string>
+    <string name="home">الصفحة الرئيسية</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">مرحبًا بك في الشاشة الفارغة</string>
+    <string name="material_subjects">مواد الدراسة</string>
+    <string name="see_all">عرض المزيد</string>
+    <string name="stages">المراحل</string>
+    <string name="primary_stage">المرحلة الابتدائية</string>
+    <string name="medium_stage">المرحلة المتوسطة</string>
+    <string name="secondary_stage">المرحلة الثانوية</string>
+    <string name="some_subjects">بعض المواد</string>
+    <string name="find_your_teacher">ابحث عن معلمك</string>
+    <string name="what_are_you_going_to_find">ما الذي تبحث عنه؟</string>
+    <string name="students_stories">قصص الطلاب</string>
+    <string name="student_name">اسم الطالب</string>
+    <string name="menu">القائمة</string>
+    <string name="material">مادة دراسية</string>
+    <string name="materials">مواد دراسية</string>
+    <string name="account">الحساب</string>
+    <string name="change_lan">تغيير اللغة</string>
+    <string name="favorites">المفضلة</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="profile">الملف الشخصي</string>
+
+    <string name="no_available_data">لا تتوفر بيانات</string>
+    <string name="net_conn_err_title">خطأ في الاتصال بالشبكة!</string>
+    <string name="no_avail_data_err_title">لا توجد بيانات متاحة!</string>
+    <string name="unknown_err_title">خطأ غير معروف!</string>
+    <string name="net_conn_err_message">تأكد من أنك متصل بالشبكة وحاول مرة أخرى.</string>
+    <string name="no_avail_data_err_body">يبدو أنه لا توجد بيانات حاليًا، ستكون متاحة قريبًا.</string>
+    <string name="unknown_err_body">حدث خطأ غير معروف، يرجى المحاولة مرة أخرى.</string>
+    <string name="subjects">المواد الدراسية</string>
+    <string name="personal">المعلومات الشخصية</string>
+    <string name="qualifications">المؤهلات</string>
+    <string name="stage_name">اسم المرحلة</string>
+    <string name="class_name">اسم الصف</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="register">التسجيل</string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="create_new_account"><u>إنشاء حساب جديد</u></string>
+    <string name="phone_number_or_email">رقم الهاتف أو البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="no_account_yet">ليس لديك حساب بعد؟</string>
+    <string name="password_field">مربع إدخال كلمة المرور</string>
+    <string name="have_account_yet">هل لديك حساب؟</string>
+    <string name="login_underline"><u>تسجيل الدخول</u></string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="material_details">تفاصيل المادة الدراسية</string>
+    <string name="type">النوع</string>
+    <string name="price">السعر</string>
+    <string name="purchase">شراء</string>
+    <string name="description">الوصف</string>
+    <string name="syr">%d ل.س</string>
+    <string name="view">عرض</string>
+    <string name="information">معلومات</string>
+    <string name="reviews">التقييمات</string>
+    <string name="content">على العكس من الاعتقاد الشائع، لوريم إيبسوم ليس نصًا عشوائيًا. له جذور في قطعة من الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله يبلغ أكثر من 2000 عام. اكتشف ريتشارد ماكلينتوك، أستاذ اللغة اللاتينية في كلية هامبدن سيدني في فيرجينيا، كلمة لاتينية غامضة، "كونسيتيتور"، من مقطع لوريم إيبسوم، وعبر عن هذه الكلمة في الأدب الكلاسيكي، اكتشف المصدر الذي لا يُشكَك فيه. يأتي لوريم إيبسوم من الأقسام 1.10.32 و 1.10.33 من "دي فينيبوس بونوروم إت مالوروم" (نهايات الخير والشر) للسيسيرو، والتي كتبها في العام 45 قبل الميلاد. هذا الكتاب هو نظرية الأخلاق، شهير جدًا خلال عصر النهضة. يأتي السطر الأول من لوريم إيبسوم، "لوريم إيبسوم دولور سيت أميت"، من سطر في القسم 1.10.32. تمثل السطور القياسية من لوريم إيبسوم التي تستخدم منذ القرن الخامس عشر أدناه للمهتمين. تمثل الأقسام 1.10.32 و 1.10.33 من "دي فينيبوس بونوروم إت مالوروم" للسيسيرو أيضًا على وجه التحديد في شكلها الأصلي الدقيق، إلى جانب النسخ الإنجليزية من الترجمة التي أجراها ه. راكهام عام 1914.</string>
+    <string name="published_by">نُشِرَ بواسطة</string>
+
+
+    <string name="name">الاسم: </string>
+    <string name="age">العمر: </string>
+    <string name="phone">رقم الهاتف: </string>
+    <string name="bio">السيرة الذاتية: </string>
+    <string name="email">البريد الاكتروني: </string>
+
+    <string name="education">مستوى التعليم: </string>
+    <string name="qualifications_label">المؤهلات: </string>
+
+
+    <string name="search">البحث</string>
+    <string name="filter">فلترة</string>
+    <string name="enter_text">ادخل النص هنا</string>
+
+</resources>

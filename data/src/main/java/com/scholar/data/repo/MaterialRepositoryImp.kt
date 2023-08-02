@@ -39,7 +39,7 @@ class MaterialRepositoryImp(
         val localMaterials = withContext(dispatcher) {
             networkMaterials.toLocal()
         }
-        localDataSource.upsertAll(localMaterials)
+//    todo    localDataSource.upsertAll(localMaterials)
         return Resource.Success(localMaterials)
     }
 
@@ -48,7 +48,7 @@ class MaterialRepositoryImp(
         val localMaterials = withContext(dispatcher) {
             networkMaterials.toLocal()
         }
-        localDataSource.upsertAll(localMaterials)
+        //    todo     localDataSource.upsertAll(localMaterials)
         return Resource.Success(localMaterials)
     }
 

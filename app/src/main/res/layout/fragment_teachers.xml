@@ -19,16 +19,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <SearchView
+            <LinearLayout
                 android:id="@+id/teachers_searchView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@drawable/search_view_border"
-                android:iconifiedByDefault="false"
-                android:queryHint="@string/find_your_teacher"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:gravity="center_vertical"
+                android:paddingHorizontal="15dp"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"/>
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/find_your_teacher"
+                    android:textAppearance="@style/TextBody2"
+                    android:textColor="#aaa"/>
+            </LinearLayout>
         </LinearLayout>
 
 

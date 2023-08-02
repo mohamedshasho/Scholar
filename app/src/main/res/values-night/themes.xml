@@ -33,6 +33,12 @@
         <!-- Add more attributes as needed -->
     </style>
 
+    <style name="TextSubTitle1" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextBody2" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>

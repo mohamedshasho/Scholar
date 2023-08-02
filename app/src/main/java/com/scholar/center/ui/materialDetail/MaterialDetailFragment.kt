@@ -1,6 +1,7 @@
-package com.scholar.center.ui.material
+package com.scholar.center.ui.materialDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,15 +12,15 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.scholar.center.R
 import com.scholar.center.adapter.TeacherPagerAdapter
-import com.scholar.center.databinding.FragmentMaterialBinding
+import com.scholar.center.databinding.FragmentMaterialDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MaterialFragment : Fragment(R.layout.fragment_material) {
-    private val viewModel: MaterialVM by viewModels()
+class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
+    private val viewModel: MaterialDetailVM by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentMaterialBinding.bind(view)
+        val binding = FragmentMaterialDetailBinding.bind(view)
 
         binding.materialToolbarBackButton.setOnClickListener {
             findNavController().popBackStack()
@@ -50,6 +51,7 @@ class MaterialFragment : Fragment(R.layout.fragment_material) {
                 viewModel.material.collect {
                     it?.let { material ->
                         binding.materialName.text = material.title
+                        Log.d("material.price", "onViewCreated: ${material.price}")
 //                        binding.materialDescription.text = material.description
                         if (material.price == null || material.price == 0) {
                             binding.materialPriceLayout.visibility = View.GONE

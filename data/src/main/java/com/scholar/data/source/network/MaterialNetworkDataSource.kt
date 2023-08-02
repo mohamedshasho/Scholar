@@ -65,15 +65,15 @@ class MaterialNetworkDataSource @Inject constructor(
 
     suspend fun loadMaterials(): List<MaterialNetwork> = accessMutex.withLock {
         delay(SERVICE_LATENCY_IN_MILLIS)
-        val response = apiService.getMaterials()
+//        val response = apiService.getMaterials()
         return dummyData()
     }
 
     suspend fun loadSomeMaterials(): List<MaterialNetwork> = accessMutex.withLock {
         delay(SERVICE_LATENCY_IN_MILLIS)
-        val response = apiService.getSomeMaterials(limit = 4)
+//        val response = apiService.getSomeMaterials(limit = 4)
         return dummyData()
     }
 }
 
-private const val SERVICE_LATENCY_IN_MILLIS = 2000L
+private const val SERVICE_LATENCY_IN_MILLIS = 1000L
