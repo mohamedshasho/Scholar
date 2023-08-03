@@ -36,6 +36,9 @@ class TeachersFragment : Fragment(R.layout.fragment_teachers) {
                 GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
             adapter = teacherProfileAdapter
         }
+        binding.teachersSearchView.setOnClickListener {
+            rootController?.navigate(MainFragmentDirections.actionHomeToTeachersSearch())
+        }
         lifecycleScope.launch {
             viewModel.teachers.collectLatest { pagingData ->
                 teacherProfileAdapter.submitData(pagingData)

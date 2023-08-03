@@ -1,7 +1,6 @@
 package com.scholar.center.ui.materials
 
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,11 +8,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -29,6 +26,8 @@ import com.scholar.center.databinding.FragmentMaterialsBinding
 import com.scholar.center.model.UiState
 import com.scholar.center.ui.dialogs.MaterialFilterDialog
 import com.scholar.center.unit.Constants.SEARCH_FOCUS_KEY
+import com.scholar.center.unit.closeKeyboard
+import com.scholar.center.unit.openKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -60,7 +59,7 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.search_bar, menu)
+        menuInflater.inflate(R.menu.materials_search_bar, menu)
         val search = menu.findItem(R.id.action_search).actionView as SearchView
         search.queryHint = getString(R.string.enter_text)
 
@@ -71,14 +70,13 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         if (focusOnSearch) {
             search.onActionViewExpanded()
             search.requestFocus()
-            val imm = activity?.getSystemService<InputMethodManager>()
-            imm?.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT)
+            search.openKeyboard(activity)
         }
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String?): Boolean {
                 Toast.makeText(requireContext(), newText, Toast.LENGTH_SHORT).show()
-                closeKeyboard()
+                view?.closeKeyboard(activity)
                 return true
             }
 
@@ -165,9 +163,8 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         }
     }
 
-    private fun closeKeyboard() {
-        val imm = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(view?.windowToken, 0)
-    }
+
+
+
 
 }

@@ -8,14 +8,14 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/material_toolbar"
+        android:id="@+id/teachers_search_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="@string/materials"
+        app:title="@string/find_your_teacher"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:menu="@menu/materials_search_bar"
+        app:menu="@menu/teachers_search_bar"
         />
 
     <FrameLayout
@@ -23,21 +23,20 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/materials_progress_bar"
+            android:id="@+id/teachers_serach_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/subjects_recycler_view"
+            android:id="@+id/teachers_serach_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingHorizontal="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="20dp" />
-
     </FrameLayout>
 
 

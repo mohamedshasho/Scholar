@@ -31,6 +31,14 @@
         </action>
 
         <action
+            android:id="@+id/action_home_to_teachers_search"
+            app:destination="@id/teachersSearchFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
             android:id="@+id/action_main_to_teacher"
             app:destination="@id/teacherFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -132,6 +140,24 @@
         </action>
 
     </fragment>
+    <fragment
+        android:id="@+id/teachersSearchFragment"
+        android:name="com.scholar.center.ui.teachersSearch.TeachersSearchFragment"
+        android:label="TeachersSearchFragment"
+        tools:layout="@layout/fragment_teachers_search" >
+        <action
+            android:id="@+id/action_teacher_to_material"
+            app:destination="@id/materialDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="material_id"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
     <fragment
         android:id="@+id/classesFragment"
         android:name="com.scholar.center.ui.classes.ClassesFragment"

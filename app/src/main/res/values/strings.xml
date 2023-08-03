@@ -79,4 +79,5 @@
     <string name="stage">Stage: </string>
     <string name="select_category">select category</string>
     <string name="select_stage">select stage</string>
+    <string name="enter_teacher_name">Enter teacher\'s name</string>
 </resources>
