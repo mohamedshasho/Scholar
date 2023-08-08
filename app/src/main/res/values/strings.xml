@@ -80,4 +80,14 @@
     <string name="select_category">select category</string>
     <string name="select_stage">select stage</string>
     <string name="enter_teacher_name">Enter teacher\'s name</string>
+    <string name="add_story">Add Story</string>
+    <string name="add_story_description">Do you have a story? Share with others.</string>
+    <string name="title">Title</string>
+    <string name="send">Send</string>
+    <string name="purchase_credit">Purchase credit</string>
+    <string name="wallet">Wallet: </string>
+    <string name="class_room">Class: </string>
+    <string name="subject">Subject: </string>
+    <string name="select_class">Select class</string>
+    <string name="select_subject">Select subject</string>
 </resources>

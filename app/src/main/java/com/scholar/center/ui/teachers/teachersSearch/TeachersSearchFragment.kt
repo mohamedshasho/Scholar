@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teachersSearch
+package com.scholar.center.ui.teachers.teachersSearch
 
 import android.os.Bundle
 import android.view.Menu
@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
@@ -23,7 +22,6 @@ import com.scholar.center.R
 import com.scholar.center.adapter.TeacherComparator
 import com.scholar.center.adapter.TeacherProfileAdapter
 import com.scholar.center.databinding.FragmentTeachersSearchBinding
-import com.scholar.center.ui.MainFragmentDirections
 import com.scholar.center.unit.closeKeyboard
 import com.scholar.center.unit.openKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +38,7 @@ class TeachersSearchFragment : Fragment(R.layout.fragment_teachers_search), Menu
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val binding = FragmentTeachersSearchBinding.inflate(inflater)
         val toolbar = binding.teachersSearchToolbar
@@ -56,16 +54,28 @@ class TeachersSearchFragment : Fragment(R.layout.fragment_teachers_search), Menu
         val binding = FragmentTeachersSearchBinding.bind(view)
 
         val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id ->
-            navController.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = id))
+            navController.navigate(
+                TeachersSearchFragmentDirections.actionTeachersSearchToTeacher(
+                    teacherId = id
+                )
+            )
         }
 
         binding.teachersSerachRecyclerView.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
             adapter = teacherProfileAdapter
         }
         lifecycleScope.launch {
             viewModel.teachers.collectLatest { pagingData ->
                 teacherProfileAdapter.submitData(pagingData)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.loading.collectLatest { loading ->
+                binding.teachersSerachProgressBar.visibility =
+                    if (loading) View.VISIBLE else View.GONE
             }
         }
     }
@@ -83,7 +93,7 @@ class TeachersSearchFragment : Fragment(R.layout.fragment_teachers_search), Menu
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String?): Boolean {
-                Toast.makeText(requireContext(), newText, Toast.LENGTH_SHORT).show()
+                viewModel.searchForTeachers(newText)
                 view?.closeKeyboard(activity)
                 return true
             }

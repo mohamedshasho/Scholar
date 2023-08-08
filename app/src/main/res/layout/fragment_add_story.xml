@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.stories.add.AddStoryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:paddingHorizontal="10dp">
+
+            <ImageView
+                android:id="@+id/add_story_toolbar_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/background_rounded_icon"
+                android:elevation="5dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="?attr/colorOnSecondary" />
+
+            <TextView
+                android:id="@+id/add_story_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/add_story"
+                android:textAppearance="@style/TextH5" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/add_story_toolbar_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/add_story_description"
+            android:textAppearance="@style/TextBody2" />
+
+
+        <FrameLayout
+            android:id="@+id/add_story_toolbar_cover_layout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/add_image">
+
+            <ImageView
+                android:id="@+id/add_story_toolbar_cover_add"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/add_image" />
+
+            <ImageView
+                android:id="@+id/add_story_toolbar_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/title"
+            android:textAppearance="@style/TextBody1" />
+
+        <EditText
+            android:id="@+id/add_story_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/background_edit_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/description"
+            android:textAppearance="@style/TextBody1" />
+
+        <EditText
+            android:id="@+id/add_story_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/background_edit_text"
+            android:lines="6"
+            android:gravity="top|start"
+            android:scrollbars="vertical"
+            android:inputType="textMultiLine|textCapSentences"
+           />
+
+        <Button
+            android:id="@+id/add_story_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/button_background_color"
+            android:padding="4dp"
+            android:text="@string/send"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color"
+            android:textSize="16sp"
+            app:cornerRadius="16dp" />
+
+    </LinearLayout>
+</ScrollView>

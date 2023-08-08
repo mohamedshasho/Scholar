@@ -8,6 +8,7 @@ import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.local.paging.TeacherLocalPagingSource
 import com.scholar.data.source.network.TeacherNetworkDataSource
 import com.scholar.data.source.network.TeacherRemoteMediator
+import com.scholar.data.source.network.paging.TeachersSearchPagingSource
 import com.scholar.domain.model.Teacher
 import com.scholar.domain.model.TeacherWithSubjects
 import com.scholar.domain.repo.TeacherRepository
@@ -18,8 +19,8 @@ import kotlinx.coroutines.flow.Flow
 
 class TeacherRepositoryImp(
     private val networkDataSource: TeacherNetworkDataSource,
-    private val scholarDb : ScholarDb,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val scholarDb: ScholarDb,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : TeacherRepository {
 
 
@@ -27,12 +28,19 @@ class TeacherRepositoryImp(
         return scholarDb.teacherDao().getTeachers()
     }
 
-    override suspend fun getTeacherByIdFromLocal(id: Int) = scholarDb.teacherDao().getTeacherById(id)
+    override suspend fun getTeacherByIdFromLocal(id: Int) =
+        scholarDb.teacherDao().getTeacherById(id)
 
     override suspend fun refresh() {
 
     }
 
+    override fun searchForTeachers(input: String): Flow<PagingData<TeacherWithSubjects>> {
+        return Pager(
+            config = PagingConfig(pageSize = PAGER_SIZE),
+            pagingSourceFactory = { TeachersSearchPagingSource(networkDataSource, input) },
+        ).flow
+    }
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getTeachersPagination(): Flow<PagingData<TeacherWithSubjects>> {
@@ -48,4 +56,5 @@ class TeacherRepositoryImp(
         ).flow
     }
 }
+
 private const val PAGER_SIZE = 10

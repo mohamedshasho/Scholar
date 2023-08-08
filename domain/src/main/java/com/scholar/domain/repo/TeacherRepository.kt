@@ -18,4 +18,7 @@ interface TeacherRepository {
     suspend fun refresh()
 
     suspend fun getTeacherByIdFromLocal(id: Int): Teacher?
+
+
+    fun searchForTeachers(input: String): Flow<PagingData<TeacherWithSubjects>>
 }

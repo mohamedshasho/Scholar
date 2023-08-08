@@ -1,4 +1,4 @@
-package com.scholar.center.ui.story
+package com.scholar.center.ui.stories
 
 import android.os.Bundle
 import android.view.View
@@ -17,15 +17,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class StoryFragment : Fragment(R.layout.fragment_stories) {
+class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
-    private val viewModel: StoryVM by viewModels()
+    private val viewModel: StoriesVM by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentStoriesBinding.bind(view)
 
         val navController = activity?.findNavController(R.id.root_nav_host_fragment)
 
-        val storyAdapter = StoryAdapter(StoryComparator){id->
+        val storyAdapter = StoryAdapter(StoryComparator) { id ->
             navController?.navigate(MainFragmentDirections.actionMainToStoryDetail(storyId = id))
         }
 
@@ -40,6 +40,11 @@ class StoryFragment : Fragment(R.layout.fragment_stories) {
             viewModel.stories.collectLatest { pagingData ->
                 storyAdapter.submitData(pagingData)
             }
+        }
+
+
+        binding.storiesFragmentAdd.setOnClickListener {
+            navController?.navigate(MainFragmentDirections.actionMainToAddStory())
         }
 
     }

@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teacher
+package com.scholar.center.ui.teachers.teacher
 
 import android.os.Bundle
 import android.view.View
@@ -13,9 +13,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.scholar.center.R
 import com.scholar.center.adapter.TeacherPagerAdapter
 import com.scholar.center.databinding.FragmentTeacherBinding
-import com.scholar.center.ui.teacher.materials.TeacherMaterialsFragment
-import com.scholar.center.ui.teacher.personal.PersonalFragment
-import com.scholar.center.ui.teacher.qualifications.QualificationsFragment
+import com.scholar.center.ui.teachers.teacher.materials.TeacherMaterialsFragment
+import com.scholar.center.ui.teachers.teacher.personal.PersonalFragment
+import com.scholar.center.ui.teachers.teacher.qualifications.QualificationsFragment
 import com.scholar.center.unit.Constants.BASE_URL
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

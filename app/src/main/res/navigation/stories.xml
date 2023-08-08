@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/storiesFragment"
-        android:name="com.scholar.center.ui.story.StoryFragment"
+        android:name="com.scholar.center.ui.stories.StoriesFragment"
         android:label="fragment_stories"
         tools:layout="@layout/fragment_stories" />
 

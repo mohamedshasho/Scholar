@@ -21,7 +21,8 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
         binding.profileFragmentLanguageListTile.text.text = getString(R.string.change_lan)
         binding.profileFragmentLogoutListTile.icon.setImageResource(R.drawable.ic_logout)
         binding.profileFragmentLogoutListTile.text.text = getString(R.string.logout)
-
+        binding.profileFragmentCashListTile.icon.setImageResource(R.drawable.wallet)
+        binding.profileFragmentCashListTile.text.text = getString(R.string.purchase_credit)
 
 
     }

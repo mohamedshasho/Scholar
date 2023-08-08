@@ -1,4 +1,4 @@
-package com.scholar.center.ui.materialDetail
+package com.scholar.center.ui.materials.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

@@ -83,4 +83,17 @@
     <string name="stage">المرحلة: </string>
     <string name="select_category">إختر فئة</string>
     <string name="select_stage">إختر مرحلة</string>
+
+    <string name="enter_teacher_name">أدخل اسم المعلم</string>
+    <string name="add_story">إضافة قصة</string>
+    <string name="add_story_description">هل لديك قصة؟ شاركها مع الآخرين.</string>
+    <string name="title">العنوان</string>
+    <string name="send">إرسال</string>
+    <string name="purchase_credit">شراء رصيد</string>
+    <string name="wallet">الرصيد: </string>
+    <string name="subject">المادة: </string>
+    <string name="class_room">الصف: </string>
+    <string name="select_class">إختر الصف</string>
+    <string name="select_subject">إختر المادة</string>
+
 </resources>

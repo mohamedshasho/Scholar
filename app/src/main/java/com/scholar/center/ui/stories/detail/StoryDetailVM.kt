@@ -1,4 +1,4 @@
-package com.scholar.center.ui.storyDetail
+package com.scholar.center.ui.stories.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

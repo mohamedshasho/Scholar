@@ -1,4 +1,4 @@
-package com.scholar.data.source.network
+package com.scholar.data.source.network.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -8,6 +8,7 @@ import androidx.room.withTransaction
 import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.local.model.StoryRemoteKeys
 import com.scholar.data.source.local.model.toLocal
+import com.scholar.data.source.network.StoryNetworkDataSource
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Story
 

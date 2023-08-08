@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teacher.qualifications
+package com.scholar.center.ui.teachers.teacher.qualifications
 
 import android.os.Bundle
 import android.view.View

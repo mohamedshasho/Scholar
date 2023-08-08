@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teacher.materials
+package com.scholar.center.ui.teachers.teacher.materials
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

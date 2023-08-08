@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teacher.materials
+package com.scholar.center.ui.teachers.teacher.materials
 
 import android.os.Bundle
 import android.view.View
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class TeacherMaterialsFragment : Fragment(R.layout.fragment_teacher_materials) {
 
-    private val viewModel  :TeacherMaterialsVM  by viewModels()
+    private val viewModel  : TeacherMaterialsVM by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTeacherMaterialsBinding.bind(view)

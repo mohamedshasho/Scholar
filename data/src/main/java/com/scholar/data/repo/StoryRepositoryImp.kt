@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.local.paging.StoryLocalPagingSource
 import com.scholar.data.source.network.StoryNetworkDataSource
-import com.scholar.data.source.network.StoryRemoteMediator
+import com.scholar.data.source.network.paging.StoryRemoteMediator
 import com.scholar.domain.model.Story
 import com.scholar.domain.repo.StoryRepository
 import kotlinx.coroutines.CoroutineDispatcher

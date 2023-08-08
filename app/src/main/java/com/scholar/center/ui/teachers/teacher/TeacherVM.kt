@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teacher
+package com.scholar.center.ui.teachers.teacher
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

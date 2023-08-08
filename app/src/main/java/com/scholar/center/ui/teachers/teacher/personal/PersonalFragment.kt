@@ -1,4 +1,4 @@
-package com.scholar.center.ui.teacher.personal
+package com.scholar.center.ui.teachers.teacher.personal
 
 import android.os.Bundle
 import android.view.View

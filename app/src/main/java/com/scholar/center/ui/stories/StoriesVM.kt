@@ -1,4 +1,4 @@
-package com.scholar.center.ui.story
+package com.scholar.center.ui.stories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class StoryVM  @Inject constructor(
+class StoriesVM  @Inject constructor(
     private val storyRepository: StoryRepository
 ) : ViewModel(){
 
