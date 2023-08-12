@@ -64,7 +64,6 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         search.queryHint = getString(R.string.enter_text)
 
 
-
         val focusOnSearch = arguments?.getBoolean(SEARCH_FOCUS_KEY) ?: false
 
         if (focusOnSearch) {
@@ -100,8 +99,7 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
             }
             R.id.action_filter -> {
                 val filterDialog = MaterialFilterDialog(
-                    viewModel.categories.value,
-                    viewModel.stages.value,
+                    viewModel = viewModel,
                 ) {
 
                 }
@@ -142,29 +140,19 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
 //        binding.subjectsToolbarBackButton.setOnClickListener {
 //            navController.popBackStack()
 //        }
-
+        lifecycleScope.launch {
+            viewModel.loading.collectLatest { loading ->
+                binding.materialsProgressBar.visibility = if (loading) View.VISIBLE else View.GONE
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.uiState.collectLatest { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            binding.materialsProgressBar.visibility = View.GONE
-                            state.data?.let { list ->
-                                subjectsAdapter.setList(list)
-                            }
-                        }
-                        is UiState.Error -> {}
-                        else -> {
-                            binding.materialsProgressBar.visibility = View.VISIBLE
-                        }
-                    }
+                viewModel.materials.collectLatest { materials ->
+                    subjectsAdapter.setList(materials)
                 }
             }
         }
     }
-
-
-
 
 
 }

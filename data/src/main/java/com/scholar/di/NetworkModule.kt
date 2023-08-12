@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -36,16 +37,17 @@ object NetworkModule {
                 logging.level = HttpLoggingInterceptor.Level.BODY
                 addInterceptor(logging)
             }
+            addInterceptor(HeaderInterceptor)
         }
         return okHttpClient
     }
-
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient.Builder): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.103.83:8000/api/")
+            .baseUrl("http://192.168.1.101:8000/api/")
             .client(okHttpClient.build())
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
             .build()

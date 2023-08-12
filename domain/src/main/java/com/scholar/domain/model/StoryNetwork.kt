@@ -8,13 +8,13 @@ data class StoryNetwork(
     override val title: String,
     override val description: String?,
     override val image: String?,
-    @SerializedName("date_publication")
+    @SerializedName("createdAt")
     override val datePublication: String?,
-    @SerializedName("name")
-    override val studentName: String?,
-    @SerializedName("profile")
-    override val studentProfile: String?,
+    @SerializedName("student")
+    val student : StudentNetwork
 ) : Story
+
+
 
 
 interface Story {
@@ -23,6 +23,4 @@ interface Story {
     val description: String?
     val image: String?
     val datePublication: String?
-    val studentName : String?
-    val studentProfile : String?
 }

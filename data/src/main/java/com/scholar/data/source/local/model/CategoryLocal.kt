@@ -10,7 +10,7 @@ data class CategoryLocal(
     @PrimaryKey(autoGenerate = true)
     override val id: Int = 0,
     override val name: String,
-    override val image: String?,
+    override val image: Int,
 ) : Category
 
 

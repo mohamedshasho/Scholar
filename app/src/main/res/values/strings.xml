@@ -45,7 +45,7 @@
     <string name="register">Register</string>
     <string name="create_account">Create Account</string>
     <string name="create_new_account"><u>Create new Account</u></string>
-    <string name="phone_number_or_email">Phone Number or Email</string>
+    <string name="phone_number_or_email">Enter Email</string>
     <string name="password">Password</string>
     <string name="no_account_yet">No account yet?</string>
     <string name="password_field">Password edit text</string>
@@ -90,4 +90,21 @@
     <string name="subject">Subject: </string>
     <string name="select_class">Select class</string>
     <string name="select_subject">Select subject</string>
+    <string name="guest">Guest</string>
+    <string name="skip">Skip</string>
+    <string name="enter_name_here">Enter full name here</string>
+    <string name="enter_email_here">Enter email here</string>
+    <string name="enter_phone_here">Enter phone here</string>
+    <string name="contact_subject">Subject: </string>
+    <string name="enter_description_here">Enter description here</string>
+
+
+    <string name="empty_fields_left">Empty fields left</string>
+    <string name="no_valid_email">No valid email</string>
+    <string name="password_too_short">Password too short</string>
+    <string name="passwords_not_match">Passwords not match</string>
+    <string name="logout_successfully">Logout successfully</string>
+    <string name="are_you_teacher">Are you a teacher? </string>
+    <string name="contact_us">Contact us!</string>
+    <string name="full_name">Full name</string>
 </resources>

@@ -73,7 +73,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/material_class"
+                        android:id="@+id/material_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -92,7 +92,7 @@
                         android:id="@+id/material_star_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="500"
+                        android:text="4.5"
                         android:textAppearance="@style/TextSubTitle2" />
 
                 </LinearLayout>
@@ -102,7 +102,7 @@
                 android:id="@+id/material_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/ic_story" />
+                android:src="@drawable/summary" />
 
             <LinearLayout
                 android:id="@+id/material_class_layout"
@@ -124,7 +124,7 @@
                     android:id="@+id/material_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10h"
+                    android:text="الساعات المطلوبة: 10 ساعة"
                     android:textAppearance="@style/TextSubTitle2" />
             </LinearLayout>
 
@@ -136,12 +136,16 @@
                 android:gravity="center_vertical"
                 android:padding="10dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/material_teacher_image"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/ic_person"
-                    app:tint="?attr/colorSecondary" />
+                    android:layout_marginStart="5dp"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="#FF000000"
+                     />
+
 
                 <TextView
                     android:id="@+id/material_teacher_name"
@@ -151,7 +155,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:padding="8dp"
-                    android:text="teacher name"
+                    android:text="Mr.Mohammad"
                     android:textAppearance="@style/TextBody2" />
             </LinearLayout>
 

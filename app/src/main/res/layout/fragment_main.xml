@@ -21,6 +21,7 @@
         >
 
         <TextView
+            android:id="@+id/main_student_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="10dp"

@@ -27,13 +27,14 @@ class MaterialRepositoryImp(
         val localMaterials = withContext(dispatcher) {
             networkMaterials.toLocal()
         }
-//     todo   localDataSource.upsertAll(localMaterials)
+        localDataSource.upsertAll(localMaterials)
         return Resource.Success(localMaterials)
     }
 
     override suspend fun getMaterialFromLocal(id: Int): Material {
-       return localDataSource.getMaterial(id)
+        return localDataSource.getMaterial(id)
     }
+
     override suspend fun getMaterialsFromNetwork(): Resource<List<Material>> {
         val networkMaterials = remoteDataSource.loadMaterials()
         val localMaterials = withContext(dispatcher) {

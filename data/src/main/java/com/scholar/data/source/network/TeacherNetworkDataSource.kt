@@ -14,19 +14,20 @@ class TeacherNetworkDataSource @Inject constructor(
     // A mutex is used to ensure that reads and writes are thread-safe.
     private val accessMutex = Mutex()
 
-    suspend fun loadTeachers(): Resource<List<TeacherNetwork>> = accessMutex.withLock {
-        return when (val response = apiService.getTeachers()) {
-            is NetworkResult.Success -> {
-                Resource.Success(response.data)
-            }
-            is NetworkResult.Error -> {
-                Resource.Error(response.error)
-            }
-            is NetworkResult.Exception -> {
-                Resource.Error(response.e.message)
+    suspend fun loadTeachers(page: Int): Resource<List<TeacherNetwork>> =
+        accessMutex.withLock {
+            return when (val response = apiService.getTeachers(page)) {
+                is NetworkResult.Success -> {
+                    Resource.Success(response.data)
+                }
+                is NetworkResult.Error -> {
+                    Resource.Error(response.error)
+                }
+                is NetworkResult.Exception -> {
+                    Resource.Error(response.e.message)
+                }
             }
         }
-    }
 
     suspend fun search(input: String): Resource<List<TeacherNetwork>> = accessMutex.withLock {
         return when (val response = apiService.searchForTeacher(input)) {

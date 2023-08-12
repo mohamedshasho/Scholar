@@ -17,4 +17,9 @@ interface SubjectDao : BaseDao<SubjectLocal> {
 
     @Insert(onConflict = REPLACE)
     suspend fun insertTeacherSubject(teacherSubjectCrossRef: TeacherSubjectCrossRef)
+
+
+
+    @Query("delete from subjects")
+    suspend fun deleteAll()
 }

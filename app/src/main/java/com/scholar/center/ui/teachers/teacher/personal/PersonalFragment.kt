@@ -18,7 +18,7 @@ class PersonalFragment(val teacher: Teacher) : Fragment(R.layout.fragment_teache
         binding.teacherPersonalBio.text = teacher.bio
         binding.teacherPersonalPhone.text = teacher.phone
         binding.teacherPersonalEmail.text = teacher.email
-        teacher.age?.let {
+        teacher.birth?.let {
             binding.teacherPersonalAge.text = it.toString()
         }
 

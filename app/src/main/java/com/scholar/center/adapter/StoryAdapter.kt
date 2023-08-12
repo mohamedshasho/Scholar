@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import com.scholar.center.R
 import com.scholar.center.databinding.StoryItemBinding
 import com.scholar.center.unit.Constants.BASE_URL
-import com.scholar.domain.model.Story
+import com.scholar.domain.model.StoryWithStudent
 
 class StoryAdapter(
-    diffCallback: DiffUtil.ItemCallback<Story>,
+    diffCallback: DiffUtil.ItemCallback<StoryWithStudent>,
     private val onClick: (Int) -> Unit,
 ) :
-    PagingDataAdapter<Story, StoryAdapter.ViewHolder>(diffCallback) {
+    PagingDataAdapter<StoryWithStudent, StoryAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -29,17 +29,17 @@ class StoryAdapter(
         // null item as a placeholder.
         if (item != null) {
 
-            holder.itemView.setOnClickListener { onClick(item.id) }
+            holder.itemView.setOnClickListener { onClick(item.story.id) }
 
-            holder.binding.storyItemNameText.text = item.title
-            holder.binding.storyItemDescriptionText.text = item.description
-            holder.binding.storyItemDateText.text = item.datePublication
-            holder.binding.storyItemStudentName.text = item.studentName
-            Glide.with(holder.itemView.context).load("${BASE_URL}${item.image}")
+            holder.binding.storyItemNameText.text = item.story.title
+            holder.binding.storyItemDescriptionText.text = item.story.description
+            holder.binding.storyItemDateText.text = item.story.datePublication
+            holder.binding.storyItemStudentName.text = item.student.fullName
+            Glide.with(holder.itemView.context).load("${BASE_URL}${item.story.image}")
                 .placeholder(R.drawable.ic_story)
                 .into(holder.binding.storyItemCover)
 
-            Glide.with(holder.itemView.context).load("${BASE_URL}${item.studentProfile}")
+            Glide.with(holder.itemView.context).load("${BASE_URL}${item.student.image}")
                 .placeholder(R.drawable.ic_person)
                 .into(holder.binding.storyItemStudentImage)
         }
@@ -49,13 +49,13 @@ class StoryAdapter(
         RecyclerView.ViewHolder(binding.root)
 }
 
-object StoryComparator : DiffUtil.ItemCallback<Story>() {
-    override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+object StoryComparator : DiffUtil.ItemCallback<StoryWithStudent>() {
+    override fun areItemsTheSame(oldItem: StoryWithStudent, newItem: StoryWithStudent): Boolean {
         // Id is unique.
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
-        return oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: StoryWithStudent, newItem: StoryWithStudent): Boolean {
+        return oldItem.story.id == newItem.story.id
     }
 }

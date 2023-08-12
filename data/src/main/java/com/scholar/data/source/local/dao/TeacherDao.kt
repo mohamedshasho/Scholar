@@ -1,5 +1,6 @@
 package com.scholar.data.source.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -12,6 +13,10 @@ interface TeacherDao : BaseDao<TeacherLocal> {
 
     @Query("select * from teachers")
     fun getTeachers(): Flow<List<TeacherLocal>>
+
+
+    @Query("select * from teachers")
+    fun getTeachersPaging(): PagingSource<Int, TeacherWithSubjectsLocal>
 
     @Transaction
     @Query("SELECT * FROM teachers LIMIT :pageSize OFFSET :offset")

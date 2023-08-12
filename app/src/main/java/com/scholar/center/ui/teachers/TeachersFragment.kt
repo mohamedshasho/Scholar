@@ -1,11 +1,13 @@
 package com.scholar.center.ui.teachers
 
+import android.R.attr.transitionName
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
@@ -17,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class TeachersFragment : Fragment(R.layout.fragment_teachers) {
 
@@ -27,8 +30,14 @@ class TeachersFragment : Fragment(R.layout.fragment_teachers) {
 
         val rootController = activity?.findNavController(R.id.root_nav_host_fragment)
 
-        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id ->
-            rootController?.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = id))
+
+        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { teacherId ,imageView->
+            imageView.transitionName = teacherId.toString()
+            val extras = FragmentNavigatorExtras(
+                imageView to teacherId.toString()
+            )
+
+            rootController?.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherId),extras)
         }
 
         binding.teachersProfileRecyclerView.apply {

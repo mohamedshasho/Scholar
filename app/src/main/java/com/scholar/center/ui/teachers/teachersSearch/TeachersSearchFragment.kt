@@ -53,7 +53,7 @@ class TeachersSearchFragment : Fragment(R.layout.fragment_teachers_search), Menu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTeachersSearchBinding.bind(view)
 
-        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id ->
+        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id,imageView ->
             navController.navigate(
                 TeachersSearchFragmentDirections.actionTeachersSearchToTeacher(
                     teacherId = id

@@ -14,16 +14,13 @@ data class TeacherLocal(
     override val id: Int,
     @ColumnInfo(name = "full_name")
     override val fullName: String,
-    override val age: Int?,
-    override val profile: String?,
+    override val birth: String?,
+    override val image: String?,
     override val email: String?,
     override val bio: String?,
     override val education: String?,
-    override val gender: Int,
     override val phone: String?,
-    override val skills: String?,
     override val qualification: String?,
-    override val views: Int,
 ) : Teacher
 
 
@@ -31,16 +28,13 @@ fun TeacherNetwork.toLocal() =
     TeacherLocal(
         id,
         fullName,
-        age,
-        profile,
-        email,
-        bio,
-        education,
-        gender,
-        phone,
-        skills,
-        qualification,
-        views
+        birth = birth,
+        image = image,
+        email = email,
+        bio = bio,
+        education = education,
+        phone = phone,
+        qualification=qualification
     )
 
 fun List<TeacherNetwork>.toLocal() = map(TeacherNetwork::toLocal)

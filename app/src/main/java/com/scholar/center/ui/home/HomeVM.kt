@@ -6,6 +6,7 @@ import com.scholar.domain.model.Category
 import com.scholar.domain.model.Material
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Stage
+import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.repo.MaterialRepository
 import com.scholar.domain.usecase.CategoryUseCase
 import com.scholar.domain.usecase.StageUseCase
@@ -18,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeVM @Inject constructor(
+    private val dataStore: DataStorePreference,
     private val categoryUseCase: CategoryUseCase,
     private val materialRepository: MaterialRepository,
     private val stageUseCase: StageUseCase,
@@ -39,7 +41,15 @@ class HomeVM @Inject constructor(
     val error = _error.asStateFlow()
 
     init {
+        getStages()
         fetchData()
+    }
+
+    private fun getStages() {
+        viewModelScope.launch {
+            dataStore.saveValue(DataStorePreference.isAppFirstOpen, false)
+            _stages.value = stageUseCase()
+        }
     }
 
     private fun fetchData() {
@@ -59,19 +69,17 @@ class HomeVM @Inject constructor(
                     }
                 }
             }
-            val stages = async { stageUseCase() }
-            updateData(categories.await(), stages.await(), materials.await())
+
+            updateData(categories.await(), materials.await())
             _loading.value = false
         }
     }
 
     private fun updateData(
         c: List<Category>,
-        stages: List<Stage>,
         materials: List<Material>?,
     ) {
         _categories.value = c
-        _stages.value = stages
         if (materials != null) {
             _materials.value = materials
         }

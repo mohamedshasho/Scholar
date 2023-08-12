@@ -5,7 +5,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.scholar.center.R
 import com.scholar.center.databinding.CategoryItemBinding
 import com.scholar.domain.model.Category
@@ -44,11 +43,23 @@ class CategoryAdapter(
             holder.binding.categoryItemCard.setCardBackgroundColor(unSelectedColor)
         }
         holder.binding.categoryItemText.text = item.name
+        holder.binding.categoryItemImage.setImageResource(
+            when(item.image){
+                1->{R.drawable.ic_book}
+                2->{R.drawable.summary}
+                3->{R.drawable.video}
+                4->{R.drawable.ic_book}
+                5->{R.drawable.exam}
+                else ->R.drawable.ic_book
+            }
+        )
 
+
+        /*
         Glide.with(holder.itemView.context).load("${item.image}")
             .placeholder(R.drawable.ic_book)
             .into(holder.binding.categoryItemImage)
-
+        */
     }
 
     private fun getThemeColor(context: Context, resId: Int): Int {

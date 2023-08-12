@@ -7,29 +7,31 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.local.model.StoryRemoteKeys
+import com.scholar.data.source.local.model.StoryWithStudentLocal
 import com.scholar.data.source.local.model.toLocal
 import com.scholar.data.source.network.StoryNetworkDataSource
 import com.scholar.domain.model.Resource
-import com.scholar.domain.model.Story
+import com.scholar.domain.model.StoryWithStudent
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
     private val remoteDataSource: StoryNetworkDataSource,
     private val scholarDb: ScholarDb,
-) : RemoteMediator<Int, Story>() {
+) : RemoteMediator<Int, StoryWithStudentLocal>() {
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     private val storyDao = scholarDb.storyDao()
+    private val studentDao = scholarDb.studentDao()
     private val storyRemoteKeysDao = scholarDb.storyRemoteKeysDao()
 
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, Story>,
-    ): RemoteMediator.MediatorResult {
+        state: PagingState<Int, StoryWithStudentLocal>,
+    ): MediatorResult {
         val currentPage = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
@@ -52,7 +54,7 @@ class StoryRemoteMediator(
                 nextPage
             }
         }
-        return when (val response = remoteDataSource.loadStories()) {
+        return when (val response = remoteDataSource.loadStories(currentPage)) {
             is Resource.Success -> {
                 val endOfPaginationReached = response.data?.isEmpty() ?: true
                 val prevPage = if (currentPage == 1) null else currentPage - 1
@@ -70,7 +72,13 @@ class StoryRemoteMediator(
                             nextPage = nextPage
                         )
                     }
-                    storiesNetwork?.let { storyDao.upsertAll(it.toLocal()) }
+                    storiesNetwork?.let { stories ->
+
+                        stories.forEach {
+                            storyDao.upsert(it.toLocal())
+                            studentDao.upsert(it.student.toLocal())
+                        }
+                    }
                     keys?.let { storyRemoteKeysDao.upsertAll(it) }
 
                 }
@@ -84,31 +92,31 @@ class StoryRemoteMediator(
 
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, Story>,
+        state: PagingState<Int, StoryWithStudentLocal>,
     ): StoryRemoteKeys? {
         return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.id?.let { id ->
+            state.closestItemToPosition(position)?.story?.id?.let { id ->
                 storyRemoteKeysDao.getRemoteKeys(id = id)
             }
         }
     }
 
     private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, Story>,
+        state: PagingState<Int, StoryWithStudentLocal>,
     ): StoryRemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
-            ?.let { tip ->
-                storyRemoteKeysDao.getRemoteKeys(id = tip.id)
+            ?.let { story ->
+                storyRemoteKeysDao.getRemoteKeys(id = story.story.id)
             }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, Story>): StoryRemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, StoryWithStudentLocal>): StoryRemoteKeys? {
         // Get the last page that was retrieved, that contained items.
         // From that last page, get the last item
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { repo ->
                 // Get the remote keys of the last item retrieved
-                storyRemoteKeysDao.getRemoteKeys(repo.id)
+                storyRemoteKeysDao.getRemoteKeys(repo.story.id)
             }
     }
 }

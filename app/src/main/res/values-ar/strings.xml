@@ -44,7 +44,7 @@
     <string name="register">التسجيل</string>
     <string name="create_account">إنشاء حساب</string>
     <string name="create_new_account"><u>إنشاء حساب جديد</u></string>
-    <string name="phone_number_or_email">رقم الهاتف أو البريد الإلكتروني</string>
+    <string name="phone_number_or_email">البريد الإلكتروني</string>
     <string name="password">كلمة المرور</string>
     <string name="no_account_yet">ليس لديك حساب بعد؟</string>
     <string name="password_field">مربع إدخال كلمة المرور</string>
@@ -95,5 +95,21 @@
     <string name="class_room">الصف: </string>
     <string name="select_class">إختر الصف</string>
     <string name="select_subject">إختر المادة</string>
+    <string name="guest">ضيف</string>
+    <string name="skip">تخطي</string>
+    <string name="enter_name_here">أدخل الاسم الكامل هنا</string>
+    <string name="enter_email_here">أدخل البريد الإلكتروني هنا</string>
+    <string name="enter_phone_here">أدخل الهاتف هنا</string>
+    <string name="contact_subject">الموضوع: </string>
+    <string name="enter_description_here">أدخل الوصف هنا</string>
+
+    <string name="empty_fields_left">ترك حقول فارغة</string>
+    <string name="no_valid_email">عنوان البريد الإلكتروني غير صالح</string>
+    <string name="password_too_short">كلمة المرور قصيرة جدًا</string>
+    <string name="passwords_not_match">كلمات المرور غير متطابقة</string>
+    <string name="logout_successfully">تم تسجيل الخروج بنجاح</string>
+    <string name="are_you_teacher">هل انت أستاذ؟</string>
+    <string name="contact_us">تواصل معنا!</string>
+    <string name="full_name">الاسم الكامل</string>
 
 </resources>

@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.CardViewClassItemBinding
-import com.scholar.domain.model.Category
-import com.scholar.domain.model.ClassMate
+import com.scholar.domain.model.ClassRoom
 import com.scholar.domain.model.Stage
 
 class CardClassITemAdapter<T>(
@@ -31,7 +30,7 @@ class CardClassITemAdapter<T>(
                     onClick(item.id)
                 }
             }
-            is ClassMate->{
+            is ClassRoom->{
                 holder.binding.classItemButton.text = item.name
                 holder.binding.classItemButton.setOnClickListener {
                     onClick(item.id)

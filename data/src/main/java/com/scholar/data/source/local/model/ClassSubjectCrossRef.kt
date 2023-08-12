@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
     foreignKeys = [
         ForeignKey(
             childColumns = ["classId"],
-            entity = ClassMateLocal::class,
+            entity = ClassRoomLocal::class,
             parentColumns = ["id"]
         ),
         ForeignKey(

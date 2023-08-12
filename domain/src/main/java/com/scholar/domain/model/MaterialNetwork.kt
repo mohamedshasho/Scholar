@@ -1,17 +1,20 @@
 package com.scholar.domain.model
 
+import com.google.gson.annotations.SerializedName
 
 
 data class MaterialNetwork(
     override val id: Int,
-    val id_class : Int,
-    val id_subject : Int,
-    val id_teacher : Int?,
-    val id_category : Int?,
     override val title: String,
     override val description: String?,
     override val price: Int?,
-    override val content: String?,
+    override val discount: Int?,
+    @SerializedName("hours_number_of_week")
+    override val hoursNumberOfWeek: Int?,
+    @SerializedName("file_type")
+    override val categoryId: Int?,
+    val teacher: TeacherNetwork?,
+    val rates : List<RateNetwork>
 ) : Material
 
 
@@ -20,5 +23,7 @@ interface Material {
     val title: String
     val description: String?
     val price: Int?
-    val content: String?
+    val discount: Int?
+    val hoursNumberOfWeek: Int?
+    val categoryId: Int?
 }

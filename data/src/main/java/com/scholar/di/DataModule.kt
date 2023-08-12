@@ -3,7 +3,9 @@ package com.scholar.di
 import android.content.Context
 import androidx.room.Room
 import com.scholar.data.repo.*
+import com.scholar.data.service.ApiService
 import com.scholar.data.source.local.ScholarDb
+import com.scholar.data.source.local.ScholarDbCallBack
 import com.scholar.data.source.local.dao.*
 import com.scholar.data.source.network.*
 import com.scholar.domain.repo.*
@@ -13,6 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -23,12 +26,15 @@ object DataModule {
     @Provides
     fun provideScholarDb(
         @ApplicationContext appContext: Context,
+        provider: Provider<ScholarDb>,
     ): ScholarDb {
         return Room.databaseBuilder(
             appContext,
             ScholarDb::class.java,
             "ScholarDB"
-        ).build()
+        )
+            .addCallback(ScholarDbCallBack(provider))
+            .build()
     }
 
     @Singleton
@@ -53,7 +59,16 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideClassMateDao(scholarDb: ScholarDb) = scholarDb.classMateDao()
+    fun provideClassMateDao(scholarDb: ScholarDb) = scholarDb.classRoomDao()
+
+
+    @Singleton
+    @Provides
+    fun provideStudentDao(scholarDb: ScholarDb) = scholarDb.studentDao()
+
+    @Singleton
+    @Provides
+    fun provideSubjectDao(scholarDb: ScholarDb) = scholarDb.subjectDao()
 
     @Singleton
     @Provides
@@ -103,9 +118,31 @@ object DataModule {
     @Provides
     fun provideClassMateRepository(
         networkDataSource: ClassMateNetworkDataSource,
-        classMateDao: ClassMateDao,
+        classRoomDao: ClassRoomDao,
         @DefaultDispatcher dispatcher: CoroutineDispatcher,
-    ): ClassMateRepository =
-        ClassMateRepositoryImp(networkDataSource, classMateDao, dispatcher)
+    ): ClassRoomRepository =
+        ClassRoomRepositoryImp(networkDataSource, classRoomDao, dispatcher)
+
+
+    @Singleton
+    @Provides
+    fun provideSubjectRepository(
+        subjectNetworkDataSource: SubjectNetworkDataSource,
+        subjectDao: SubjectDao,
+        @DefaultDispatcher dispatcher: CoroutineDispatcher,
+    ): SubjectRepository =
+        SubjectRepositoryImp(subjectNetworkDataSource, subjectDao, dispatcher)
+
+    @Singleton
+    @Provides
+    fun provideAuthRepository(apiService: ApiService): AuthRepository {
+        return AuthRepositoryImp(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDataStore(@ApplicationContext context: Context): DataStorePreference {
+        return DataStorePreferenceImp(context)
+    }
 
 }

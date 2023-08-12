@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scholar.center.unit.Constants.STAGE_ID_KEY
-import com.scholar.domain.model.ClassMate
+import com.scholar.domain.model.ClassRoom
 import com.scholar.domain.usecase.ClassMateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ class ClassesViewModel @Inject constructor(
 
     private val stageId = requireNotNull(savedStateHandle.get<Int>(STAGE_ID_KEY))
 
-    private val _classRooms = MutableStateFlow<List<ClassMate>>(emptyList())
+    private val _classRooms = MutableStateFlow<List<ClassRoom>>(emptyList())
     val classRooms = _classRooms.asStateFlow()
 
     private val _loading = MutableStateFlow(true)
@@ -30,7 +30,8 @@ class ClassesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _loading.value = true
-            _classRooms.value = classMateUseCase(stageId)
+            _classRooms.value = if (stageId == 1) classMateUseCase() else classMateUseCase()
+                .filter { it.id < 4 }
             _loading.value = false
         }
     }

@@ -31,15 +31,15 @@ class StoryDetailFragment : Fragment(R.layout.fragment_story_detail) {
             viewModel.story.collectLatest {
                 it?.let { story ->
                     binding.storyItemDateText.text = story.datePublication
-                    binding.storyDetailStudentName.text = story.studentName
+//                    binding.storyDetailStudentName.text = story.studentName
                     binding.storyDetailDescription.text = story.description
                     binding.storyDetailTitle.text = story.title
 
 
-                    Glide.with(requireContext())
-                        .load("${BASE_URL}${story.studentProfile}")
-                        .placeholder(R.drawable.ic_person)
-                        .into(binding.storyDetailStudentImage)
+//                    Glide.with(requireContext())
+//                        .load("${BASE_URL}${story.studentProfile}")
+//                        .placeholder(R.drawable.ic_person)
+//                        .into(binding.storyDetailStudentImage)
 
                     Glide.with(requireContext())
                         .load("${BASE_URL}${story.image}")

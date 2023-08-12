@@ -8,8 +8,9 @@ import com.scholar.data.source.local.model.*
 @Database(
     entities = [
         CategoryLocal::class, MaterialLocal::class, StoryLocal::class, TeacherLocal::class,
-        SubjectLocal::class, StageLocal::class, ClassMateLocal::class,
-        StoryRemoteKeys::class, TeacherRemoteKeys::class, TeacherSubjectCrossRef::class
+        SubjectLocal::class, StageLocal::class, ClassRoomLocal::class,
+        StoryRemoteKeys::class, TeacherRemoteKeys::class, TeacherSubjectCrossRef::class, StudentLocal::class,
+        RateLocal::class,
     ],
     version = 1,
     exportSchema = false
@@ -20,10 +21,12 @@ abstract class ScholarDb : RoomDatabase() {
     abstract fun storyDao(): StoryDao
     abstract fun materialDao(): MaterialDao
     abstract fun teacherDao(): TeacherDao
+    abstract fun studentDao(): StudentDao
     abstract fun stageDao(): StageDao
+    abstract fun rateDao(): RateDao
 
     abstract fun storyRemoteKeysDao(): StoryRemoteKeysDao
     abstract fun teacherRemoteKeysDao(): TeacherRemoteKeysDao
 
-    abstract fun classMateDao(): ClassMateDao
+    abstract fun classRoomDao(): ClassRoomDao
 }

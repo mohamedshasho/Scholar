@@ -26,8 +26,8 @@ import com.scholar.domain.model.MaterialNetwork
         ),
         ForeignKey(
             childColumns = ["classId"],
-            entity = ClassMateLocal::class,
-            parentColumns = ["id"]
+            entity = ClassRoomLocal::class,
+            parentColumns = ["id"],
         ),
 
     ]
@@ -35,27 +35,29 @@ import com.scholar.domain.model.MaterialNetwork
 data class MaterialLocal(
     @PrimaryKey
     override val id: Int,
-    val classId: Int,
-    val subjectId: Int,
+    val classId: Int?,
+    val subjectId: Int?,
     val teacherId: Int?,
-    val categoryId: Int?,
+    override val categoryId: Int?,
     override val title: String,
     override val description: String?,
     override val price: Int?,
-    override val content: String?,
+    override val discount: Int?,
+    override val hoursNumberOfWeek: Int?,
 ) : Material
 
 
 fun MaterialNetwork.toLocal() = MaterialLocal(
     id,
-    classId = id_class,
-    subjectId = id_subject,
-    teacherId = id_teacher,
-    categoryId = id_category,
+    classId = null,
+    subjectId = null,
+    teacherId = null,
+    categoryId = categoryId,
     title = title,
     description = description,
     price = price,
-    content = content
+    discount=discount,
+    hoursNumberOfWeek=hoursNumberOfWeek,
 )
 
 fun List<MaterialNetwork>.toLocal() = map(MaterialNetwork::toLocal)

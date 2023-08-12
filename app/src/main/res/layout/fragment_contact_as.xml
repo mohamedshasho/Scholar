@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextH5"
+        android:layout_marginTop="20dp"
+        android:text="تواصل معنا"
+        android:layout_gravity="center_horizontal"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextBody1"
+        android:layout_marginTop="40dp"
+        android:text="@string/name"
+        />
+    <EditText
+        android:id="@+id/contact_name_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit_text"
+        android:ems="10"
+        android:hint="@string/enter_name_here"
+        android:inputType="text"
+        android:textAppearance="@style/TextBody1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginFragment_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextBody1"
+        android:layout_marginTop="10dp"
+        android:text="@string/email"
+        />
+    <EditText
+        android:id="@+id/contact_email_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit_text"
+        android:ems="10"
+        android:hint="@string/enter_email_here"
+        android:inputType="textEmailAddress"
+        android:textAppearance="@style/TextBody1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginFragment_logo" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextBody1"
+        android:layout_marginTop="10dp"
+        android:text="@string/phone"
+        />
+    <EditText
+        android:id="@+id/contact_phone_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit_text"
+        android:ems="10"
+        android:hint="@string/enter_phone_here"
+        android:inputType="phone"
+        android:textAppearance="@style/TextBody1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginFragment_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextBody1"
+        android:layout_marginTop="10dp"
+        android:text="@string/contact_subject"
+        />
+
+
+    <EditText
+        android:id="@+id/contact_subject_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit_text"
+        android:inputType="textMultiLine|textCapSentences"
+        android:hint="@string/enter_description_here"
+        android:lines="5"
+        android:gravity="top|start"
+        android:scrollbars="vertical"
+        android:textAppearance="@style/TextBody1" />
+    <Button
+        android:id="@+id/add_story_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/button_background_color"
+        android:padding="4dp"
+        android:text="@string/send"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_color"
+        android:textSize="16sp"
+        app:cornerRadius="16dp" />
+</LinearLayout>

@@ -2,11 +2,10 @@ package com.scholar.di
 
 import com.scholar.domain.model.NetworkConnectivity
 import com.scholar.domain.repo.CategoryRepository
-import com.scholar.domain.repo.ClassMateRepository
+import com.scholar.domain.repo.ClassRoomRepository
 import com.scholar.domain.repo.StageRepository
-import com.scholar.domain.usecase.CategoryUseCase
-import com.scholar.domain.usecase.ClassMateUseCase
-import com.scholar.domain.usecase.StageUseCase
+import com.scholar.domain.repo.SubjectRepository
+import com.scholar.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,8 +36,23 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideClassMateUseCase(
-        classMateRepository: ClassMateRepository,
+        classRoomRepository: ClassRoomRepository,
         networkConnectivity: NetworkConnectivity,
-    ) = ClassMateUseCase(classMateRepository, networkConnectivity)
+    ) = ClassMateUseCase(classRoomRepository, networkConnectivity)
 
+    @Singleton
+    @Provides
+    fun provideSubjectUseCase(
+        subjectRepository: SubjectRepository,
+        networkConnectivity: NetworkConnectivity,
+    ) = SubjectUseCase(subjectRepository, networkConnectivity)
+
+
+    @Singleton
+    @Provides
+    fun provideLoginUseCase() = ValidateLoginUseCase()
+
+    @Singleton
+    @Provides
+    fun provideRegisterUseCase() = ValidateRegisterUseCase()
 }

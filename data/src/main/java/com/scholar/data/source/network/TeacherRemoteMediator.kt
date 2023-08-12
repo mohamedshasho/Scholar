@@ -1,5 +1,6 @@
 package com.scholar.data.source.network
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -8,6 +9,7 @@ import androidx.room.withTransaction
 import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.local.model.TeacherRemoteKeys
 import com.scholar.data.source.local.model.TeacherSubjectCrossRef
+import com.scholar.data.source.local.model.TeacherWithSubjectsLocal
 import com.scholar.data.source.local.model.toLocal
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.TeacherWithSubjects
@@ -17,7 +19,7 @@ import com.scholar.domain.model.TeacherWithSubjects
 class TeacherRemoteMediator(
     private val teacherNetworkDataSource: TeacherNetworkDataSource,
     private val scholarDb: ScholarDb,
-) : RemoteMediator<Int, TeacherWithSubjects>() {
+) : RemoteMediator<Int, TeacherWithSubjectsLocal>() {
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
@@ -29,7 +31,7 @@ class TeacherRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TeacherWithSubjects>,
+        state: PagingState<Int, TeacherWithSubjectsLocal>,
     ): MediatorResult {
         val currentPage = when (loadType) {
             LoadType.REFRESH -> {
@@ -53,8 +55,9 @@ class TeacherRemoteMediator(
                 nextPage
             }
         }
-        return when (val response = teacherNetworkDataSource.loadTeachers()) {
+        return when (val response = teacherNetworkDataSource.loadTeachers(currentPage)) {
             is Resource.Success -> {
+                Log.d("loadTeachers", "load: ${response.data}")
                 val endOfPaginationReached = response.data?.isEmpty() ?: true
                 val prevPage = if (currentPage == 1) null else currentPage - 1
                 val nextPage = if (endOfPaginationReached) null else currentPage + 1
@@ -99,7 +102,7 @@ class TeacherRemoteMediator(
 
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, TeacherWithSubjects>,
+        state: PagingState<Int, TeacherWithSubjectsLocal>,
     ): TeacherRemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.teacher?.id?.let { id ->
@@ -109,7 +112,7 @@ class TeacherRemoteMediator(
     }
 
     private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, TeacherWithSubjects>,
+        state: PagingState<Int, TeacherWithSubjectsLocal>,
     ): TeacherRemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { repo ->
@@ -117,7 +120,7 @@ class TeacherRemoteMediator(
             }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, TeacherWithSubjects>): TeacherRemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, TeacherWithSubjectsLocal>): TeacherRemoteKeys? {
         // Get the last page that was retrieved, that contained items.
         // From that last page, get the last item
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()

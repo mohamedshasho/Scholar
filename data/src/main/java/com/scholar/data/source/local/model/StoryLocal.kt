@@ -10,20 +10,18 @@ import com.scholar.domain.model.StoryNetwork
 data class StoryLocal(
     @PrimaryKey
     override val id: Int,
+    @ColumnInfo(name = "student_id")
+    val studentId: Int,
     override val title: String,
     override val description: String?,
     override val image: String?,
     @ColumnInfo(name = "date_publication")
     override val datePublication: String?,
-    @ColumnInfo(name = "student_name")
-    override val studentName: String?,
-    @ColumnInfo(name = "student_profile")
-    override val studentProfile: String?,
-) : Story
+
+    ) : Story
 
 fun StoryNetwork.toLocal() = StoryLocal(
-    id, title, description, image, datePublication,
-    studentName, studentProfile
+    id, student.id, title, description, image, datePublication,
 )
 
 fun List<StoryNetwork>.toLocal() = map(StoryNetwork::toLocal)

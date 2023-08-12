@@ -1,7 +1,6 @@
 package com.scholar.center.ui.materials.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -51,7 +50,8 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                 viewModel.material.collect {
                     it?.let { material ->
                         binding.materialName.text = material.title
-                        Log.d("material.price", "onViewCreated: ${material.price}")
+                        binding.materialType.text = "نوط"
+                        binding.materialClassName.text = "المرحلة الابتدائية، الاول"
 //                        binding.materialDescription.text = material.description
                         if (material.price == null || material.price == 0) {
                             binding.materialPriceLayout.visibility = View.GONE

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.CardClassITemAdapter
 import com.scholar.center.databinding.FragmentClassesBinding
-import com.scholar.domain.model.ClassMate
+import com.scholar.domain.model.ClassRoom
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ class ClassesFragment : Fragment(R.layout.fragment_classes) {
 
         val navController = findNavController()
         val layout = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val classAdapter = CardClassITemAdapter<ClassMate> { id ->
+        val classAdapter = CardClassITemAdapter<ClassRoom> { id ->
             navController.navigate(ClassesFragmentDirections.actionClassesToClassGroup(classId = id))
         }
 

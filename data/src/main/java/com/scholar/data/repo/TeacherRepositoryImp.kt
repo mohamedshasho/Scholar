@@ -1,9 +1,6 @@
 package com.scholar.data.repo
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.paging.*
 import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.local.paging.TeacherLocalPagingSource
 import com.scholar.data.source.network.TeacherNetworkDataSource
@@ -15,6 +12,7 @@ import com.scholar.domain.repo.TeacherRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 class TeacherRepositoryImp(
@@ -52,8 +50,8 @@ class TeacherRepositoryImp(
                 teacherNetworkDataSource = networkDataSource,
                 scholarDb = scholarDb,
             ),
-            pagingSourceFactory = { TeacherLocalPagingSource(scholarDb.teacherDao()) }
-        ).flow
+            pagingSourceFactory = { scholarDb.teacherDao().getTeachersPaging() }
+        ).flow.map { pagingData -> pagingData.map { it } }
     }
 }
 
