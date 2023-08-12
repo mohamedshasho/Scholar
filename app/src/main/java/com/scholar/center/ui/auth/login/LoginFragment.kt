@@ -1,9 +1,11 @@
 package com.scholar.center.ui.auth.login
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.animation.AlphaAnimation
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,9 +15,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.scholar.center.R
 import com.scholar.center.databinding.FragmentLoginBinding
+import com.scholar.center.unit.Constants.MUST_POP_BACK_KEY
+import com.scholar.center.unit.getThemeColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+import com.google.android.material.R.attr as theme
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -26,6 +30,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding = FragmentLoginBinding.bind(view)
 
+        val mustPopBackStack = arguments?.getBoolean(MUST_POP_BACK_KEY) ?: false
+
+        val text = getString(R.string.welcome)
+        val colorPrimaryContainer = requireContext().getThemeColor(
+            theme.colorPrimary
+        )
+        val spannable = SpannableString(text)
+        spannable.setSpan(
+            ForegroundColorSpan(colorPrimaryContainer),
+            0, text.split(" ").first().length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        binding.loginFragmentWelcomeText.text = spannable
+
 
         val navController = findNavController()
 
@@ -35,7 +54,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     val isLoginDestination =
                         navController.currentDestination?.id == R.id.loginFragment //to ensure that navigate call once
                     if (state.isSuccessfullyLogin && isLoginDestination) {
-                        navController.navigate(LoginFragmentDirections.actionLoginToMain())
+                        if (mustPopBackStack) {
+                            navController.popBackStack()
+                        } else {
+                            navController.navigate(LoginFragmentDirections.actionLoginToMain())
+                        }
                     }
                     binding.loginFragmentProgressBar.visibility =
                         if (state.isLoading) View.VISIBLE else View.GONE
@@ -60,10 +83,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.onPasswordInputChanged(it.toString())
         }
         binding.loginFragmentNoAccount.setOnClickListener {
-            navController.navigate(LoginFragmentDirections.actionLoginToRegister())
+            navController.navigate(LoginFragmentDirections.actionLoginToRegister(mustPopBackStack))
         }
         binding.loginFragmentSkipLayout.setOnClickListener {
-            navController.navigate(LoginFragmentDirections.actionLoginToMain())
+            if (mustPopBackStack) {
+                navController.popBackStack()
+            } else {
+                navController.navigate(LoginFragmentDirections.actionLoginToMain())
+            }
         }
 
     }

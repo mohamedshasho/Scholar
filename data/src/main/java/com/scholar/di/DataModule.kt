@@ -135,8 +135,8 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideAuthRepository(apiService: ApiService): AuthRepository {
-        return AuthRepositoryImp(apiService)
+    fun provideAuthRepository(apiService: ApiService, studentDao: StudentDao): AuthRepository {
+        return AuthRepositoryImp(apiService, studentDao)
     }
 
     @Singleton
@@ -145,4 +145,9 @@ object DataModule {
         return DataStorePreferenceImp(context)
     }
 
+    @Singleton
+    @Provides
+    fun provideStudentRepository(studentDao: StudentDao): StudentRepository {
+        return StudentRepositoryImp(studentDao)
+    }
 }

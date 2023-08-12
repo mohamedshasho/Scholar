@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.R
 import com.scholar.center.databinding.CategoryItemBinding
+import com.scholar.center.unit.getThemeColor
 import com.scholar.domain.model.Category
 import com.google.android.material.R.attr as theme
 
@@ -30,14 +31,12 @@ class CategoryAdapter(
             onClick?.invoke(position)
         }
         if (itemSelected == position) {
-            val selectedColor = getThemeColor(
-                holder.itemView.context,
+            val selectedColor = holder.itemView.context.getThemeColor(
                 theme.colorSecondaryVariant
             )
             holder.binding.categoryItemCard.setCardBackgroundColor(selectedColor)
         } else {
-            val unSelectedColor = getThemeColor(
-                holder.itemView.context,
+            val unSelectedColor = holder.itemView.context.getThemeColor(
                 theme.colorPrimaryContainer
             )
             holder.binding.categoryItemCard.setCardBackgroundColor(unSelectedColor)
@@ -62,15 +61,7 @@ class CategoryAdapter(
         */
     }
 
-    private fun getThemeColor(context: Context, resId: Int): Int {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(
-            resId,
-            typedValue,
-            true
-        )
-        return typedValue.data
-    }
+
 
     fun setItemSelected(position: Int) {
         val previousSelected = itemSelected

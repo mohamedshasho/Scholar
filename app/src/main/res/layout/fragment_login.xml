@@ -11,8 +11,8 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginFragment_login_btn" />
@@ -48,32 +48,16 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/welcome_layout"
-        android:layout_marginTop="50dp"
+    <TextView
+        android:id="@+id/loginFragment_welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:text="@string/welcome"
+        android:textAppearance="@style/TextH5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="مرحبا"
-            android:textAppearance="@style/TextH5"
-            android:textColor="?attr/colorPrimaryVariant" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text=" بكم في تطبيق سكولار"
-            android:textAppearance="@style/TextH5"
-            android:textStyle="normal"/>
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/loginFragment_logo"
@@ -83,7 +67,7 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_layout"
+        app:layout_constraintTop_toBottomOf="@+id/loginFragment_welcome_text"
         app:srcCompat="@drawable/logo_name" />
 
 
@@ -124,11 +108,11 @@
         android:id="@+id/loginFragment_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextBody2"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
+        android:textAppearance="@style/TextBody2"
         android:textColor="?attr/colorError"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginFragment_password_editText" />
 
@@ -146,8 +130,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginFragment_error_text" />
-
-
 
 
     <LinearLayout
@@ -180,17 +162,16 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="20dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/loginFragment_account_label"
@@ -206,11 +187,10 @@
             android:padding="10dp"
             android:text="@string/contact_us"
             android:textAppearance="@style/TextBody2"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimaryVariant"/>
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

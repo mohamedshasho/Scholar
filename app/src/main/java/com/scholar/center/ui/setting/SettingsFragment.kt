@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.scholar.center.R
 import com.scholar.center.databinding.FragmentProfileBinding
-import com.scholar.center.ui.MainFragmentDirections
+import com.scholar.center.ui.main.MainFragmentDirections
 
 class SettingsFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var binding: FragmentProfileBinding
 
-    private val navController by lazy {  activity?.findNavController(R.id.root_nav_host_fragment) }
+    private val navController by lazy { activity?.findNavController(R.id.root_nav_host_fragment) }
 
 
     override fun onCreateView(
@@ -26,7 +25,7 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.inflate(inflater)
 
         val isUserLogin = true
-        if(isUserLogin){
+        if (isUserLogin) {
             binding.profileFragmentStudentName.text = getString(R.string.guest)
             binding.profileFragmentAccountListTile.root.visibility = View.GONE
             binding.profileFragmentCashListTile.root.visibility = View.GONE
@@ -34,9 +33,9 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
             binding.profileWalletLayout.visibility = View.GONE
             binding.profileFragmentLogoutListTile.text.text = getString(R.string.login)
             binding.profileFragmentLogoutListTile.root.setOnClickListener {
-                navController?.navigate(MainFragmentDirections.actionMainToLogin())
+                navController?.navigate(MainFragmentDirections.actionMainToLogin(mustPopBackStack = true))
             }
-        }else{
+        } else {
             binding.profileFragmentLogoutListTile.text.text = getString(R.string.logout)
             binding.profileFragmentLogoutListTile.root.setOnClickListener {
             }

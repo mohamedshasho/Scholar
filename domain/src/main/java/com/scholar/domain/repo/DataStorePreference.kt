@@ -18,7 +18,7 @@ interface DataStorePreference {
         val isUserLoggedIn = booleanPreferencesKey(name = "is_user_logged_in")
         val isAppFirstOpen = booleanPreferencesKey(name = "app_first_open")
         val languageId = intPreferencesKey(name = "id_language")
-        val userId = stringPreferencesKey(name = "user_id")
+        val userId = intPreferencesKey(name = "user_id")
     }
 
     suspend fun <T> saveValue(key: Preferences.Key<T>, value: T)

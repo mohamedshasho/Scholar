@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.MainFragment">
+    tools:context=".ui.main.MainFragment">
 
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_weight="1"
-            android:text="Hi Mohammad"
+            android:text="@string/hi"
             android:textColor="@color/black" />
 
         <ImageView
@@ -38,6 +38,7 @@
             android:background="@drawable/background_rounded_icon"
             android:src="@drawable/ic_notification"
             android:layout_marginEnd="8dp"
+            android:layout_gravity="end"
             app:tint="?attr/colorOnSecondary"
             />
     </LinearLayout>

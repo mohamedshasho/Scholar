@@ -14,7 +14,7 @@ import com.scholar.center.adapter.CardClassITemAdapter
 import com.scholar.center.adapter.CategoryAdapter
 import com.scholar.center.adapter.MaterialAdapter
 import com.scholar.center.databinding.FragmentHomeBinding
-import com.scholar.center.ui.MainFragmentDirections
+import com.scholar.center.ui.main.MainFragmentDirections
 import com.scholar.domain.model.Stage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -7,6 +7,7 @@ import com.scholar.domain.model.LoginInputValidationType
 import com.scholar.domain.model.LoginState
 import com.scholar.domain.model.Resource
 import com.scholar.domain.repo.AuthRepository
+import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.usecase.ValidateLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginVM @Inject constructor(
+    private val dataStore: DataStorePreference,
     private val authRepository: AuthRepository,
     private val validateLoginUseCase: ValidateLoginUseCase,
 ) : ViewModel() {
@@ -65,17 +67,21 @@ class LoginVM @Inject constructor(
             )
             when (result) {
                 is Resource.Success -> {
-                    result.data?.let { user ->
-//                        dataStoreRepository.saveUser(user)
+                    result.data?.let { studentID ->
+                        dataStore.saveValue(DataStorePreference.userId, studentID)
+                        dataStore.saveValue(DataStorePreference.isUserLoggedIn, true)
 
                         loginState.update { currentState ->
-                            currentState.copy(isSuccessfullyLogin = true,isLoading = false)
+                            currentState.copy(isSuccessfullyLogin = true, isLoading = false)
                         }
                     }
                 }
                 is Resource.Error -> {
                     loginState.update { currentState ->
-                        currentState.copy(errorMessageLoginProcess = result.message,isLoading = false)
+                        currentState.copy(
+                            errorMessageLoginProcess = result.message,
+                            isLoading = false
+                        )
                     }
                 }
             }

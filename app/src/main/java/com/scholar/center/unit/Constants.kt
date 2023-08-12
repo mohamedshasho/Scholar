@@ -11,4 +11,5 @@ object Constants {
     const val SEARCH_FOCUS_KEY = "search_focus"
     const val CATEGORY_ID_KEY = "category_id"
     const val CLASSROOM_ID_KEY = "classroom_id"
+    const val MUST_POP_BACK_KEY = "mustPopBackStack"
 }

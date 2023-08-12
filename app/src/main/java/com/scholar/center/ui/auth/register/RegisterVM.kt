@@ -7,6 +7,7 @@ import com.scholar.domain.model.RegisterInputValidationType
 import com.scholar.domain.model.RegisterState
 import com.scholar.domain.model.Resource
 import com.scholar.domain.repo.AuthRepository
+import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.usecase.ValidateRegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class RegisterVM @Inject constructor(
     private val validateRegisterUseCase: ValidateRegisterUseCase,
     private val authRepository: AuthRepository,
+    private val dataStore: DataStorePreference,
 ) : ViewModel() {
     var registerState = MutableStateFlow(RegisterState())
         private set
@@ -29,6 +31,7 @@ class RegisterVM @Inject constructor(
         }
         checkInputValidation()
     }
+
     fun onEmailInputChanged(newValue: String) {
         registerState.update { currentState ->
             currentState.copy(emailInput = newValue)
@@ -82,8 +85,9 @@ class RegisterVM @Inject constructor(
             )
             when (result) {
                 is Resource.Success -> {
-                    result.data?.let { user ->
-//                        dataStoreRepository.saveUser(user)
+                    result.data?.let { studentID ->
+                        dataStore.saveValue(DataStorePreference.userId, studentID)
+                        dataStore.saveValue(DataStorePreference.isUserLoggedIn, true)
                         registerState.update { currentState ->
                             currentState.copy(isSuccessfullyRegister = true, isLoading = false)
                         }

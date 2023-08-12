@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rout_nav_graph"
-    app:startDestination="@id/mainFragment"
-    >
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.scholar.center.ui.MainFragment"
+        android:name="com.scholar.center.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
 
@@ -18,7 +17,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" >
+            app:popExitAnim="@anim/slide_out_right">
             <argument
                 android:name="category_id"
                 android:defaultValue="-1"
@@ -45,8 +44,7 @@
             app:enterAnim="@anim/fade_in_enter"
             app:exitAnim="@anim/fade_out_exit"
             app:popEnterAnim="@anim/fade_in_pop"
-            app:popExitAnim="@anim/fade_out_pop"
-            >
+            app:popExitAnim="@anim/fade_out_pop">
             <argument
                 android:name="teacher_id"
                 android:defaultValue="-1"
@@ -93,14 +91,19 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_main_to_login"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="mustPopBackStack"
+                android:defaultValue="false"
+                app:argType="boolean" />
+        </action>
 
     </fragment>
 
@@ -110,7 +113,7 @@
         android:id="@+id/materialsFragment"
         android:name="com.scholar.center.ui.materials.MaterialsFragment"
         android:label="fragment_subjects"
-        tools:layout="@layout/fragment_materials" >
+        tools:layout="@layout/fragment_materials">
 
         <action
             android:id="@+id/action_materials_to_material_detail"
@@ -143,7 +146,7 @@
         android:id="@+id/teacherFragment"
         android:name="com.scholar.center.ui.teachers.teacher.TeacherFragment"
         android:label="TeacherFragment"
-        tools:layout="@layout/fragment_teacher" >
+        tools:layout="@layout/fragment_teacher">
         <action
             android:id="@+id/action_teacher_to_material"
             app:destination="@id/materialDetailFragment"
@@ -161,7 +164,7 @@
         android:id="@+id/teachersSearchFragment"
         android:name="com.scholar.center.ui.teachers.teachersSearch.TeachersSearchFragment"
         android:label="TeachersSearchFragment"
-        tools:layout="@layout/fragment_teachers_search" >
+        tools:layout="@layout/fragment_teachers_search">
         <action
             android:id="@+id/action_teachers_search_to_teacher"
             app:destination="@id/teacherFragment"
@@ -197,7 +200,7 @@
         android:id="@+id/classGroupFragment"
         android:name="com.scholar.center.ui.classgroup.ClassGroupFragment"
         android:label="fragment_class_group"
-        tools:layout="@layout/fragment_class_group" >
+        tools:layout="@layout/fragment_class_group">
         <action
             android:id="@+id/action_classesGroup_to_material"
             app:destination="@id/materialDetailFragment"
@@ -224,8 +227,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
-            app:popUpToSaveState="true"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true"
+            app:popUpToSaveState="true" >
+            <argument
+                android:name="mustPopBackStack"
+                android:defaultValue="false"
+                app:argType="boolean" />
+        </action>
 
 
         <action
@@ -252,9 +260,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/registerFragment"
-            app:popUpToSaveState="true"
             app:popUpToInclusive="true"
-            />
+            app:popUpToSaveState="true" >
+            <argument
+                android:name="mustPopBackStack"
+                android:defaultValue="false"
+                app:argType="boolean" />
+        </action>
         <action
             android:id="@+id/action_register_to_main"
             app:destination="@id/mainFragment"

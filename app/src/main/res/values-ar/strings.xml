@@ -111,5 +111,7 @@
     <string name="are_you_teacher">هل انت أستاذ؟</string>
     <string name="contact_us">تواصل معنا!</string>
     <string name="full_name">الاسم الكامل</string>
+    <string name="hi">مرحبا %s</string>
+    <string name="welcome">مرحبا بكم في تطبيق سكولار</string>
 
 </resources>

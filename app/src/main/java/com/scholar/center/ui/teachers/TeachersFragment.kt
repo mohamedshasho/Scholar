@@ -1,6 +1,5 @@
 package com.scholar.center.ui.teachers
 
-import android.R.attr.transitionName
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import com.scholar.center.R
 import com.scholar.center.adapter.TeacherComparator
 import com.scholar.center.adapter.TeacherProfileAdapter
 import com.scholar.center.databinding.FragmentTeachersBinding
-import com.scholar.center.ui.MainFragmentDirections
+import com.scholar.center.ui.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -107,4 +107,6 @@
     <string name="are_you_teacher">Are you a teacher? </string>
     <string name="contact_us">Contact us!</string>
     <string name="full_name">Full name</string>
+    <string name="hi">Hi %s</string>
+    <string name="welcome">Welcome to the Scholar app</string>
 </resources>

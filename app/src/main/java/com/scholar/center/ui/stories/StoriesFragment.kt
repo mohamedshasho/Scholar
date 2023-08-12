@@ -11,7 +11,7 @@ import com.scholar.center.R
 import com.scholar.center.adapter.StoryAdapter
 import com.scholar.center.adapter.StoryComparator
 import com.scholar.center.databinding.FragmentStoriesBinding
-import com.scholar.center.ui.MainFragmentDirections
+import com.scholar.center.ui.main.MainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

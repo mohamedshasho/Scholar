@@ -1,6 +1,8 @@
 package com.scholar.data.repo
 
 import com.scholar.data.service.ApiService
+import com.scholar.data.source.local.dao.StudentDao
+import com.scholar.data.source.local.model.toLocal
 import com.scholar.domain.model.NetworkResult
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Student
@@ -8,11 +10,14 @@ import com.scholar.domain.repo.AuthRepository
 
 class AuthRepositoryImp(
     private val apiService: ApiService,
+    private val studentDao: StudentDao,
 ) : AuthRepository {
-    override suspend fun login(email: String, password: String): Resource<Student> {
+    override suspend fun login(email: String, password: String): Resource<Int> {
         return when (val response = apiService.login(email, password)) {
             is NetworkResult.Success -> {
-                Resource.Success(response.data)
+                val student = response.data
+                studentDao.upsert(student.toLocal())
+                Resource.Success(student.id)
             }
             is NetworkResult.Error -> {
                 Resource.Error(response.error)
@@ -27,10 +32,12 @@ class AuthRepositoryImp(
         fullName: String,
         email: String,
         password: String,
-    ): Resource<Student> {
+    ): Resource<Int> {
         return when (val response = apiService.register(fullName, email, password)) {
             is NetworkResult.Success -> {
-                Resource.Success(response.data)
+                val student = response.data
+                studentDao.upsert(student.toLocal())
+                Resource.Success(student.id)
             }
             is NetworkResult.Error -> {
                 Resource.Error(response.error)
