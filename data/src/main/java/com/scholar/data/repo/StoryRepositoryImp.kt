@@ -26,7 +26,7 @@ class StoryRepositoryImp(
         title: String,
         description: String,
         studentId: Int,
-    ): Resource<Boolean> {
+    ): Resource<String> {
         return remoteDataSource.addStory(filePath, title, description, studentId)
     }
 

@@ -2,10 +2,7 @@ package com.scholar.center.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.scholar.domain.model.Category
-import com.scholar.domain.model.Material
-import com.scholar.domain.model.Resource
-import com.scholar.domain.model.Stage
+import com.scholar.domain.model.*
 import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.repo.MaterialRepository
 import com.scholar.domain.usecase.CategoryUseCase
@@ -28,7 +25,7 @@ class HomeVM @Inject constructor(
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
     val categories = _categories.asStateFlow()
 
-    private val _materials = MutableStateFlow<List<Material>>(emptyList())
+    private val _materials = MutableStateFlow<List<MaterialWithTeacher>>(emptyList())
     val materials = _materials.asStateFlow()
 
     private val _stages = MutableStateFlow<List<Stage>>(emptyList())
@@ -77,7 +74,7 @@ class HomeVM @Inject constructor(
 
     private fun updateData(
         c: List<Category>,
-        materials: List<Material>?,
+        materials: List<MaterialWithTeacher>?,
     ) {
         _categories.value = c
         if (materials != null) {

@@ -32,8 +32,6 @@
         <!-- Set the theme of the Activity that directly follows your splash screen. -->
         <!-- Required -->
         <item name="postSplashScreenTheme">@style/Theme.Scholar</item>
-        <!--        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/canary</item>-->
-
     </style>
 
 

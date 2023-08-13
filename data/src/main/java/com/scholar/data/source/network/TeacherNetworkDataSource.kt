@@ -29,18 +29,19 @@ class TeacherNetworkDataSource @Inject constructor(
             }
         }
 
-    suspend fun search(input: String): Resource<List<TeacherNetwork>> = accessMutex.withLock {
-        return when (val response = apiService.searchForTeacher(input)) {
-            is NetworkResult.Success -> {
-                Resource.Success(response.data)
-            }
-            is NetworkResult.Error -> {
-                Resource.Error(response.error)
-            }
-            is NetworkResult.Exception -> {
-                Resource.Error(response.e.message)
+    suspend fun search(page: Int, input: String): Resource<List<TeacherNetwork>> =
+        accessMutex.withLock {
+            return when (val response = apiService.getSearchForTeachers(page, input)) {
+                is NetworkResult.Success -> {
+                    Resource.Success(response.data)
+                }
+                is NetworkResult.Error -> {
+                    Resource.Error(response.error)
+                }
+                is NetworkResult.Exception -> {
+                    Resource.Error(response.e.message)
+                }
             }
         }
-    }
 }
 

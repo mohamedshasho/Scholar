@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
@@ -53,15 +56,36 @@ class TeachersSearchFragment : Fragment(R.layout.fragment_teachers_search), Menu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTeachersSearchBinding.bind(view)
 
-        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id,imageView ->
-            navController.navigate(
-                TeachersSearchFragmentDirections.actionTeachersSearchToTeacher(
-                    teacherId = id
-                )
+        val teacherProfileAdapter = TeacherProfileAdapter(TeacherComparator) { id, imageView ->
+            imageView.transitionName = id.toString()
+            val extras = FragmentNavigatorExtras(
+                imageView to id.toString()
             )
+            val action =
+                TeachersSearchFragmentDirections.actionTeachersSearchToTeacher(teacherId = id)
+            navController.navigate(action, extras)
         }
 
-        binding.teachersSerachRecyclerView.apply {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                teacherProfileAdapter.loadStateFlow.collectLatest { state ->
+                    when (state.append) {
+                        is LoadState.NotLoading -> {
+                            viewModel.changeLoadingState(false)
+                        }
+                        is LoadState.Error -> {
+                            viewModel.changeLoadingState(false)
+                        }
+                        is LoadState.Loading -> {
+                            viewModel.changeLoadingState(true)
+                        }
+                    }
+
+                }
+            }
+        }
+
+        binding.teachersSearchRecyclerView.apply {
             layoutManager =
                 GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
             adapter = teacherProfileAdapter

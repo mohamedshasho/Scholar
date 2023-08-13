@@ -22,21 +22,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/teachers_serach_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/teachers_serach_recycler_view"
+            android:id="@+id/teachers_search_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingHorizontal="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="20dp" />
+
+        <ProgressBar
+            android:id="@+id/teachers_serach_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </FrameLayout>
 
 

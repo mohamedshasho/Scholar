@@ -41,7 +41,7 @@ class TeacherMaterialsFragment : Fragment(R.layout.fragment_teacher_materials) {
                     when (state) {
                         is UiState.Success -> {
                             state.data?.let { list ->
-                                materialsAdapter.setList(list)
+//                                materialsAdapter.setList(list)
                             }
                         }
                         is UiState.Error -> {}

@@ -6,7 +6,8 @@ interface Student {
     val id: Int
     val fullName: String
     val email: String?
-    val image: String
+    val image: String?
+    val wallet: String?
 }
 
 data class StudentNetwork(
@@ -14,5 +15,6 @@ data class StudentNetwork(
     @SerializedName("full_name")
     override val fullName: String,
     override val email: String?,
-    override val image: String,
+    override val image: String?,
+    override val wallet: String?,
 ) : Student

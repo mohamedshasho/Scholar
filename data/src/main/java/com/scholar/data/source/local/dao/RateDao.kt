@@ -9,4 +9,7 @@ interface RateDao : BaseDao<RateLocal> {
 
     @Query("select AVG(rate) from rates where material_id=:id")
     suspend fun getTotalRateForMaterial(id: Int): Double
+
+    @Query("delete from rates where material_id=:id")
+    suspend fun deleteAllRateForMaterial(id: Int)
 }

@@ -83,8 +83,21 @@ class AddStoryFragment : Fragment(R.layout.fragment_add_story) {
             viewModel.addStory(
                 binding.addStoryTitle.text.toString(),
                 binding.addStoryDescription.text.toString(),
-                studentId = 1
             )
+        }
+
+
+        lifecycleScope.launch {
+            viewModel.isAddedSuccess.collectLatest { isAdded ->
+                if (isAdded) findNavController().popBackStack()
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.message.collectLatest { message ->
+                message?.let {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

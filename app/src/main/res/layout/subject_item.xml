@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center_horizontal"
     android:layout_margin="10dp"
+    android:foreground="?android:attr/selectableItemBackground"
     android:padding="10dp"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="8dp"
     app:cardBackgroundColor="?attr/colorPrimaryContainer"
-    android:foreground="?android:attr/selectableItemBackground">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/subject_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/material_subject_layout"
             android:layout_width="match_parent"
@@ -25,104 +25,110 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/material_subject_image"
                 android:layout_width="220dp"
                 android:layout_height="150dp"
                 android:background="@drawable/image_rounded_corners"
                 android:src="@drawable/ic_material" />
+
             <TextView
                 android:id="@+id/material_subject_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:lines="1"
                 android:padding="8dp"
                 android:text="Book name"
-                android:lines="1"
-                android:ellipsize="end"
                 android:textAppearance="@style/TextBody1" />
+
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                >
-                <ImageView
+                android:paddingHorizontal="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/material_subject_teacher_image"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_person"
-                    app:tint="?attr/colorSecondary" />
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="1dp" />
+
                 <TextView
                     android:id="@+id/material_subject_teacher_text"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="8dp"
-                    android:lines="1"
                     android:ellipsize="end"
+                    android:lines="1"
+                    android:padding="8dp"
+                    android:maxLines="1"
                     android:text="teacher name "
                     android:textAppearance="@style/TextBody2" />
 
                 <TextView
                     android:id="@+id/material_subject_number_hours_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="end"
                     android:padding="8dp"
                     android:text="10h"
-                    android:textAppearance="@style/TextBody2"
-                    android:textStyle="bold"
-                    />
+                    android:textAppearance="@style/TextSubTitle2"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                >
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
 
                 <TextView
                     android:id="@+id/material_subject_price_text"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
                     android:text="1000 SYR"
                     android:textAppearance="@style/TextBody2" />
 
-                <TextView
-                    android:id="@+id/material_subject_number_views_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:padding="2dp"
-                    android:text="100"
-                    android:textAppearance="@style/TextSubTitle2"
-                    />
-                <ImageView
-                    android:id="@+id/material_subject_number_views_image"
-                    android:layout_width="18dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_eye"
-                    app:tint="?attr/colorPrimaryVariant" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/material_subject_number_views_text"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:gravity="end"-->
+                <!--                    android:padding="2dp"-->
+                <!--                    android:text="100"-->
+                <!--                    android:textAppearance="@style/TextSubTitle2"-->
+                <!--                    />-->
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/material_subject_number_views_image"-->
+                <!--                    android:layout_width="18dp"-->
+                <!--                    android:layout_height="16dp"-->
+                <!--                    android:src="@drawable/ic_eye"-->
+                <!--                    app:tint="?attr/colorPrimaryVariant" />-->
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="5dp"
-            >
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/material_subject_star_image"
                 android:layout_width="20dp"
@@ -135,7 +141,7 @@
                 android:id="@+id/material_subject_star_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="500"
+                android:text="5"
                 android:textAppearance="@style/TextSubTitle2" />
 
         </LinearLayout>

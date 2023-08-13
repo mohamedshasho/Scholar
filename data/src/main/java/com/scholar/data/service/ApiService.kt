@@ -19,11 +19,12 @@ interface ApiService {
     @GET("teacher")
     suspend fun getTeachers(@Query("page") page: Int): NetworkResult<List<TeacherNetwork>>
 
-    @POST("teachers/search")
-    @FormUrlEncoded
-    suspend fun searchForTeacher(
-        @Field("teacher") teacher: String,
+    @GET("teacher")
+    suspend fun getSearchForTeachers(
+        @Query("page") page: Int,
+        @Query("filter[name]") name: String?,
     ): NetworkResult<List<TeacherNetwork>>
+
 
     @GET("student/stories")
     suspend fun getStories(@Query("page") page: Int): NetworkResult<List<StoryNetwork>>
@@ -35,7 +36,7 @@ interface ApiService {
         @Part("title") title: String,
         @Part("studentId") studentId: Int,
         @Part("description") description: String,
-    )
+    ) : NetworkResult<MessageResponse>
 
     @FormUrlEncoded
     @POST("student/add-story")
@@ -43,7 +44,7 @@ interface ApiService {
         @Field("title") title: String,
         @Field("studentId") studentId: Int,
         @Field("description") description: String,
-    )
+    ): NetworkResult<MessageResponse>
 
     @GET("getAllMaterials")
     suspend fun getMaterials(): NetworkResult<List<MaterialNetwork>>

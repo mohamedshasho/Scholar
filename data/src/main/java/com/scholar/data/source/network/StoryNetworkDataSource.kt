@@ -1,19 +1,14 @@
 package com.scholar.data.source.network
 
 
-import android.util.Log
 import com.scholar.data.service.ApiService
 import com.scholar.domain.model.NetworkResult
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.StoryNetwork
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 
@@ -43,42 +38,34 @@ class StoryNetworkDataSource @Inject constructor(
         title: String,
         description: String,
         studentId: Int,
-    ): Resource<Boolean> =
+    ): Resource<String> =
         accessMutex.withLock {
-
-            if (filePath != null) {
+            return if (filePath != null) {
                 val fileRequestBody = filePath.let {
                     val file = File(it)
                     file.asRequestBody()
                 }
                 val filePart =
                     MultipartBody.Part.createFormData("storyImg", filePath, fileRequestBody)
-
-                apiService.addStory(
-                    file = filePart, title, studentId, description
-                )
+                when (val resource =
+                    apiService.addStory(file = filePart, title, studentId, description)) {
+                    is NetworkResult.Success -> {
+                        Resource.Success(resource.data.message)
+                    }
+                    else -> {
+                        Resource.Error("Error while added")
+                    }
+                }
             } else {
-                apiService.addStory(title, studentId, description)
+                when (val resource = apiService.addStory(title, studentId, description)) {
+                    is NetworkResult.Success -> {
+                        Resource.Success(resource.data.message)
+                    }
+                    else -> {
+                        Resource.Error("Error while added")
+                    }
+                }
             }
-
-//                    map = map,
-
-            return Resource.Success(true)
-//            return when (val response =
-//                apiService.addStory(
-//                    file = filePart,
-////                    map = map,
-//                )) {
-//                is NetworkResult.Success -> {
-//                    Resource.Success(true)
-//                }
-//                is NetworkResult.Error -> {
-//                    Resource.Error(response.error)
-//                }
-//                is NetworkResult.Exception -> {
-//                    Resource.Error(response.e.message)
-//                }
-//            }
         }
 }
 

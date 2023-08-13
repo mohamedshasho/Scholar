@@ -14,7 +14,7 @@ class TeachersSearchPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TeacherWithSubjects> {
         val currentPage = params.key ?: 1
-        return when (val response = networkDataSource.search(input)) {
+        return when (val response = networkDataSource.search(currentPage,input)) {
             is Resource.Success -> {
                 if (response.data.isNullOrEmpty()) {
                     LoadResult.Page(

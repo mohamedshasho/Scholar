@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scholar.center.unit.Constants.STORY_ID_KEY
 import com.scholar.domain.model.Story
+import com.scholar.domain.model.StoryWithStudent
 import com.scholar.domain.repo.StoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,7 @@ class StoryDetailVM @Inject constructor(
 
     private val storyId = requireNotNull(savedStateHandle.get<Int>(STORY_ID_KEY))
 
-    private val _story = MutableStateFlow<Story?>(null)
+    private val _story = MutableStateFlow<StoryWithStudent?>(null)
     val story = _story.asStateFlow()
 
     init {

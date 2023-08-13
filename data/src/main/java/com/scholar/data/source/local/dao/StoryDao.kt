@@ -12,8 +12,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface StoryDao : BaseDao<StoryLocal> {
 
+    @Transaction
     @Query("select * from stories")
-    fun getStories(): Flow<List<StoryLocal>>
+    fun getStories(): Flow<List<StoryWithStudentLocal>>
 
     @Query("SELECT * FROM stories LIMIT :pageSize OFFSET :offset")
     suspend fun getStories(offset: Int, pageSize: Int): List<StoryLocal>
@@ -25,8 +26,9 @@ interface StoryDao : BaseDao<StoryLocal> {
     @Query("select * from stories")
     fun getStoriesWithStudent(): PagingSource<Int, StoryWithStudentLocal>
 
+    @Transaction
     @Query("select * from stories where id=:id")
-    fun getStory(id: Int): Flow<StoryLocal>
+    fun getStory(id: Int): Flow<StoryWithStudentLocal>
 
     @Query("DELETE from stories")
     suspend fun deleteAll()

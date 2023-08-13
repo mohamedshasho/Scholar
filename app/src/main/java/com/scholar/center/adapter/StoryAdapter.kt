@@ -35,13 +35,18 @@ class StoryAdapter(
             holder.binding.storyItemDescriptionText.text = item.story.description
             holder.binding.storyItemDateText.text = item.story.datePublication
             holder.binding.storyItemStudentName.text = item.student.fullName
-            Glide.with(holder.itemView.context).load("${BASE_URL}${item.story.image}")
-                .placeholder(R.drawable.ic_story)
-                .into(holder.binding.storyItemCover)
-
-            Glide.with(holder.itemView.context).load("${BASE_URL}${item.student.image}")
-                .placeholder(R.drawable.ic_person)
-                .into(holder.binding.storyItemStudentImage)
+            item.story.image?.let { cover ->
+                Glide.with(holder.itemView.context).load("${BASE_URL}${cover}")
+                    .placeholder(R.drawable.story_placeholder)
+                    .error(R.drawable.story_placeholder)
+                    .into(holder.binding.storyItemCover)
+            }
+            item.student.image?.let { image ->
+                Glide.with(holder.itemView.context).load("${BASE_URL}${image}")
+                    .placeholder(R.drawable.ic_person)
+                    .error(R.drawable.ic_person)
+                    .into(holder.binding.storyItemStudentImage)
+            }
         }
     }
 

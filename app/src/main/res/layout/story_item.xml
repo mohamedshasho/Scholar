@@ -35,7 +35,7 @@
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/background_rounded_icon" />
+                android:src="@drawable/story_placeholder" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/story_item_student_image"

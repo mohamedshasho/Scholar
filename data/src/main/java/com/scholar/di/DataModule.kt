@@ -72,6 +72,10 @@ object DataModule {
 
     @Singleton
     @Provides
+    fun provideRateDao(scholarDb: ScholarDb) = scholarDb.rateDao()
+
+    @Singleton
+    @Provides
     fun provideCategoryRepository(
         categoryNetworkDataSource: CategoryNetworkDataSource,
         categoryDao: CategoryDao,
@@ -101,9 +105,16 @@ object DataModule {
     fun provideMaterialRepository(
         materialNetworkDataSource: MaterialNetworkDataSource,
         materialDao: MaterialDao,
+        rateDao: RateDao, teacherDao: TeacherDao,
         @DefaultDispatcher dispatcher: CoroutineDispatcher,
     ): MaterialRepository =
-        MaterialRepositoryImp(materialNetworkDataSource, materialDao, dispatcher)
+        MaterialRepositoryImp(
+            materialNetworkDataSource,
+            materialDao,
+            rateDao,
+            teacherDao,
+            dispatcher
+        )
 
     @Singleton
     @Provides

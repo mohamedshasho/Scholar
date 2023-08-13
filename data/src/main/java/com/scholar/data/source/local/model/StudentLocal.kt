@@ -11,7 +11,8 @@ data class StudentLocal(
     override val id: Int,
     override val fullName: String,
     override val email: String?,
-    override val image: String,
+    override val image: String?,
+    override val wallet: String?,
 ) : Student
 
-fun StudentNetwork.toLocal() = StudentLocal(id, fullName, email, image)
+fun StudentNetwork.toLocal() = StudentLocal(id, fullName, email, image, wallet)

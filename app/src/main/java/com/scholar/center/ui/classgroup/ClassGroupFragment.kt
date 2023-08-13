@@ -54,21 +54,21 @@ class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
         }
 
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.uiState.collectLatest { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            state.data?.let { list ->
-                                materialAdapter.setList(list)
-                            }
-                        }
-                        is UiState.Error -> {}
-                        else -> {
-                        }
-                    }
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.CREATED) {
+//                viewModel.uiState.collectLatest { state ->
+//                    when (state) {
+//                        is UiState.Success -> {
+//                            state.data?.let { list ->
+//                                materialAdapter.setList(list)
+//                            }
+//                        }
+//                        is UiState.Error -> {}
+//                        else -> {
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }

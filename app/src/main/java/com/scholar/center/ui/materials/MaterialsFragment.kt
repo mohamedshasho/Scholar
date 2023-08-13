@@ -147,9 +147,9 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.materials.collectLatest { materials ->
-                    subjectsAdapter.setList(materials)
-                }
+//                viewModel.materials.collectLatest { materials ->
+//                    subjectsAdapter.setList(materials)
+//                }
             }
         }
     }

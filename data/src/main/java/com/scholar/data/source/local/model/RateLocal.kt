@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.scholar.domain.model.Rate
+import com.scholar.domain.model.RateNetwork
 
 
 @Entity(
@@ -22,3 +23,9 @@ data class RateLocal(
     override val rate: Int,
     override val comment: String?,
 ) : Rate
+
+
+fun RateNetwork.toLocal(materialId: Int) =
+    RateLocal(materialId = materialId, rate = rate, comment = comment)
+
+fun List<RateNetwork>.toLocal(materialId: Int) = map { it.toLocal(materialId) }

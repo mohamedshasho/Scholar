@@ -6,32 +6,7 @@ import androidx.room.PrimaryKey
 import com.scholar.domain.model.Material
 import com.scholar.domain.model.MaterialNetwork
 
-@Entity(
-    tableName = "materials",
-    foreignKeys = [
-        ForeignKey(
-            childColumns = ["teacherId"],
-            entity = TeacherLocal::class,
-            parentColumns = ["teacher_id"]
-        ),
-        ForeignKey(
-            childColumns = ["categoryId"],
-            entity = CategoryLocal::class,
-            parentColumns = ["id"]
-        ),
-        ForeignKey(
-            childColumns = ["subjectId"],
-            entity = SubjectLocal::class,
-            parentColumns = ["subject_id"]
-        ),
-        ForeignKey(
-            childColumns = ["classId"],
-            entity = ClassRoomLocal::class,
-            parentColumns = ["id"],
-        ),
-
-    ]
-)
+@Entity(tableName = "materials")
 data class MaterialLocal(
     @PrimaryKey
     override val id: Int,
@@ -51,7 +26,7 @@ fun MaterialNetwork.toLocal() = MaterialLocal(
     id,
     classId = null,
     subjectId = null,
-    teacherId = null,
+    teacherId = teacher?.id,
     categoryId = categoryId,
     title = title,
     description = description,

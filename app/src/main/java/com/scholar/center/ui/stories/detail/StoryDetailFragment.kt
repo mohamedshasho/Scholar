@@ -29,21 +29,23 @@ class StoryDetailFragment : Fragment(R.layout.fragment_story_detail) {
 
         lifecycleScope.launch {
             viewModel.story.collectLatest {
-                it?.let { story ->
-                    binding.storyItemDateText.text = story.datePublication
-//                    binding.storyDetailStudentName.text = story.studentName
-                    binding.storyDetailDescription.text = story.description
-                    binding.storyDetailTitle.text = story.title
+                it?.let { storyWithStudent ->
+                    binding.storyItemDateText.text = storyWithStudent.story.datePublication
+                    binding.storyDetailStudentName.text = storyWithStudent.student.fullName
+                    binding.storyDetailDescription.text = storyWithStudent.story.description
+                    binding.storyDetailTitle.text = storyWithStudent.story.title
 
-
-//                    Glide.with(requireContext())
-//                        .load("${BASE_URL}${story.studentProfile}")
-//                        .placeholder(R.drawable.ic_person)
-//                        .into(binding.storyDetailStudentImage)
 
                     Glide.with(requireContext())
-                        .load("${BASE_URL}${story.image}")
-                        .placeholder(R.drawable.ic_story)
+                        .load("${BASE_URL}${storyWithStudent.student.image}")
+                        .placeholder(R.drawable.ic_person)
+                        .error(R.drawable.ic_person)
+                        .into(binding.storyDetailStudentImage)
+
+                    Glide.with(requireContext())
+                        .load("${BASE_URL}${storyWithStudent.story.image}")
+                        .placeholder(R.drawable.story_placeholder)
+                        .error(R.drawable.story_placeholder)
                         .into(binding.storyDetailCover)
 
                 }

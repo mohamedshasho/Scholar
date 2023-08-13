@@ -1,8 +1,11 @@
 package com.scholar.data.repo
 
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.map
+import androidx.paging.PagingData
+import androidx.paging.ExperimentalPagingApi
 import com.scholar.data.source.local.ScholarDb
-import com.scholar.data.source.local.paging.TeacherLocalPagingSource
 import com.scholar.data.source.network.TeacherNetworkDataSource
 import com.scholar.data.source.network.TeacherRemoteMediator
 import com.scholar.data.source.network.paging.TeachersSearchPagingSource

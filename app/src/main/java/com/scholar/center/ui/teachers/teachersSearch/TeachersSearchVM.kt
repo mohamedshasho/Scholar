@@ -21,21 +21,24 @@ class TeachersSearchVM @Inject constructor(
         MutableStateFlow<PagingData<TeacherWithSubjects>>(PagingData.empty())
     val teachers = _teachersWithSubjects.asStateFlow()
 
-    private val _loading = MutableStateFlow(false)
+    private val _loading = MutableStateFlow(true)
     val loading = _loading.asStateFlow()
 
 
     fun searchForTeachers(input: String?) {
         if (input.isNullOrEmpty()) return
-
         viewModelScope.launch {
             _loading.value = true
             teacherRepository.searchForTeachers(input.lowercase()).cachedIn(viewModelScope)
                 .collect { data ->
-                    _loading.value = false
                     _teachersWithSubjects.value = data
+
                 }
         }
+    }
+
+    fun changeLoadingState(b: Boolean) {
+        _loading.value = b
     }
 
 

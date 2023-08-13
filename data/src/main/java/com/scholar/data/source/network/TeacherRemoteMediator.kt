@@ -57,7 +57,6 @@ class TeacherRemoteMediator(
         }
         return when (val response = teacherNetworkDataSource.loadTeachers(currentPage)) {
             is Resource.Success -> {
-                Log.d("loadTeachers", "load: ${response.data}")
                 val endOfPaginationReached = response.data?.isEmpty() ?: true
                 val prevPage = if (currentPage == 1) null else currentPage - 1
                 val nextPage = if (endOfPaginationReached) null else currentPage + 1
