@@ -64,6 +64,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 materialAdapter.setList(materials)
             }
         }
+        
         lifecycleScope.launch {
             viewModel.categories.collect { categories ->
                 categoryAdapter.setMaterialSubjectList(categories)

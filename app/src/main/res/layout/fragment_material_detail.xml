@@ -210,6 +210,13 @@
                    android:textAppearance="@style/TextBody1" />
 
                <TextView
+                   android:id="@+id/material_discount"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="5"
+                   android:layout_marginHorizontal="5dp"
+                   android:textAppearance="@style/TextBody2" />
+               <TextView
                    android:id="@+id/material_price_value"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"

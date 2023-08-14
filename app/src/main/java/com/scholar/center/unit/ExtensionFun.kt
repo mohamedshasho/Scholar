@@ -28,3 +28,8 @@ fun Context.getThemeColor(resId: Int): Int {
     )
     return typedValue.data
 }
+
+fun Int.applyDiscount(discountPercentage: Int): Int {
+    val discountAmount = (discountPercentage.toDouble() / 100) * this
+    return this - discountAmount.toInt()
+}

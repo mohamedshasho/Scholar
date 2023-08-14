@@ -1,5 +1,6 @@
 package com.scholar.center.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.scholar.center.R
 import com.scholar.center.databinding.SubjectItemBinding
 import com.scholar.center.unit.Constants.BASE_URL
+import com.scholar.center.unit.applyDiscount
 import com.scholar.domain.model.MaterialWithTeacher
 
 class MaterialAdapter(
@@ -41,9 +43,25 @@ class MaterialAdapter(
             context.getString(R.string.hour, item.material.hoursNumberOfWeek)
 
         if (item.material.price != null && item.material.price != 0) {
-            holder.binding.materialSubjectPriceText.text = context.getString(
-                R.string.syr, item.material.price
-            )
+            if (item.material.discount != null && item.material.discount != 0) {
+                holder.binding.materialSubjectDiscountText.text = context.getString(
+                    R.string.price_only, item.material.price
+                )
+                holder.binding.materialSubjectDiscountText.paintFlags =
+                    holder.binding.materialSubjectDiscountText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                val discountedPrice =
+                    item.material.price?.applyDiscount(item.material.discount ?: 0)
+
+                holder.binding.materialSubjectPriceText.text = context.getString(
+                    R.string.syr, discountedPrice
+                )
+            } else {
+                holder.binding.materialSubjectDiscountText.visibility = View.GONE
+                holder.binding.materialSubjectPriceText.text = context.getString(
+                    R.string.syr, item.material.price
+                )
+            }
+
         } else {
             holder.binding.materialSubjectPriceText.visibility = View.GONE
         }
@@ -71,6 +89,8 @@ class MaterialAdapter(
         items = l
         notifyItemChanged(lastItemSize, l.size)
     }
+
+
 
     class ViewHolder(val binding: SubjectItemBinding) :
         RecyclerView.ViewHolder(binding.root)

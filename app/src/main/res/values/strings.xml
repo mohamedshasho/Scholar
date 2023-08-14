@@ -110,4 +110,9 @@
     <string name="hi">Hi %s</string>
     <string name="welcome">Welcome to the Scholar app</string>
     <string name="hour">%d Hours</string>
+    <string name="price_only" >%d</string>
+
+    <string name="material_class_name">%1$s, %2$s</string>
+    <string name="loading">Loading...</string>
+
 </resources>

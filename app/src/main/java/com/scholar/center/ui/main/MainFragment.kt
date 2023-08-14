@@ -58,7 +58,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NavController.OnDestinati
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifecycleScope.launch {
             viewModel.studentName.collectLatest { name ->
-                if (name == null) {
+                if (name.isNullOrEmpty()) {
                     binding.mainStudentName.visibility = View.GONE
                 } else {
                     binding.mainStudentName.visibility = View.VISIBLE

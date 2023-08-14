@@ -114,5 +114,9 @@
     <string name="hi">مرحبا %s</string>
     <string name="welcome">مرحبا بكم في تطبيق سكولار</string>
     <string name="hour">%d ساعة</string>
+    <string name="price_only" >%d</string>
+
+    <string name="material_class_name">%1$s, %2$s</string>
+    <string name="loading">جاري التحميل…</string>
 
 </resources>
