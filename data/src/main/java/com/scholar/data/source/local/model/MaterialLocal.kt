@@ -30,8 +30,8 @@ data class MaterialLocal(
 
 fun MaterialNetwork.toLocal() = MaterialLocal(
     id,
-    classId = classRoomCrossRef?.classroom,
-    stageId = classRoomCrossRef?.stage,
+    classId = classroom?.classroom,
+    stageId = classroom?.stage,
     subjectId = subject?.id,
     content = content(),
     teacherId = teacher?.id,

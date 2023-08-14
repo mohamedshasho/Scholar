@@ -13,6 +13,15 @@ interface MaterialWithTeacher {
     val teacher: TeacherSmall
 }
 
+interface MaterialWithDetail {
+    val material: Material
+    val teacher: TeacherSmall
+    val rates :List<Rate>
+    val classroom :String?
+    val stage :String?
+    val subject :String?
+}
+
 
 
 

@@ -15,7 +15,7 @@ data class MaterialNetwork(
     override val categoryId: Int?,
     val teacher: TeacherNetwork?,
     val rates : List<RateNetwork>,
-    val classRoomCrossRef: ClassRoomCrossRefNetwork?,
+    val classroom: ClassRoomCrossRefNetwork?,
     val subject: SubjectNetwork?,
     val pdf : String?,
     val videos : String?,

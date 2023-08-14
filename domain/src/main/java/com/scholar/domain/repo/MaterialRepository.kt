@@ -2,6 +2,7 @@ package com.scholar.domain.repo
 
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Material
+import com.scholar.domain.model.MaterialWithDetail
 import com.scholar.domain.model.MaterialWithTeacher
 import kotlinx.coroutines.flow.Flow
 
@@ -10,6 +11,7 @@ interface MaterialRepository {
     suspend fun getSomeMaterials(): Flow<List<MaterialWithTeacher>>
     suspend fun getMaterialsFromNetwork(): Resource<List<Material>>
     suspend fun observeMaterials(): Flow<List<Material>>
-    suspend fun getMaterialFromLocal(id: Int): Material
-    suspend fun getMaterialFromNetwork(id: Int): Resource<Material>
+    suspend fun getMaterialFromLocal(id: Int): Flow<MaterialWithDetail>
+    suspend fun getMaterialFromNetwork(id: Int)
+
 }
