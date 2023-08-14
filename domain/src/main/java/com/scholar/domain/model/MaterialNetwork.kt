@@ -13,7 +13,7 @@ data class MaterialNetwork(
     override val hoursNumberOfWeek: Int?,
     @SerializedName("file_type")
     override val categoryId: Int?,
-    val teacher: TeacherNetwork?,
+    val teacher: TeacherNetwork,
     val rates : List<RateNetwork>,
     val classroom: ClassRoomCrossRefNetwork?,
     val subject: SubjectNetwork?,

@@ -185,32 +185,16 @@
         android:label="ClassesFragment"
         tools:layout="@layout/fragment_classes">
         <action
-            android:id="@+id/action_classes_to_classGroup"
-            app:destination="@id/classGroupFragment"
+            android:id="@+id/action_classes_to_materials"
+            app:destination="@id/materialsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
-            <argument
-                android:name="class_id"
-                app:argType="integer" />
-        </action>
-    </fragment>
-    <fragment
-        android:id="@+id/classGroupFragment"
-        android:name="com.scholar.center.ui.classgroup.ClassGroupFragment"
-        android:label="fragment_class_group"
-        tools:layout="@layout/fragment_class_group">
-        <action
-            android:id="@+id/action_classesGroup_to_material"
-            app:destination="@id/materialDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-            <argument
-                android:name="material_id"
-                app:argType="integer" />
+            <argument android:name="classroom_id"
+                app:argType="integer"/>
+            <argument android:name="stage_id"
+                app:argType="integer"/>
         </action>
     </fragment>
 

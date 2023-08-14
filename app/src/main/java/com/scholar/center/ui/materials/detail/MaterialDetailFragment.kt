@@ -106,7 +106,6 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
 
                         loadingDialog.dismiss()
 
-
                         binding.materialPriceButton.setOnClickListener {
                             if (material.price == null || material.price == 0) {
                                 // navigate to show

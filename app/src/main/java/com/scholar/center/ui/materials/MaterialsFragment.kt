@@ -22,6 +22,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialAdapter
+import com.scholar.center.adapter.MaterialPagingAdapter
+import com.scholar.center.adapter.MaterialsComparator
 import com.scholar.center.databinding.FragmentMaterialsBinding
 import com.scholar.center.model.UiState
 import com.scholar.center.ui.dialogs.MaterialFilterDialog
@@ -74,7 +76,7 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String?): Boolean {
-                Toast.makeText(requireContext(), newText, Toast.LENGTH_SHORT).show()
+                viewModel.search(newText)
                 view?.closeKeyboard(activity)
                 return true
             }
@@ -114,7 +116,8 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         val binding = FragmentMaterialsBinding.bind(view)
 
 
-        val subjectsAdapter = MaterialAdapter(
+        val materialsAdapter = MaterialPagingAdapter(
+            diffCallback = MaterialsComparator,
             navigateToTeacher = { teacherID ->
                 navController.navigate(
                     MaterialsFragmentDirections.actionMaterialsToTeacher(
@@ -134,7 +137,7 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         binding.subjectsRecyclerView.run {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = subjectsAdapter
+            adapter = materialsAdapter
         }
 
 //        binding.subjectsToolbarBackButton.setOnClickListener {
@@ -147,9 +150,9 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
         }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-//                viewModel.materials.collectLatest { materials ->
-//                    subjectsAdapter.setList(materials)
-//                }
+                viewModel.materials.collectLatest { materials ->
+                    materialsAdapter.submitData(materials)
+                }
             }
         }
     }

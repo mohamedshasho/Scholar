@@ -1,6 +1,27 @@
 package com.scholar.domain.model
 
 
+data class MaterialWithTeacherNetwork(
+    override val material: Material,
+    override val teacher: TeacherSmall,
+    override val totalRate: Double
+)
+    :MaterialWithTeacher
+
+
+fun TeacherNetwork.toSmall() = TeacherSmallNetwork(
+    teacherId = id,
+    name = fullName,
+    image = image,
+)
+
+data class TeacherSmallNetwork(
+    override val teacherId: Int?,
+    override val name: String?,
+    override  val image: String?
+) :TeacherSmall
+
+
 interface TeacherSmall {
     val teacherId: Int?
     val name: String?

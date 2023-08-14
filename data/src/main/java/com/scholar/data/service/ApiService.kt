@@ -50,6 +50,24 @@ interface ApiService {
     @GET("getAllMaterials")
     suspend fun getMaterials(): NetworkResult<List<MaterialNetwork>>
 
+    @GET("material")
+    suspend fun searchForMaterials(
+        @Query("page") page: Int,
+        @Query("filter[title]") title: String,
+    ):
+            NetworkResult<List<MaterialNetwork>>
+
+
+    @GET("material")
+    suspend fun filterMaterials(
+        @Query("page") page: Int,
+        @Query("filter[file_type]") categoryId: Int,
+        @Query("filter[stage]") stage: Int,
+        @Query("filter[classroom]") classroom: Int,
+        @Query("filter[subject]") subject: Int,
+    ):
+            NetworkResult<List<MaterialNetwork>>
+
     @GET("material/show/{id}")
     suspend fun getMaterial(@Path("id") id: Int): NetworkResult<MaterialNetwork>
 

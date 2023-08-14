@@ -32,22 +32,14 @@ class ClassGroupFragment : Fragment(R.layout.fragment_class_group) {
             categoryAdapter?.setItemSelected(position)
         }
 
-        val materialAdapter = MaterialAdapter(
-            navigateToTeacher = { teacherID ->
-//                findNavController().navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
-            },
-            navigateToDetails = {}
-        )
+
 
         binding.classGroupMaterialsSubjectsRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = categoryAdapter
         }
 
-        binding.classGroupSubjectsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = materialAdapter
-        }
+       
 
         binding.classGroupToolbarBackButton.setOnClickListener {
             findNavController().popBackStack()

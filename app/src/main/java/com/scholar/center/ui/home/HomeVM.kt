@@ -52,16 +52,16 @@ class HomeVM @Inject constructor(
     private fun fetchData() {
         viewModelScope.launch {
             _loading.value = true
-            val categories = async {
-                categoryUseCase()
+            launch {
+                categoryUseCase().collect {
+                    _categories.value = it
+                }
             }
             launch {
-                materialRepository.getSomeMaterials().collect{materials->
+                materialRepository.getSomeMaterials().collect { materials ->
                     _materials.value = materials
                 }
             }
-
-            _categories.value = categories.await()
             _loading.value = false
         }
     }

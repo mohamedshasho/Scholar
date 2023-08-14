@@ -3,6 +3,8 @@ package com.scholar.center.ui.materials
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.scholar.center.unit.Constants.CATEGORY_ID_KEY
 import com.scholar.center.unit.Constants.CLASSROOM_ID_KEY
 import com.scholar.center.unit.Constants.STAGE_ID_KEY
@@ -27,14 +29,14 @@ class MaterialsVM @Inject constructor(
     private val categoryUseCase: CategoryUseCase,
     private val stageUseCase: StageUseCase,
     private val subjectUseCase: SubjectUseCase,
-    private val materialRepository: Lazy<MaterialRepository>,
+    private val materialRepository: MaterialRepository,
 ) : ViewModel() {
 
-    val categoryId = savedStateHandle.get<Int>(CATEGORY_ID_KEY)
-    val stageId = savedStateHandle.get<Int>(STAGE_ID_KEY)
-    val classRoomId = savedStateHandle.get<Int>(CLASSROOM_ID_KEY)
+    private val categoryId = savedStateHandle.get<Int>(CATEGORY_ID_KEY)
+    private val stageId = savedStateHandle.get<Int>(STAGE_ID_KEY)
+    private val classRoomId = savedStateHandle.get<Int>(CLASSROOM_ID_KEY)
 
-    private val _materials = MutableStateFlow<List<Material>>(emptyList())
+    private val _materials = MutableStateFlow<PagingData<MaterialWithTeacher>>(PagingData.empty())
     val materials = _materials.asStateFlow()
 
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
@@ -52,9 +54,9 @@ class MaterialsVM @Inject constructor(
     private val _loading = MutableStateFlow(false)
     val loading = _loading.asStateFlow()
 
-    var selectedStage = 0
-    var selectedClassRoom = 0
-    var selectedCategory = 0
+    var selectedStage = stageId ?: 0
+    var selectedClassRoom = classRoomId ?: 0
+    var selectedCategory = categoryId ?: 0
     var selectedSubject = 0
 
     init {
@@ -67,21 +69,28 @@ class MaterialsVM @Inject constructor(
 
     private fun getData() {
         viewModelScope.launch {
+            launch {
+                categoryUseCase().collect {
+                    _categories.value = it
+                }
+            }
             _stages.value = stageUseCase()
             _classrooms.value = classRoomRepository.observeClassesRooms().first()
-            _categories.value = categoryUseCase()
+
             _subjects.value = subjectUseCase()
+
+
         }
     }
 
     private fun getMaterials() {
         viewModelScope.launch {
             _loading.value = true
-            when (val result = materialRepository.get().getMaterialsFromNetwork()) {
+            when (val result = materialRepository.getMaterialsFromNetwork()) {
                 is Resource.Success -> {
                     _loading.value = false
                     result.data?.let { list ->
-                        _materials.value = list
+
                     }
                 }
                 is Resource.Error -> {
@@ -89,5 +98,19 @@ class MaterialsVM @Inject constructor(
                 }
             }
         }
+    }
+
+    fun search(key: String?) {
+        if (key.isNullOrEmpty()) return
+
+        viewModelScope.launch {
+            materialRepository.searchForMaterialFromNetwork(key)
+                .cachedIn(viewModelScope)
+                .collect { pagingData ->
+                    _materials.value = pagingData
+                }
+        }
+
+
     }
 }
