@@ -22,6 +22,7 @@ data class MaterialNetwork(
     val summaries : String?,
     val book : String?,
     val exam : String?,
+    override val content: String?,
 ) : Material
 
 
@@ -33,4 +34,5 @@ interface Material {
     val discount: Int?
     val hoursNumberOfWeek: Int?
     val categoryId: Int?
+    val content: String?
 }

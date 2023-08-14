@@ -1,5 +1,6 @@
 package com.scholar.data.source.local.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.scholar.domain.model.Material
@@ -9,9 +10,13 @@ import com.scholar.domain.model.MaterialNetwork
 data class MaterialLocal(
     @PrimaryKey
     override val id: Int,
+    @ColumnInfo("class_id")
     val classId: Int?,
+    @ColumnInfo("stage_id")
     val stageId: Int?,
+    @ColumnInfo("subject_id")
     val subjectId: Int?,
+    @ColumnInfo("teacher_id")
     val teacherId: Int?,
     override val categoryId: Int?,
     override val title: String,
@@ -19,7 +24,7 @@ data class MaterialLocal(
     override val price: Int?,
     override val discount: Int?,
     override val hoursNumberOfWeek: Int?,
-    val content: String?,
+    override val content: String?,
 ) : Material
 
 

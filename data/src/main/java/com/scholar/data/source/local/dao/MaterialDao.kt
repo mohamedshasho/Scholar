@@ -16,14 +16,26 @@ interface MaterialDao : BaseDao<MaterialLocal> {
     @Query("select * from materials where id=:id")
     suspend fun getMaterial(id: Int): MaterialLocal
 
-    @Query("select * from materials order by random() limit :limit")
-    suspend fun getSomeMaterials(limit: Int): List<MaterialLocal>
+    @Transaction
+    @Query(
+        "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
+                " materials.hoursNumberOfWeek, materials.categoryId , " +
+                " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image," +
+                " (select avg(rate) from rates where material_id=materials.id) as totalRate" +
+                " FROM materials " +
+                "LEFT JOIN teachers ON materials.teacher_id = teachers.teacher_id " +
+                "order by random() limit :limit"
+    )
+    fun getSomeMaterials(limit: Int): Flow<List<MaterialWithTeacherLocal>>
 
     @Transaction
     @Query(
-        "SELECT materials.*, teachers.teacher_id as id ,teachers.full_name as name, teachers.image as image" +
+        "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
+                " materials.hoursNumberOfWeek, materials.categoryId , " +
+                " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image," +
+                " (select avg(rate) from rates where material_id=materials.id) as totalRate" +
                 " FROM materials " +
-                "LEFT JOIN teachers ON materials.subjectId = subjects.id"
+                "LEFT JOIN teachers ON materials.teacher_id = teachers.teacher_id "
     )
     fun getAllMaterialsWithSubject(): Flow<List<MaterialWithTeacherLocal>>
 }

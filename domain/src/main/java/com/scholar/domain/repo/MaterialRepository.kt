@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MaterialRepository {
     suspend fun getSomeMaterialsFromNetwork(): Resource<List<Material>>
-    suspend fun getSomeMaterials(): Resource<List<MaterialWithTeacher>>
+    suspend fun getSomeMaterials(): Flow<List<MaterialWithTeacher>>
     suspend fun getMaterialsFromNetwork(): Resource<List<Material>>
     suspend fun observeMaterials(): Flow<List<Material>>
     suspend fun getMaterialFromLocal(id: Int): Material

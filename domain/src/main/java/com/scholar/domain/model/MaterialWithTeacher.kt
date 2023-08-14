@@ -2,7 +2,7 @@ package com.scholar.domain.model
 
 
 interface TeacherSmall {
-    val id: Int?
+    val teacherId: Int?
     val name: String?
     val image: String?
 }

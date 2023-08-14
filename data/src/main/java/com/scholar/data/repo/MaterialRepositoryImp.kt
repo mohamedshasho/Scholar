@@ -8,7 +8,6 @@ import com.scholar.data.source.network.MaterialNetworkDataSource
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Material
 import com.scholar.domain.model.MaterialWithTeacher
-import com.scholar.domain.model.SmallTeacher
 import com.scholar.domain.repo.MaterialRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +27,7 @@ class MaterialRepositoryImp(
         return materialDao.getMaterials()
     }
 
-    override suspend fun getSomeMaterials(): Resource<List<MaterialWithTeacher>> {
+    override suspend fun getSomeMaterials(): Flow<List<MaterialWithTeacher>> {
         val networkMaterials = remoteDataSource.loadSomeMaterials()
         networkMaterials.forEach { material ->
             materialDao.upsert(material.toLocal())
@@ -36,25 +35,9 @@ class MaterialRepositoryImp(
             rateDao.upsertAll(material.rates.toLocal())
         }
 
-        val materialsWithTeacher = withContext(dispatcher) {
-            networkMaterials.map {
-                MaterialWithTeacher(
-                    material = it,
-                    teacher = SmallTeacher(
-                        id = it.teacher?.id,
-                        name = it.teacher?.fullName,
-                        image = it.teacher?.image
-                    ),
-                    totalRate = if (it.rates.isEmpty()) {
-                        0.0
-                    } else {
-                        val rates = it.rates.sumOf { rate -> rate.rate }
-                        rates.div(it.rates.size.toDouble())
-                    }
-                )
-            }
-        }
-        return Resource.Success(materialsWithTeacher)
+
+
+        return materialDao.getSomeMaterials(limit = 5)
     }
 
     override suspend fun getMaterialFromLocal(id: Int): Material {

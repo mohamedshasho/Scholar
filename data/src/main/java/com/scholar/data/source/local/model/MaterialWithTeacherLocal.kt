@@ -7,6 +7,6 @@ import com.scholar.domain.model.TeacherSmall
 data class MaterialWithTeacherLocal(
     @Embedded override val material: MaterialLocal,
     override val totalRate: Double,
-    override val teacher: TeacherSmall,
+    @Embedded override val teacher: TeacherSmallLocal,
     ) : MaterialWithTeacher
 

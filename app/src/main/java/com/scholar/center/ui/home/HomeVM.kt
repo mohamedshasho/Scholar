@@ -55,36 +55,15 @@ class HomeVM @Inject constructor(
             val categories = async {
                 categoryUseCase()
             }
-            val materials = async {
-                when (val result = materialRepository.getSomeMaterials()) {
-                    is Resource.Success -> {
-                        result.data
-                    }
-                    is Resource.Error -> {
-                        showSnackBarError(result.message)
-                        emptyList()
-                    }
+            launch {
+                materialRepository.getSomeMaterials().collect{materials->
+                    _materials.value = materials
                 }
             }
 
-            updateData(categories.await(), materials.await())
+            _categories.value = categories.await()
             _loading.value = false
         }
     }
-
-    private fun updateData(
-        c: List<Category>,
-        materials: List<MaterialWithTeacher>?,
-    ) {
-        _categories.value = c
-        if (materials != null) {
-            _materials.value = materials
-        }
-    }
-
-    private fun showSnackBarError(message: String?) {
-        // TODO("Not yet implemented")
-    }
-
 
 }

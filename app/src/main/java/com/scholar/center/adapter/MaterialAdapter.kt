@@ -59,10 +59,10 @@ class MaterialAdapter(
             navigateToDetails(item.material.id)
         }
         holder.binding.materialSubjectTeacherText.setOnClickListener {
-            item.teacher.id?.let { navigateToTeacher?.invoke(it) }
+            item.teacher.teacherId?.let { navigateToTeacher?.invoke(it) }
         }
         holder.binding.materialSubjectTeacherImage.setOnClickListener {
-            item.teacher.id?.let { navigateToTeacher?.invoke(it) }
+            item.teacher.teacherId?.let { navigateToTeacher?.invoke(it) }
         }
     }
 
