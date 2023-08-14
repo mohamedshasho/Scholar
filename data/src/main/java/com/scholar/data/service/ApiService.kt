@@ -9,6 +9,7 @@ import retrofit2.http.Query
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Field
 import retrofit2.http.Multipart
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -36,7 +37,7 @@ interface ApiService {
         @Part("title") title: String,
         @Part("studentId") studentId: Int,
         @Part("description") description: String,
-    ) : NetworkResult<MessageResponse>
+    ): NetworkResult<MessageResponse>
 
     @FormUrlEncoded
     @POST("student/add-story")
@@ -48,6 +49,9 @@ interface ApiService {
 
     @GET("getAllMaterials")
     suspend fun getMaterials(): NetworkResult<List<MaterialNetwork>>
+
+    @GET("material/show/{id}")
+    suspend fun getMaterial(@Path("id") id: Int): NetworkResult<MaterialNetwork>
 
     @GET("subjects")
     suspend fun getSubjects(): NetworkResult<List<SubjectNetwork>>

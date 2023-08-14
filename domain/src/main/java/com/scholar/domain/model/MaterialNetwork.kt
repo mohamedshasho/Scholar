@@ -14,7 +14,14 @@ data class MaterialNetwork(
     @SerializedName("file_type")
     override val categoryId: Int?,
     val teacher: TeacherNetwork?,
-    val rates : List<RateNetwork>
+    val rates : List<RateNetwork>,
+    val classRoomCrossRef: ClassRoomCrossRefNetwork?,
+    val subject: SubjectNetwork?,
+    val pdf : String?,
+    val videos : String?,
+    val summaries : String?,
+    val book : String?,
+    val exam : String?,
 ) : Material
 
 

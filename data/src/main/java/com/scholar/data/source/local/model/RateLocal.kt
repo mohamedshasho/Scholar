@@ -10,14 +10,11 @@ import com.scholar.domain.model.RateNetwork
 
 @Entity(
     tableName = "rates",
-    foreignKeys = [ForeignKey(
-        entity = MaterialLocal::class,
-        parentColumns = ["id"], childColumns = ["material_id"]
-    )]
+    primaryKeys = ["student_id", "material_id"],
 )
 data class RateLocal(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @ColumnInfo(name = "student_id")
+    val studentId: Int,
     @ColumnInfo(name = "material_id")
     val materialId: Int,
     override val rate: Int,
@@ -25,7 +22,7 @@ data class RateLocal(
 ) : Rate
 
 
-fun RateNetwork.toLocal(materialId: Int) =
-    RateLocal(materialId = materialId, rate = rate, comment = comment)
+fun RateNetwork.toLocal() =
+    RateLocal(materialId = materialId, studentId = studentId, rate = rate, comment = comment)
 
-fun List<RateNetwork>.toLocal(materialId: Int) = map { it.toLocal(materialId) }
+fun List<RateNetwork>.toLocal() = map(RateNetwork::toLocal)

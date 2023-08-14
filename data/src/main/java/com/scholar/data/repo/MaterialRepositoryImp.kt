@@ -33,8 +33,7 @@ class MaterialRepositoryImp(
         networkMaterials.forEach { material ->
             materialDao.upsert(material.toLocal())
             material.teacher?.let { teacherDao.upsert(it.toLocal()) }
-            rateDao.deleteAllRateForMaterial(material.id)
-            rateDao.upsertAll(material.rates.toLocal(material.id))
+            rateDao.upsertAll(material.rates.toLocal())
         }
 
         val materialsWithTeacher = withContext(dispatcher) {
@@ -80,5 +79,15 @@ class MaterialRepositoryImp(
         return Resource.Success(localMaterials)
     }
 
+
+    override suspend fun getMaterialFromNetwork(id: Int): Resource<Material> {
+        val networkMaterial = remoteDataSource.getMaterial(id)
+        return if (networkMaterial == null) Resource.Error(message = "empty")
+        else {
+            materialDao.upsert(networkMaterial.toLocal())
+            rateDao.upsertAll(networkMaterial.rates.toLocal())
+            return Resource.Success(networkMaterial)
+        }
+    }
 
 }

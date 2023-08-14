@@ -27,4 +27,14 @@ class MaterialNetworkDataSource @Inject constructor(
             else -> emptyList()
         }
     }
+
+
+    suspend fun getMaterial(id: Int): MaterialNetwork? = accessMutex.withLock {
+        return when (val response = apiService.getMaterial(id)) {
+            is NetworkResult.Success -> {
+                response.data
+            }
+            else -> null
+        }
+    }
 }
