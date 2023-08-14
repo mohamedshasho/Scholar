@@ -22,4 +22,5 @@ data class MaterialWithDetailLocal(
     override val classroom: String?,
     override val stage: String?,
     override val subject: String?,
+    override val category: String?,
 ) : MaterialWithDetail

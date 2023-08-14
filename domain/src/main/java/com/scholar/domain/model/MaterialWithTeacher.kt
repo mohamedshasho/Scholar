@@ -20,6 +20,7 @@ interface MaterialWithDetail {
     val classroom :String?
     val stage :String?
     val subject :String?
+    val category :String?
 }
 
 

@@ -20,12 +20,13 @@ interface MaterialDao : BaseDao<MaterialLocal> {
         "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
                 " materials.hoursNumberOfWeek, materials.categoryId , " +
                 " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image" +
-                ", subjects.name as subject, stages.name as stage, classes.name as classroom " +
+                ", subjects.name as subject, stages.name as stage, classes.name as classroom, categories.name as category " +
                 " FROM materials " +
                 "LEFT JOIN teachers ON materials.teacher_id = teachers.teacher_id " +
                 "join classes on materials.class_id = classes.id " +
                 "join stages on materials.stage_id = stages.id " +
                 "join subjects on materials.subject_id = subjects.subject_id " +
+                "join categories on materials.categoryId = categories.id " +
                 "where materials.id = :id"
     )
     fun getMaterial(id: Int): Flow<MaterialWithDetailLocal>

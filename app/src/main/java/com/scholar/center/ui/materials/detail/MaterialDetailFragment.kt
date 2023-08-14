@@ -48,10 +48,11 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.material.collect {
-                    it?.let { material ->
+                    it?.let { materialWithDetail ->
+                        val material = materialWithDetail.material
                         binding.materialName.text = material.title
-                        binding.materialType.text = "نوط"
-                        binding.materialClassName.text = "المرحلة الابتدائية، الاول"
+                        binding.materialType.text = materialWithDetail.category
+                        binding.materialClassName.text = "${materialWithDetail.stage}, ${materialWithDetail.classroom}"
 //                        binding.materialDescription.text = material.description
                         if (material.price == null || material.price == 0) {
                             binding.materialPriceLayout.visibility = View.GONE

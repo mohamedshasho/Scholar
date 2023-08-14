@@ -1,10 +1,7 @@
 package com.scholar.di
 
 import com.scholar.domain.model.NetworkConnectivity
-import com.scholar.domain.repo.CategoryRepository
-import com.scholar.domain.repo.ClassRoomRepository
-import com.scholar.domain.repo.StageRepository
-import com.scholar.domain.repo.SubjectRepository
+import com.scholar.domain.repo.*
 import com.scholar.domain.usecase.*
 import dagger.Module
 import dagger.Provides
@@ -47,7 +44,12 @@ object UseCaseModule {
         networkConnectivity: NetworkConnectivity,
     ) = SubjectUseCase(subjectRepository, networkConnectivity)
 
-
+    @Singleton
+    @Provides
+    fun provideMaterialUseCase(
+        materialRepository: MaterialRepository,
+        networkConnectivity: NetworkConnectivity,
+    ) = MaterialUseCase(materialRepository, networkConnectivity)
     @Singleton
     @Provides
     fun provideLoginUseCase() = ValidateLoginUseCase()
