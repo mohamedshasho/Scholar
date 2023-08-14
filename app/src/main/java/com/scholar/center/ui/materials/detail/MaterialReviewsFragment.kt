@@ -3,14 +3,16 @@ package com.scholar.center.ui.materials.detail
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialReviewAdapter
 import com.scholar.center.databinding.FragmentMaterialReviewsBinding
 import com.scholar.domain.model.Review
+import kotlinx.coroutines.launch
 
 
-class MaterialReviewsFragment : Fragment(R.layout.fragment_material_reviews) {
+class MaterialReviewsFragment(private val viewModel:MaterialDetailVM) : Fragment(R.layout.fragment_material_reviews) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -24,13 +26,13 @@ class MaterialReviewsFragment : Fragment(R.layout.fragment_material_reviews) {
             adapter = reviewsAdapter
         }
 
-        val list = listOf(
-            TestR(1, 3.5f, "comment 1"),
-            TestR(1, 5f, "comment 2"),
-            TestR(1, 2f, "comment 3")
-        )
-        reviewsAdapter.setMaterialReviewsList(list)
-
+        lifecycleScope.launch {
+            viewModel.material.collect {
+                it?.let { materialWithDetail ->
+                    reviewsAdapter.setMaterialReviewsList(materialWithDetail.rates)
+                }
+            }
+        }
     }
 }
 

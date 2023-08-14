@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scholar.center.databinding.MaterialReviewItemBinding
-import com.scholar.domain.model.Review
+import com.scholar.domain.model.Rate
 
 class MaterialReviewAdapter(
-    private var items: List<Review> = emptyList(),
+    private var items: List<Rate> = emptyList(),
 ) : RecyclerView.Adapter<MaterialReviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -16,7 +16,7 @@ class MaterialReviewAdapter(
         return ViewHolder(binding)
     }
 
-    fun setMaterialReviewsList(newItems: List<Review>) {
+    fun setMaterialReviewsList(newItems: List<Rate>) {
         items = newItems
         notifyItemChanged(0, newItems.size)
     }
@@ -25,7 +25,7 @@ class MaterialReviewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.binding.materialReviewRatingBar.rating = item.rating
+        holder.binding.materialReviewRatingBar.rating = item.rate.toFloat()
         holder.binding.materialReviewStudentComment.text = item.comment
 
     }

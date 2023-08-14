@@ -9,10 +9,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.scholar.center.R
 import com.scholar.center.adapter.TeacherPagerAdapter
 import com.scholar.center.databinding.FragmentMaterialDetailBinding
+import com.scholar.center.ui.dialogs.LoadingDialogFragment
+import com.scholar.center.unit.Constants.BASE_URL
 import com.scholar.center.unit.applyDiscount
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,7 +34,7 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
         val viewPager = binding.materialViewPager
 
         val fragments = listOf(
-            MaterialInformationFragment(), MaterialReviewsFragment(),
+            MaterialInformationFragment(viewModel), MaterialReviewsFragment(viewModel),
         )
         val materialAdapter = TeacherPagerAdapter(
             fragments = fragments,
@@ -46,11 +49,16 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                 else -> throw IllegalArgumentException("Invalid position: $position")
             }
         }.attach()
-
+        val loadingDialog = LoadingDialogFragment()
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.material.collect {
+                    if (it == null) {
+                        loadingDialog.show(parentFragmentManager, "loading_dialog")
+                    }
                     it?.let { materialWithDetail ->
+
+
                         val material = materialWithDetail.material
                         binding.materialName.text = material.title
                         binding.materialType.text = materialWithDetail.category
@@ -75,14 +83,28 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                                 )
                             } else {
                                 binding.materialDiscount.visibility = View.GONE
-                                binding.materialPriceValue.text = getString(R.string.syr, material.price)
+                                binding.materialPriceValue.text =
+                                    getString(R.string.syr, material.price)
                             }
 
                         } else {
                             binding.materialPriceLayout.visibility = View.GONE
                             binding.materialPriceButton.text = getText(R.string.view)
                         }
+                        if (materialWithDetail.teacher.name != null) {
+                            binding.materialTeacherName.text = materialWithDetail.teacher.name
+                            materialWithDetail.teacher.image?.let { image ->
+                                Glide.with(requireContext())
+                                    .load("${BASE_URL}$image")
+                                    .placeholder(R.drawable.ic_person)
+                                    .error(R.drawable.ic_person)
+                                    .into(binding.materialTeacherImage)
+                            }
+                        } else {
+                            binding.materialTeacherLayout.visibility = View.GONE
+                        }
 
+                        loadingDialog.dismiss()
 
 
                         binding.materialPriceButton.setOnClickListener {
