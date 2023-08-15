@@ -57,7 +57,7 @@ class MaterialsVM @Inject constructor(
     var selectedStage = stageId ?: 0
     var selectedClassRoom = classRoomId ?: 0
     var selectedCategory = categoryId ?: 0
-    var selectedSubject = 0
+    var selectedSubject = 00
 
     init {
         getData()
