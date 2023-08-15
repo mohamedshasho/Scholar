@@ -59,11 +59,11 @@ class MaterialFilterDialog(
 
         binding.filterCancel.setOnClickListener { dismiss() }
         binding.filterOk.setOnClickListener {
-            onClickOK
             viewModel.selectedClassRoom = binding.filterSpinnerClassRooms.selectedItemPosition
             viewModel.selectedCategory = binding.filterSpinnerCategories.selectedItemPosition
             viewModel.selectedStage = binding.filterSpinnerStages.selectedItemPosition
             viewModel.selectedSubject = binding.filterSpinnerSubjects.selectedItemPosition
+            onClickOK()
             dismiss()
         }
         binding.filterSpinnerClassRooms.isEnabled = false

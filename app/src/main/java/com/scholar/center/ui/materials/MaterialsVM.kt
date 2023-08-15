@@ -77,7 +77,6 @@ class MaterialsVM @Inject constructor(
             }
             _stages.value = stageUseCase()
             _classrooms.value = classRoomRepository.observeClassesRooms().first()
-
             _subjects.value = subjectUseCase()
         }
     }
@@ -107,7 +106,6 @@ class MaterialsVM @Inject constructor(
                     _materials.value = pagingData
                 }
         }
-
 
     }
 }
