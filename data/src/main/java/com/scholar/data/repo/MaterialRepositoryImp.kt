@@ -8,6 +8,7 @@ import com.scholar.data.source.local.dao.RateDao
 import com.scholar.data.source.local.dao.TeacherDao
 import com.scholar.data.source.local.model.toLocal
 import com.scholar.data.source.network.MaterialNetworkDataSource
+import com.scholar.data.source.network.paging.MaterialsFilterPagingSource
 import com.scholar.data.source.network.paging.MaterialsSearchPagingSource
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Material
@@ -79,6 +80,21 @@ class MaterialRepositoryImp(
             pagingSourceFactory = { MaterialsSearchPagingSource(remoteDataSource, key) },
         ).flow
     }
+
+
+    override suspend fun filterMaterialFromNetwork(
+        stageId: Int?,
+        classroomId: Int?,
+        subjectId: Int?,
+        categoryId: Int?
+    ): Flow<PagingData<MaterialWithTeacher>> {
+        return Pager(
+            config = PagingConfig(pageSize = PAGER_SIZE),
+            pagingSourceFactory = { MaterialsFilterPagingSource(remoteDataSource, stageId, classroomId, subjectId, categoryId) },
+        ).flow
+    }
+
+
 }
 
 private const val PAGER_SIZE=10

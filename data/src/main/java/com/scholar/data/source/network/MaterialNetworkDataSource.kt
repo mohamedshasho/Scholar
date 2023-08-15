@@ -28,8 +28,29 @@ class MaterialNetworkDataSource @Inject constructor(
         }
     }
 
-    suspend fun search(page: Int, key: String, ): List<MaterialNetwork> = accessMutex.withLock {
+    suspend fun search(page: Int, key: String): List<MaterialNetwork> = accessMutex.withLock {
         return when (val response = apiService.searchForMaterials(page = page, title = key)) {
+            is NetworkResult.Success -> {
+                response.data
+            }
+            else -> emptyList()
+        }
+    }
+
+    suspend fun filter(
+        page: Int,
+        stageId: Int?,
+        classroomId: Int?,
+        subjectId: Int?,
+        categoryId: Int?,
+    ): List<MaterialNetwork> = accessMutex.withLock {
+        return when (val response = apiService.filterMaterials(
+            page = page,
+            stage = stageId,
+            classroom = classroomId,
+            subject = subjectId,
+            categoryId = categoryId,
+        )) {
             is NetworkResult.Success -> {
                 response.data
             }

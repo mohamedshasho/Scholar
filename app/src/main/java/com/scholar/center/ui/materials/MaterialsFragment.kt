@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.appcompat.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -21,7 +20,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
-import com.scholar.center.adapter.MaterialAdapter
 import com.scholar.center.adapter.MaterialPagingAdapter
 import com.scholar.center.adapter.MaterialsComparator
 import com.scholar.center.databinding.FragmentMaterialsBinding
@@ -103,7 +101,7 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
                 val filterDialog = MaterialFilterDialog(
                     viewModel = viewModel,
                 ) {
-
+                    viewModel.getMaterials()
                 }
                 filterDialog.show(parentFragmentManager, "FilterDialog")
                 true

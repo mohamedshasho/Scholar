@@ -61,10 +61,10 @@ interface ApiService {
     @GET("material")
     suspend fun filterMaterials(
         @Query("page") page: Int,
-        @Query("filter[file_type]") categoryId: Int,
-        @Query("filter[stage]") stage: Int,
-        @Query("filter[classroom]") classroom: Int,
-        @Query("filter[subject]") subject: Int,
+        @Query("filter[file_type]") categoryId: Int?,
+        @Query("filter[stage]") stage: Int?,
+        @Query("filter[classroom]") classroom: Int?,
+        @Query("filter[subject]") subject: Int?,
     ):
             NetworkResult<List<MaterialNetwork>>
 

@@ -1,5 +1,6 @@
 package com.scholar.center.ui.materials
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.scholar.center.unit.Constants.CATEGORY_ID_KEY
 import com.scholar.center.unit.Constants.CLASSROOM_ID_KEY
+import com.scholar.center.unit.Constants.SEARCH_FOCUS_KEY
 import com.scholar.center.unit.Constants.STAGE_ID_KEY
 import com.scholar.domain.model.*
 import com.scholar.domain.repo.ClassRoomRepository
@@ -20,7 +22,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import dagger.Lazy
 
 @HiltViewModel
 class MaterialsVM @Inject constructor(
@@ -32,6 +33,7 @@ class MaterialsVM @Inject constructor(
     private val materialRepository: MaterialRepository,
 ) : ViewModel() {
 
+    private val focusOnSearch = savedStateHandle.get<Boolean>(SEARCH_FOCUS_KEY) ?: false
     private val categoryId = savedStateHandle.get<Int>(CATEGORY_ID_KEY)
     private val stageId = savedStateHandle.get<Int>(STAGE_ID_KEY)
     private val classRoomId = savedStateHandle.get<Int>(CLASSROOM_ID_KEY)
@@ -57,17 +59,16 @@ class MaterialsVM @Inject constructor(
     var selectedStage = stageId ?: 0
     var selectedClassRoom = classRoomId ?: 0
     var selectedCategory = categoryId ?: 0
-    var selectedSubject = 00
+    var selectedSubject = 0
 
     init {
-        getData()
-        if (categoryId == null && stageId == null && classRoomId == null)// no filter applied
-        {
+        getFilterData()
+        if (!focusOnSearch) {
             getMaterials()
         }
     }
 
-    private fun getData() {
+    private fun getFilterData() {
         viewModelScope.launch {
             launch {
                 categoryUseCase().collect {
@@ -78,25 +79,21 @@ class MaterialsVM @Inject constructor(
             _classrooms.value = classRoomRepository.observeClassesRooms().first()
 
             _subjects.value = subjectUseCase()
-
-
         }
     }
 
-    private fun getMaterials() {
+    fun getMaterials() {
         viewModelScope.launch {
-            _loading.value = true
-            when (val result = materialRepository.getMaterialsFromNetwork()) {
-                is Resource.Success -> {
-                    _loading.value = false
-                    result.data?.let { list ->
 
-                    }
+            materialRepository.filterMaterialFromNetwork(
+                stageId = if(selectedStage==0) null else selectedStage,
+                classroomId = if(selectedClassRoom==0) null else selectedClassRoom,
+                subjectId = if(selectedSubject==0) null else selectedSubject,
+                categoryId = if(selectedCategory==0) null else selectedCategory,
+            ).cachedIn(viewModelScope)
+                .collect { pagingData ->
+                    _materials.value = pagingData
                 }
-                is Resource.Error -> {
-                    _loading.value = false
-                }
-            }
         }
     }
 

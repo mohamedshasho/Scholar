@@ -17,5 +17,11 @@ interface MaterialRepository {
 
 
     suspend fun searchForMaterialFromNetwork(key:String): Flow<PagingData<MaterialWithTeacher>>
+    suspend fun filterMaterialFromNetwork(
+        stageId :Int?,
+        classroomId :Int?,
+        subjectId :Int?,
+        categoryId :Int?,
+    ): Flow<PagingData<MaterialWithTeacher>>
 
 }
