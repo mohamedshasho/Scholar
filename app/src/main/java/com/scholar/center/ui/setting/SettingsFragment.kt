@@ -78,6 +78,10 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
         binding.profileFragmentCashListTile.icon.setImageResource(R.drawable.wallet)
         binding.profileFragmentCashListTile.text.text = getString(R.string.purchase_credit)
 
+        binding.profileFragmentCashListTile.root.setOnClickListener {
+            navController?.navigate(MainFragmentDirections.actionMainToCredit())
+        }
+
 
     }
 

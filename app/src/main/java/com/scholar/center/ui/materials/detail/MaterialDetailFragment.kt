@@ -23,11 +23,13 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
     private val viewModel: MaterialDetailVM by viewModels()
+
+    private val navController by lazy { findNavController() }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentMaterialDetailBinding.bind(view)
 
         binding.materialToolbarBackButton.setOnClickListener {
-            findNavController().popBackStack()
+            navController.popBackStack()
         }
 
         val tabLayout = binding.materialTabLayout
@@ -50,15 +52,21 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
             }
         }.attach()
         val loadingDialog = LoadingDialogFragment()
+
+        lifecycleScope.launch {
+            viewModel.loading.collect { loading ->
+                if (loading) {
+                    loadingDialog.show(parentFragmentManager, "loading_dialog")
+                } else {
+                    if (loadingDialog.isVisible)
+                        loadingDialog.dismiss()
+                }
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.material.collect {
-                    if (it == null) {
-                        loadingDialog.show(parentFragmentManager, "loading_dialog")
-                    }
                     it?.let { materialWithDetail ->
-
-
                         val material = materialWithDetail.material
                         binding.materialName.text = material.title
                         binding.materialType.text = materialWithDetail.category
@@ -68,7 +76,8 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                             materialWithDetail.stage,
                             materialWithDetail.classroom
                         )
-
+                        val discountedPrice =
+                            material.price?.applyDiscount(material.discount ?: 0)
                         if (material.price != null && material.price != 0) {
                             if (material.discount != null && material.discount != 0) {
                                 binding.materialDiscount.text = getString(
@@ -76,8 +85,7 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                                 )
                                 binding.materialDiscount.paintFlags =
                                     binding.materialDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                                val discountedPrice =
-                                    material.price?.applyDiscount(material.discount ?: 0)
+
                                 binding.materialPriceValue.text = getString(
                                     R.string.syr, discountedPrice
                                 )
@@ -104,18 +112,45 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                             binding.materialTeacherLayout.visibility = View.GONE
                         }
 
-                        loadingDialog.dismiss()
 
                         binding.materialPriceButton.setOnClickListener {
+                            if (!viewModel.isUserLogged.value) {
+                                navController.navigate(
+                                    MaterialDetailFragmentDirections.actionMaterialDetailToLogin(
+                                        mustPopBackStack = true
+                                    )
+                                )
+                                return@setOnClickListener
+                            }
                             if (material.price == null || material.price == 0) {
-                                // navigate to show
+                                navigateTo(materialId = material.id, material.categoryId)
                             } else {
+                                navigateTo(materialId = material.id, material.categoryId)
                                 // purchase
+
                             }
                         }
                     }
                 }
             }
+        }
+
+    }
+
+    private fun navigateTo(materialId: Int, category: Int?) {
+        if (category == null) return
+        if (category == 3) {
+            navController.navigate(
+                MaterialDetailFragmentDirections.actionMaterialDetailToVideo(
+                    materialId = materialId
+                )
+            )
+        } else {
+            navController.navigate(
+                MaterialDetailFragmentDirections.actionMaterialDetailToVideo(
+                    materialId = materialId
+                )
+            )
         }
 
     }

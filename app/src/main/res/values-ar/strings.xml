@@ -118,5 +118,9 @@
 
     <string name="material_class_name">%1$s, %2$s</string>
     <string name="loading">جاري التحميل…</string>
+    <string name="amount">Amount</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="credit_text">طلب شراء رصيد</string>
+    <string name="add_link_payment">Upload Confirm payment image </string>
 
 </resources>

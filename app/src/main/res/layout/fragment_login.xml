@@ -181,6 +181,7 @@
             android:textAppearance="@style/TextBody2" />
 
         <TextView
+            android:id="@+id/loginFragment_contact_as_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"

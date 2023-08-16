@@ -1,5 +1,7 @@
 package com.scholar.data.repo
 
+import android.content.Context
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -19,6 +21,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okio.IOException
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
 
 class MaterialRepositoryImp(
     private val remoteDataSource: MaterialNetworkDataSource,
@@ -26,6 +37,7 @@ class MaterialRepositoryImp(
     private val rateDao: RateDao,
     private val teacherDao: TeacherDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
+    private val context: Context,
 ) : MaterialRepository {
 
 
@@ -90,11 +102,52 @@ class MaterialRepositoryImp(
     ): Flow<PagingData<MaterialWithTeacher>> {
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE),
-            pagingSourceFactory = { MaterialsFilterPagingSource(remoteDataSource, stageId, classroomId, subjectId, categoryId) },
+            pagingSourceFactory = {
+                MaterialsFilterPagingSource(
+                    remoteDataSource,
+                    stageId,
+                    classroomId,
+                    subjectId,
+                    categoryId
+                )
+            },
         ).flow
     }
 
 
+    override suspend fun loadPDf(url: URL, pdfBytes: (File?) -> Unit) {
+        val request = Request.Builder().url(url).build()
+
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Handle error
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.byteStream()
+
+                // Create a File instance to represent the destination file
+                val destinationFile = File(context.getExternalFilesDir(null), "output.pdf")
+                val byteArray = body?.readBytes()
+                try {
+                    // Create a FileOutputStream to write the byteArray to the file
+                    val fileOutputStream = FileOutputStream(destinationFile)
+                    fileOutputStream.write(byteArray)
+                    fileOutputStream.close()
+
+                    // Now the byteArray is saved to the file
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    // Handle the exception, e.g., show an error message to the user
+                }
+
+
+                pdfBytes(destinationFile)
+            }
+        })
+    }
+
 }
 
-private const val PAGER_SIZE=10
+private const val PAGER_SIZE = 10

@@ -104,6 +104,13 @@
                 android:defaultValue="false"
                 app:argType="boolean" />
         </action>
+        <action
+            android:id="@+id/action_main_to_credit"
+            app:destination="@id/creditFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
 
@@ -229,6 +236,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_contact"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -265,7 +279,36 @@
         android:id="@+id/materialDetailFragment"
         android:name="com.scholar.center.ui.materials.detail.MaterialDetailFragment"
         android:label="fragment_material"
-        tools:layout="@layout/fragment_material_detail" />
+        tools:layout="@layout/fragment_material_detail" >
+        <action
+            android:id="@+id/action_materialDetail_to_login"
+            app:destination="@id/loginFragment" >
+            <argument
+                android:name="mustPopBackStack"
+                android:defaultValue="false"
+                app:argType="boolean" />
+        </action>
+        <action
+            android:id="@+id/action_materialDetail_to_pdf"
+            app:destination="@id/pdfFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument android:name="material_id"
+                app:argType="integer"/>
+        </action>
+        <action
+            android:id="@+id/action_materialDetail_to_video"
+            app:destination="@id/videoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument android:name="material_id"
+                app:argType="integer"/>
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/storyDetailFragment"
         android:name="com.scholar.center.ui.stories.detail.StoryDetailFragment"
@@ -276,4 +319,22 @@
         android:name="com.scholar.center.ui.stories.add.AddStoryFragment"
         android:label="fragment_add_story"
         tools:layout="@layout/fragment_add_story" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.scholar.center.ui.materials.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/pdfFragment"
+        android:name="com.scholar.center.ui.materials.PdfFragment"
+        android:label="fragment_pdf"
+        tools:layout="@layout/fragment_pdf" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.scholar.center.ui.contact.ContactFragment"
+        android:label="ContactFragment" />
+    <fragment
+        android:id="@+id/creditFragment"
+        android:name="com.scholar.center.ui.credit.CreditFragment"
+        android:label="CreditFragment" />
 </navigation>

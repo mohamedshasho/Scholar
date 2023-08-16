@@ -57,4 +57,12 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideRegisterUseCase() = ValidateRegisterUseCase()
+
+    @Singleton
+    @Provides
+    fun provideContactUseCase() = ValidateContactUseCase()
+
+    @Singleton
+    @Provides
+    fun provideCreditUseCase() = ValidateCreditUseCase()
 }

@@ -110,9 +110,18 @@
     <string name="hi">Hi %s</string>
     <string name="welcome">Welcome to the Scholar app</string>
     <string name="hour">%d Hours</string>
-    <string name="price_only" >%d</string>
+    <string name="price_only">%d</string>
 
     <string name="material_class_name">%1$s, %2$s</string>
     <string name="loading">Loading...</string>
+    <string name="amount">Amount</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="credit_text">طلب شراء رصيد</string>
+    <string name="add_link_payment">Upload Confirm payment image </string>
+    <string name="enter_amount_here">for example 5000 SYR</string>
+    <string name="description_optional">Description(optional)</string>
+    <string name="empty_amount_left">Empty amount left</string>
+    <string name="no_select_method">No select method</string>
+    <string name="no_image_added">No confirm image added</string>
 
 </resources>

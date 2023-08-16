@@ -107,13 +107,15 @@ object DataModule {
         materialDao: MaterialDao,
         rateDao: RateDao, teacherDao: TeacherDao,
         @DefaultDispatcher dispatcher: CoroutineDispatcher,
+        @ApplicationContext context: Context,
     ): MaterialRepository =
         MaterialRepositoryImp(
             materialNetworkDataSource,
             materialDao,
             rateDao,
             teacherDao,
-            dispatcher
+            dispatcher,
+            context
         )
 
     @Singleton

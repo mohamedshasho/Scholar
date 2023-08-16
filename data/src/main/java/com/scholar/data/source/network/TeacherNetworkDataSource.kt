@@ -1,6 +1,7 @@
 package com.scholar.data.source.network
 
 import com.scholar.data.service.ApiService
+import com.scholar.domain.model.MessageResponse
 import com.scholar.domain.model.NetworkResult
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.TeacherNetwork
@@ -20,9 +21,11 @@ class TeacherNetworkDataSource @Inject constructor(
                 is NetworkResult.Success -> {
                     Resource.Success(response.data)
                 }
+
                 is NetworkResult.Error -> {
                     Resource.Error(response.error)
                 }
+
                 is NetworkResult.Exception -> {
                     Resource.Error(response.e.message)
                 }
@@ -35,9 +38,33 @@ class TeacherNetworkDataSource @Inject constructor(
                 is NetworkResult.Success -> {
                     Resource.Success(response.data)
                 }
+
                 is NetworkResult.Error -> {
                     Resource.Error(response.error)
                 }
+
+                is NetworkResult.Exception -> {
+                    Resource.Error(response.e.message)
+                }
+            }
+        }
+
+
+    suspend fun contact(
+        name: String,
+        email: String,
+        phone: String,
+        subject: String
+    ): Resource<MessageResponse> =
+        accessMutex.withLock {
+            return when (val response = apiService.contact(name,email,phone,subject)) {
+                is NetworkResult.Success -> {
+                    Resource.Success(response.data)
+                }
+                is NetworkResult.Error -> {
+                    Resource.Error(response.error)
+                }
+
                 is NetworkResult.Exception -> {
                     Resource.Error(response.e.message)
                 }

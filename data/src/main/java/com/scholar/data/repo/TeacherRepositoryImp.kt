@@ -9,6 +9,8 @@ import com.scholar.data.source.local.ScholarDb
 import com.scholar.data.source.network.TeacherNetworkDataSource
 import com.scholar.data.source.network.TeacherRemoteMediator
 import com.scholar.data.source.network.paging.TeachersSearchPagingSource
+import com.scholar.domain.model.MessageResponse
+import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Teacher
 import com.scholar.domain.model.TeacherWithSubjects
 import com.scholar.domain.repo.TeacherRepository
@@ -55,6 +57,16 @@ class TeacherRepositoryImp(
             ),
             pagingSourceFactory = { scholarDb.teacherDao().getTeachersPaging() }
         ).flow.map { pagingData -> pagingData.map { it } }
+    }
+
+
+    override suspend fun contact(
+        name: String,
+        email: String,
+        phone: String,
+        subject: String
+    ): Resource<MessageResponse> {
+        return networkDataSource.contact(name, email, phone, subject)
     }
 }
 

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="تواصل معنا"
+            android:text="@string/credit_text"
             android:textAppearance="@style/TextH5" />
 
 
@@ -24,83 +24,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="@string/name"
+            android:text="@string/amount"
             android:textAppearance="@style/TextBody1" />
 
         <EditText
-            android:id="@+id/contact_name_editText"
+            android:id="@+id/credit_amount_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_edit_text"
             android:ems="10"
-            android:hint="@string/enter_name_here"
-            android:inputType="text"
-            android:textAppearance="@style/TextBody1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginFragment_logo" />
+            android:hint="@string/enter_amount_here"
+            android:inputType="number"
+            android:textAppearance="@style/TextBody1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/email"
+            android:text="@string/payment_method"
             android:textAppearance="@style/TextBody1" />
 
-        <EditText
-            android:id="@+id/contact_email_editText"
+        <Spinner
+            android:id="@+id/credit_spinner_method"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_edit_text"
-            android:ems="10"
-            android:hint="@string/enter_email_here"
-            android:inputType="textEmailAddress"
-            android:textAppearance="@style/TextBody1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginFragment_logo" />
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/phone"
-            android:textAppearance="@style/TextBody1" />
-
-        <EditText
-            android:id="@+id/contact_phone_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_edit_text"
-            android:ems="10"
-            android:hint="@string/enter_phone_here"
-            android:inputType="phone"
-            android:textAppearance="@style/TextBody1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginFragment_logo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/contact_subject"
+            android:text="@string/description_optional"
             android:textAppearance="@style/TextBody1" />
 
 
         <EditText
-            android:id="@+id/contact_subject_editText"
+            android:id="@+id/credit_description_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_edit_text"
             android:gravity="top|start"
             android:hint="@string/enter_description_here"
             android:inputType="textMultiLine|textCapSentences"
-            android:lines="5"
+            android:lines="3"
             android:scrollbars="vertical"
             android:textAppearance="@style/TextBody1" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/add_link_payment"
+            android:textAppearance="@style/TextBody1"
+            android:textStyle="normal"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/add_image">
+
+            <ImageView
+                android:id="@+id/add_image_payment_imageview"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/add_image" />
+
+            <ImageView
+                android:id="@+id/add_image_payment_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
 
         <ProgressBar
             android:id="@+id/contactFragment_progress_bar"
@@ -115,12 +113,11 @@
             android:id="@+id/contactFragment_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:textAppearance="@style/TextBody2"
             android:textColor="?attr/colorError"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal"
-            />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/add_contact_send"
@@ -134,6 +131,5 @@
             android:textColor="@color/button_text_color"
             android:textSize="16sp"
             app:cornerRadius="16dp" />
-
     </LinearLayout>
 </ScrollView>

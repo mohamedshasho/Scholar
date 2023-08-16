@@ -105,6 +105,26 @@ interface ApiService {
     @POST("logout")
     suspend fun logout(): NetworkResult<Boolean>
 
+    @POST("teacher/contact")
+    @FormUrlEncoded
+    suspend fun contact(
+        @Field("name")  name: String,
+        @Field("email")    email: String,
+        @Field("phone")   phone: String,
+        @Field("subject")  subject: String
+    ): NetworkResult<MessageResponse>
+
+
+    @POST("credit/add")
+    @FormUrlEncoded
+    suspend fun purchaseCredit(
+        @Part file: MultipartBody.Part,
+        @Field("studentId")  studentId: Int,
+        @Field("amount")    amount: Int,
+        @Field("paymentMethod")   paymentMethod: Int,
+        @Field("description")   description: String?,
+    ): NetworkResult<MessageResponse>
+
 }
 
 private const val PER_PAGE = 10

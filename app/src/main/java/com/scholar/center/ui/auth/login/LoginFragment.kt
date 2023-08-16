@@ -67,7 +67,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     state.errorMessageInput?.let { error ->
                         binding.loginFragmentErrorText.text = getString(error)
                     }
-
                 }
             }
         }
@@ -75,7 +74,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.loginFragmentLoginBtn.setOnClickListener {
             viewModel.onLoginClick()
         }
-
         binding.loginFragmentUsernameEditText.addTextChangedListener {
             viewModel.onEmailInputChanged(it.toString())
         }
@@ -91,6 +89,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             } else {
                 navController.navigate(LoginFragmentDirections.actionLoginToMain())
             }
+        }
+
+        binding.loginFragmentContactAsText.setOnClickListener {
+                navController.navigate(LoginFragmentDirections.actionLoginToContact())
         }
 
     }

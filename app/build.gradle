@@ -80,6 +80,12 @@ dependencies {
 
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.1'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.18.1'
 }
 
 kapt {

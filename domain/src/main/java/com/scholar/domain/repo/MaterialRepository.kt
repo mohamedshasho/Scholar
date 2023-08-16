@@ -6,6 +6,8 @@ import com.scholar.domain.model.Material
 import com.scholar.domain.model.MaterialWithDetail
 import com.scholar.domain.model.MaterialWithTeacher
 import kotlinx.coroutines.flow.Flow
+import java.io.File
+import java.net.URL
 
 interface MaterialRepository {
     suspend fun getSomeMaterialsFromNetwork(): Resource<List<Material>>
@@ -24,4 +26,6 @@ interface MaterialRepository {
         categoryId :Int?,
     ): Flow<PagingData<MaterialWithTeacher>>
 
+
+    suspend fun loadPDf(url: URL, pdfBytes: (File?) -> Unit)
 }

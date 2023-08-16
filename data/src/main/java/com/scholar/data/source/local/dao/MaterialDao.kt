@@ -18,7 +18,7 @@ interface MaterialDao : BaseDao<MaterialLocal> {
     @Transaction
     @Query(
         "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
-                " materials.hoursNumberOfWeek, materials.categoryId , " +
+                " materials.hoursNumberOfWeek, materials.categoryId , materials.content, " +
                 " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image" +
                 ", subjects.name as subject, stages.name as stage, classes.name as classroom, categories.name as category " +
                 " FROM materials " +
