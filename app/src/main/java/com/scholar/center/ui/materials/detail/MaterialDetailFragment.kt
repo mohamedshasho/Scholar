@@ -127,9 +127,9 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                                 )
                                 return@setOnClickListener
                             }
-                            viewModel.purchase()
+//                            viewModel.purchase()
 //                            if (material.price == null || material.price == 0) {
-//                                navigateTo(materialId = material.id, material.categoryId)
+                                navigateTo(materialId = material.id, material.categoryId)
 //                            } else {
 //                                navigateTo(materialId = material.id, material.categoryId)
 //                                // purchase
@@ -153,7 +153,7 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
             )
         } else {
             navController.navigate(
-                MaterialDetailFragmentDirections.actionMaterialDetailToVideo(
+                MaterialDetailFragmentDirections.actionMaterialDetailToPdf(
                     materialId = materialId
                 )
             )

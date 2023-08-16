@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.io.BufferedInputStream
 import java.io.File
@@ -41,7 +42,7 @@ class MaterialContentVM @Inject constructor(
     init {
         viewModelScope.launch {
             _loading.value = true
-            materialUseCase(materialId).collect {
+            materialUseCase(materialId).distinctUntilChanged().collect {
                 _material.value = it
                 _loading.value = false
             }
