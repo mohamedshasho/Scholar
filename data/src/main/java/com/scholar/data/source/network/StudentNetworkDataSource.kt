@@ -49,4 +49,24 @@ class StudentNetworkDataSource @Inject constructor(
             }
         }
     }
+
+    suspend fun purchaseMaterial(
+      studentId: Int,
+      materialId: Int,
+    ): Resource<MessageResponse> = accessMutex.withLock {
+        return when (val response =
+            apiService.purchaseMaterial(studentId, materialId)) {
+            is NetworkResult.Success -> {
+                Resource.Success(response.data)
+            }
+            is NetworkResult.Error -> {
+                Resource.Error(response.error)
+            }
+
+            is NetworkResult.Exception -> {
+                Resource.Error(response.e.message)
+            }
+        }
+    }
+
 }

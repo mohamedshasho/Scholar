@@ -9,10 +9,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.scholar.center.MainActivity
 import com.scholar.center.R
 import com.scholar.center.databinding.FragmentProfileBinding
+import com.scholar.center.ui.dialogs.LanguageDialogFragment
 import com.scholar.center.ui.main.MainFragmentDirections
 import com.scholar.center.unit.Constants.BASE_URL
+import com.scholar.center.unit.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -80,6 +83,16 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
 
         binding.profileFragmentCashListTile.root.setOnClickListener {
             navController?.navigate(MainFragmentDirections.actionMainToCredit())
+        }
+
+
+        binding.profileFragmentLanguageListTile.root.setOnClickListener {
+            val dialogFragment = LanguageDialogFragment {
+                viewModel.changeLanguage(it.language)
+                LocaleHelper.setLocale(requireContext(), it)
+                (activity as MainActivity).recreate()
+            }
+            dialogFragment.show(parentFragmentManager, "LanguageDialog")
         }
 
 

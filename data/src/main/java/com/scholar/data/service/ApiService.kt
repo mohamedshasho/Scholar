@@ -116,13 +116,19 @@ interface ApiService {
 
 
     @POST("credit/add")
-    @FormUrlEncoded
+    @Multipart
     suspend fun purchaseCredit(
         @Part file: MultipartBody.Part,
-        @Field("studentId")  studentId: Int,
-        @Field("amount")    amount: Int,
-        @Field("paymentMethod")   paymentMethod: Int,
-        @Field("description")   description: String?,
+        @Part("studentId")  studentId: Int,
+        @Part("amount")    amount: Int,
+        @Part("paymentMethod")   paymentMethod: Int,
+        @Part("description")   description: String?,
+    ): NetworkResult<MessageResponse>
+
+    @POST("credit/buy-course/{studentId}/{materialId}")
+    suspend fun purchaseMaterial(
+        @Path("studentId")  studentId: Int,
+        @Path("materialId")    materialId: Int,
     ): NetworkResult<MessageResponse>
 
 }

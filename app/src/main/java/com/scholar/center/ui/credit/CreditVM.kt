@@ -1,11 +1,11 @@
 package com.scholar.center.ui.credit
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scholar.center.R
 import com.scholar.domain.model.CreditInputValidationType
 import com.scholar.domain.model.CreditState
-import com.scholar.domain.model.LoginInputValidationType
 import com.scholar.domain.model.Resource
 import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.repo.StudentRepository
@@ -13,6 +13,7 @@ import com.scholar.domain.usecase.ValidateCreditUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,10 @@ class CreditVM @Inject constructor(
 
     var creditState = MutableStateFlow(CreditState())
         private set
+
+
+    private val _selectedUri = MutableStateFlow<Uri>(Uri.EMPTY)
+    val selectedUri = _selectedUri.asStateFlow()
 
 
     private val _message = MutableStateFlow<String?>(null)
@@ -46,11 +51,16 @@ class CreditVM @Inject constructor(
         checkInputValidation()
     }
 
-    fun onLinkInputChanged(newValue: Int) {
+    fun onLinkInputChanged(newValue: String) {
         creditState.update { currentState ->
             currentState.copy(linkInput = newValue)
         }
         checkInputValidation()
+    }
+
+
+    fun setUri(uri: Uri) {
+        _selectedUri.value = uri
     }
 
     fun onDescriptionInputChanged(newValue: String) {
@@ -77,33 +87,42 @@ class CreditVM @Inject constructor(
             currentState.copy(isLoading = true)
         }
         viewModelScope.launch {
-//            val result = studentRepository.contact(
-//                name = contactState.value.nameInput,
-//                email = contactState.value.emailInput,
-//                phone = contactState.value.phoneInput,
-//                subject = contactState.value.subjectInput
-//            )
-            when (result) {
-                is Resource.Success -> {
-                    result.data?.let { data ->
-                        _message.value = data.message
 
+            val studentId = dataStore.readValue(DataStorePreference.userId).first()
+            if (studentId == null || studentId == 0) {
+                creditState.update { currentState ->
+                    currentState.copy(errorMessageInput = R.string.please_sign_in)
+                }
+                return@launch
+            } else {
+
+
+                val result = studentRepository.purchaseCredit(
+                    filePath = creditState.value.linkInput,
+                    amount = creditState.value.amountInput,
+                    paymentMethod = creditState.value.methodInput,
+                    description = creditState.value.descriptionInput,
+                    studentId = studentId
+                )
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { data ->
+                            _message.value = data
+                            creditState.update { currentState ->
+                                currentState.copy(isSuccessfullySend = true, isLoading = false)
+                            }
+                        }
+                    }
+                    is Resource.Error -> {
                         creditState.update { currentState ->
-                            currentState.copy(isSuccessfullySend = true, isLoading = false)
+                            currentState.copy(
+                                errorMessageLoginProcess = result.message,
+                                isLoading = false
+                            )
                         }
                     }
                 }
-
-                is Resource.Error -> {
-                    creditState.update { currentState ->
-                        currentState.copy(
-                            errorMessageLoginProcess = result.message,
-                            isLoading = false
-                        )
-                    }
-                }
             }
-
         }
     }
 
@@ -123,12 +142,14 @@ class CreditVM @Inject constructor(
                         isInputValid = false
                     )
                 }
+
                 CreditInputValidationType.NoLink -> {
                     currentState.copy(
                         errorMessageInput = R.string.no_image_added,
                         isInputValid = false
                     )
                 }
+
                 CreditInputValidationType.Valid -> {
                     currentState.copy(errorMessageInput = null, isInputValid = true)
                 }

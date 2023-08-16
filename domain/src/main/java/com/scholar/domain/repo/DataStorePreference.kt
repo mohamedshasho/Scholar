@@ -17,7 +17,7 @@ interface DataStorePreference {
     companion object {
         val isUserLoggedIn = booleanPreferencesKey(name = "is_user_logged_in")
         val isAppFirstOpen = booleanPreferencesKey(name = "app_first_open")
-        val languageId = intPreferencesKey(name = "id_language")
+        val language = stringPreferencesKey(name = "language")
         val userId = intPreferencesKey(name = "user_id")
     }
 

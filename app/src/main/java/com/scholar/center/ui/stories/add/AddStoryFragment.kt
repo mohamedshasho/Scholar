@@ -25,10 +25,6 @@ class AddStoryFragment : Fragment(R.layout.fragment_add_story) {
 
     private val viewModel: AddStoryVM by viewModels()
 
-    companion object {
-        private const val PICK_IMAGE_REQUEST = 1
-        private const val PERMISSION_REQUEST = 2
-    }
 
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>

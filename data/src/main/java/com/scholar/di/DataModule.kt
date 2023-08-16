@@ -160,7 +160,10 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideStudentRepository(studentDao: StudentDao): StudentRepository {
-        return StudentRepositoryImp(studentDao)
+    fun provideStudentRepository(
+        studentDao: StudentDao,
+        studentNetworkDataSource: StudentNetworkDataSource
+    ): StudentRepository {
+        return StudentRepositoryImp(studentNetworkDataSource, studentDao)
     }
 }

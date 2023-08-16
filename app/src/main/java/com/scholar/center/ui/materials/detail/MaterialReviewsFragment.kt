@@ -13,6 +13,9 @@ import kotlinx.coroutines.launch
 
 
 class MaterialReviewsFragment(private val viewModel:MaterialDetailVM) : Fragment(R.layout.fragment_material_reviews) {
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -123,5 +123,13 @@
     <string name="empty_amount_left">Empty amount left</string>
     <string name="no_select_method">No select method</string>
     <string name="no_image_added">No confirm image added</string>
+    <string name="please_sign_in">Please sign in first!</string>
+    <string name="select_method">Select method</string>
+    <string name="are_you_sure_to_purchase">Are you sure to purchase?</string>
+    <string name="confirm">Confirm</string>
+    <string name="purchase_confirm">Purchase confirm</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="apply">Apply</string>
 
 </resources>

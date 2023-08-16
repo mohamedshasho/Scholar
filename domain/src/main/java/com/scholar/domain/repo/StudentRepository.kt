@@ -1,10 +1,8 @@
 package com.scholar.domain.repo
 
-import com.scholar.domain.model.MessageResponse
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Student
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Field
 
 
 interface StudentRepository {
@@ -19,5 +17,10 @@ interface StudentRepository {
         amount: Int,
         paymentMethod: Int,
         description: String?,
+    ): Resource<String>
+
+    suspend fun purchaseMaterial(
+        studentId: Int,
+        materialId: Int,
     ): Resource<String>
 }

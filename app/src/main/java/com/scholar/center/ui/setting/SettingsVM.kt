@@ -29,6 +29,12 @@ class SettingsVM @Inject constructor(
         getStudent()
     }
 
+    fun changeLanguage(lan: String) {
+        viewModelScope.launch {
+            dataStore.saveValue(DataStorePreference.language, lan)
+        }
+    }
+
     private fun checkAuth() {
         viewModelScope.launch {
             dataStore.readValue(DataStorePreference.isUserLoggedIn).collect {

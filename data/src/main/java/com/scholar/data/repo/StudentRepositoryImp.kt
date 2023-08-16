@@ -39,4 +39,15 @@ class StudentRepositoryImp(
             }
         }
     }
+
+    override suspend fun purchaseMaterial(studentId: Int, materialId: Int): Resource<String> {
+        return when (val response = networkDataSource.purchaseMaterial(studentId, materialId)) {
+            is Resource.Success -> {
+                Resource.Success(response.data?.message)
+            }
+            is Resource.Error -> {
+                Resource.Error(response.message)
+            }
+        }
+    }
 }

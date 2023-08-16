@@ -81,6 +81,7 @@
             />
 
         <FrameLayout
+            android:id="@+id/add_image_payment_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
@@ -101,7 +102,7 @@
         </FrameLayout>
 
         <ProgressBar
-            android:id="@+id/contactFragment_progress_bar"
+            android:id="@+id/credit_progress_bar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +111,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/contactFragment_error_text"
+            android:id="@+id/credit_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

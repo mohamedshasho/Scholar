@@ -3,6 +3,7 @@ package com.scholar.center.ui.materials.detail
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -35,15 +36,12 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
         val tabLayout = binding.materialTabLayout
         val viewPager = binding.materialViewPager
 
-        val fragments = listOf(
-            MaterialInformationFragment(viewModel), MaterialReviewsFragment(viewModel),
-        )
+        val fragments = mutableListOf<Fragment>()
         val materialAdapter = TeacherPagerAdapter(
             fragments = fragments,
             fragmentActivity = requireActivity()
         )
         viewPager.adapter = materialAdapter
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.information)
@@ -63,10 +61,17 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                 }
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.message.collect { msg ->
+                msg?.let { Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show() }
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.material.collect {
                     it?.let { materialWithDetail ->
+//                todo        materialAdapter.ad
                         val material = materialWithDetail.material
                         binding.materialName.text = material.title
                         binding.materialType.text = materialWithDetail.category
@@ -122,13 +127,14 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                                 )
                                 return@setOnClickListener
                             }
-                            if (material.price == null || material.price == 0) {
-                                navigateTo(materialId = material.id, material.categoryId)
-                            } else {
-                                navigateTo(materialId = material.id, material.categoryId)
-                                // purchase
-
-                            }
+                            viewModel.purchase()
+//                            if (material.price == null || material.price == 0) {
+//                                navigateTo(materialId = material.id, material.categoryId)
+//                            } else {
+//                                navigateTo(materialId = material.id, material.categoryId)
+//                                // purchase
+//
+//                            }
                         }
                     }
                 }

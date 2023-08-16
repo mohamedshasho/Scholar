@@ -10,7 +10,7 @@ class ValidateCreditUseCase {
     ): CreditInputValidationType {
         return if (amount == 0) {
             CreditInputValidationType.EmptyAmount
-        } else if (method == 0) {
+        } else if (method <= 0) {
             CreditInputValidationType.NoMethod
 
         } else if (link.isEmpty()) {
