@@ -20,7 +20,7 @@ data class TeacherLocal(
     override val bio: String?,
     override val education: String?,
     override val phone: String?,
-    override val qualification: String?,
+    override val qualifications: String?,
 ) : Teacher
 
 
@@ -34,7 +34,7 @@ fun TeacherNetwork.toLocal() =
         bio = bio,
         education = education,
         phone = phone,
-        qualification=qualification
+        qualifications=qualifications
     )
 
 fun List<TeacherNetwork>.toLocal() = map(TeacherNetwork::toLocal)

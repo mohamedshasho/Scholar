@@ -8,6 +8,7 @@ import com.scholar.domain.model.MaterialWithTeacherNetwork
 import com.scholar.domain.model.toSmall
 
 class MaterialsFilterPagingSource(
+    private val myMaterials : List<Int>,
     private val networkDataSource: MaterialNetworkDataSource,
     private val stageId: Int?,
     private val classroomId: Int?,
@@ -26,7 +27,8 @@ class MaterialsFilterPagingSource(
                 MaterialWithTeacherNetwork(
                     material = it,
                     teacher = it.teacher.toSmall(),
-                    totalRate = it.rates.sumOf { rate -> rate.rate }.div(it.rates.size.toDouble())
+                    totalRate = it.rates.sumOf { rate -> rate.rate }.div(it.rates.size.toDouble()),
+//                    isBought = myMaterials.contains(it.id)
 
                 )
             }

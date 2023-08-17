@@ -118,9 +118,26 @@
 
     <string name="material_class_name">%1$s, %2$s</string>
     <string name="loading">جاري التحميل…</string>
-    <string name="amount">Amount</string>
-    <string name="payment_method">Payment Method</string>
     <string name="credit_text">طلب شراء رصيد</string>
-    <string name="add_link_payment">Upload Confirm payment image </string>
+    <string name="amount">المبلغ</string>
+    <string name="payment_method">طريقة الدفع</string>
+    <string name="add_link_payment">تحميل صورة تأكيد الدفع</string>
+    <string name="enter_amount_here">على سبيل المثال 5000 سوري</string>
+    <string name="description_optional">الوصف (اختياري)</string>
+    <string name="empty_amount_left">المبلغ فارغ</string>
+    <string name="no_select_method">لم يتم اختيار طريقة</string>
+    <string name="no_image_added">لم يتم إضافة صورة تأكيد</string>
+    <string name="please_sign_in">يرجى تسجيل الدخول أولاً!</string>
+    <string name="select_method">اختر الطريقة</string>
+    <string name="are_you_sure_to_purchase">هل أنت متأكد من الشراء؟</string>
+    <string name="confirm">تأكيد</string>
+    <string name="purchase_confirm">تأكيد الشراء</string>
+    <string name="arabic">العربية</string>
+    <string name="english">الإنجليزية</string>
+    <string name="apply">تطبيق</string>
+    <string name="update">تحديث</string>
+    <string name="enter_brith_here">اضغط لتحديد تاريخ الميلاد</string>
+    <string name="ad_rate">إضافة تقييم</string>
+    <string name="add">إضافة</string>
 
 </resources>

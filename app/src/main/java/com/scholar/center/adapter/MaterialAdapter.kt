@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.scholar.center.R
 import com.scholar.center.databinding.SubjectItemBinding
+import com.scholar.center.model.MaterialWithTeacherUi
 import com.scholar.center.unit.Constants.BASE_URL
 import com.scholar.center.unit.applyDiscount
 import com.scholar.domain.model.MaterialWithTeacher
@@ -29,6 +30,10 @@ class MaterialAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
+//        val isBought =
+//        if (item.isBought) {
+//            holder.binding.materialSubjectPriceLayout.visibility = View.INVISIBLE
+//        }
 
         holder.binding.materialSubjectText.text = item.material.title
         val context = holder.itemView.context
@@ -89,7 +94,6 @@ class MaterialAdapter(
         items = l
         notifyItemChanged(lastItemSize, l.size)
     }
-
 
 
     class ViewHolder(val binding: SubjectItemBinding) :

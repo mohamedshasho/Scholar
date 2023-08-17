@@ -3,6 +3,7 @@ package com.scholar.data.source.network
 import com.scholar.data.service.ApiService
 import com.scholar.domain.model.MaterialNetwork
 import com.scholar.domain.model.NetworkResult
+import com.scholar.domain.model.Resource
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -24,6 +25,7 @@ class MaterialNetworkDataSource @Inject constructor(
             is NetworkResult.Success -> {
                 response.data
             }
+
             else -> emptyList()
         }
     }
@@ -33,6 +35,7 @@ class MaterialNetworkDataSource @Inject constructor(
             is NetworkResult.Success -> {
                 response.data
             }
+
             else -> emptyList()
         }
     }
@@ -54,6 +57,7 @@ class MaterialNetworkDataSource @Inject constructor(
             is NetworkResult.Success -> {
                 response.data
             }
+
             else -> emptyList()
         }
     }
@@ -64,7 +68,30 @@ class MaterialNetworkDataSource @Inject constructor(
             is NetworkResult.Success -> {
                 response.data
             }
+
             else -> null
+        }
+    }
+
+    suspend fun rate(
+        studentId: Int,
+        materialId: Int,
+        rate: Int,
+        comment: String
+    ): Resource<String> {
+        return when (val response = apiService.rateMaterial(studentId, materialId, rate, comment)) {
+            is NetworkResult.Success -> {
+                Resource.Success(response.data.message)
+            }
+
+            is NetworkResult.Error -> {
+                Resource.Error(response.error)
+            }
+
+            is NetworkResult.Exception -> {
+                Resource.Error(response.e.message)
+
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ interface MaterialDao : BaseDao<MaterialLocal> {
     @Transaction
     @Query(
         "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
-                " materials.hoursNumberOfWeek, materials.categoryId , materials.content, " +
+                " materials.hoursNumberOfWeek, materials.categoryId , materials.content,materials.favorite," +
                 " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image" +
                 ", subjects.name as subject, stages.name as stage, classes.name as classroom, categories.name as category " +
                 " FROM materials " +
@@ -34,11 +34,11 @@ interface MaterialDao : BaseDao<MaterialLocal> {
     @Transaction
     @Query(
         "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
-                " materials.hoursNumberOfWeek, materials.categoryId , " +
+                " materials.hoursNumberOfWeek, materials.categoryId ,materials.favorite, " +
                 " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image," +
                 " (select avg(rate) from rates where material_id=materials.id) as totalRate" +
                 " FROM materials " +
-                "LEFT JOIN teachers ON materials.teacher_id = teachers.teacher_id "+
+                "LEFT JOIN teachers ON materials.teacher_id = teachers.teacher_id " +
                 "order by random() limit :limit"
     )
     fun getSomeMaterials(limit: Int): Flow<List<MaterialWithTeacherLocal>>
@@ -46,11 +46,14 @@ interface MaterialDao : BaseDao<MaterialLocal> {
     @Transaction
     @Query(
         "SELECT materials.id,materials.title, materials.description,materials.price, materials.discount," +
-                " materials.hoursNumberOfWeek, materials.categoryId , " +
+                " materials.hoursNumberOfWeek, materials.categoryId ,materials.favorite, " +
                 " teachers.teacher_id as teacherId ,teachers.full_name as name, teachers.image as image," +
                 " (select avg(rate) from rates where material_id=materials.id) as totalRate" +
                 " FROM materials " +
                 "LEFT JOIN teachers ON materials.teacher_id = teachers.teacher_id "
     )
     fun getAllMaterialsWithSubject(): Flow<List<MaterialWithTeacherLocal>>
+
+//    @Query("update materials set bought= 1 where id=:id")
+//    suspend fun setMaterialBought(id: Int)
 }

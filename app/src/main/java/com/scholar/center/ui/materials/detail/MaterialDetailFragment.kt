@@ -36,7 +36,10 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
         val tabLayout = binding.materialTabLayout
         val viewPager = binding.materialViewPager
 
-        val fragments = mutableListOf<Fragment>()
+        val fragments = listOf(
+            MaterialInformationFragment(viewModel),
+            MaterialReviewsFragment(viewModel)
+        )
         val materialAdapter = TeacherPagerAdapter(
             fragments = fragments,
             fragmentActivity = requireActivity()
@@ -65,6 +68,15 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
         lifecycleScope.launch {
             viewModel.message.collect { msg ->
                 msg?.let { Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show() }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.alreadyBought.collect { alreadyBought ->
+                if (alreadyBought) {
+                    binding.materialPriceLayout.visibility = View.GONE
+                    binding.materialPriceButton.text = getString(R.string.view)
+                }
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
@@ -127,14 +139,11 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
                                 )
                                 return@setOnClickListener
                             }
-//                            viewModel.purchase()
-//                            if (material.price == null || material.price == 0) {
+                            if(viewModel.alreadyBought.value){
                                 navigateTo(materialId = material.id, material.categoryId)
-//                            } else {
-//                                navigateTo(materialId = material.id, material.categoryId)
-//                                // purchase
-//
-//                            }
+                            }else{
+                                viewModel.purchase()
+                            }
                         }
                     }
                 }

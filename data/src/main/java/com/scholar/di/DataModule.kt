@@ -103,6 +103,7 @@ object DataModule {
     @Singleton
     @Provides
     fun provideMaterialRepository(
+        dataStorePreference: DataStorePreference,
         materialNetworkDataSource: MaterialNetworkDataSource,
         materialDao: MaterialDao,
         rateDao: RateDao, teacherDao: TeacherDao,
@@ -110,6 +111,7 @@ object DataModule {
         @ApplicationContext context: Context,
     ): MaterialRepository =
         MaterialRepositoryImp(
+            dataStorePreference,
             materialNetworkDataSource,
             materialDao,
             rateDao,
@@ -148,8 +150,13 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideAuthRepository(apiService: ApiService, studentDao: StudentDao): AuthRepository {
-        return AuthRepositoryImp(apiService, studentDao)
+    fun provideAuthRepository(
+        dataStorePreference: DataStorePreference,
+        apiService: ApiService,
+        studentDao: StudentDao,
+        materialDao: MaterialDao
+    ): AuthRepository {
+        return AuthRepositoryImp(dataStorePreference,apiService, studentDao, materialDao)
     }
 
     @Singleton
@@ -161,9 +168,11 @@ object DataModule {
     @Singleton
     @Provides
     fun provideStudentRepository(
+        dataStorePreference: DataStorePreference,
         studentDao: StudentDao,
-        studentNetworkDataSource: StudentNetworkDataSource
+        studentNetworkDataSource: StudentNetworkDataSource,
+        materialDao: MaterialDao
     ): StudentRepository {
-        return StudentRepositoryImp(studentNetworkDataSource, studentDao)
+        return StudentRepositoryImp(dataStorePreference,studentNetworkDataSource, studentDao,materialDao)
     }
 }

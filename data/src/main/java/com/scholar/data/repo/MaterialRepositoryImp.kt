@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.google.gson.Gson
 import com.scholar.data.source.local.dao.MaterialDao
 import com.scholar.data.source.local.dao.RateDao
 import com.scholar.data.source.local.dao.TeacherDao
@@ -16,10 +17,12 @@ import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Material
 import com.scholar.domain.model.MaterialWithDetail
 import com.scholar.domain.model.MaterialWithTeacher
+import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.repo.MaterialRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
@@ -32,6 +35,7 @@ import java.io.FileOutputStream
 import java.net.URL
 
 class MaterialRepositoryImp(
+    private val dataStorePreference: DataStorePreference,
     private val remoteDataSource: MaterialNetworkDataSource,
     private val materialDao: MaterialDao,
     private val rateDao: RateDao,
@@ -100,10 +104,13 @@ class MaterialRepositoryImp(
         subjectId: Int?,
         categoryId: Int?
     ): Flow<PagingData<MaterialWithTeacher>> {
+        val m = dataStorePreference.readValue(DataStorePreference.myMaterials).first()
+        val myMaterial = Gson().fromJson(m,Array<Int>::class.java)
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE),
             pagingSourceFactory = {
                 MaterialsFilterPagingSource(
+                    myMaterial.toList(),
                     remoteDataSource,
                     stageId,
                     classroomId,
@@ -146,6 +153,15 @@ class MaterialRepositoryImp(
                 pdfBytes(destinationFile)
             }
         })
+    }
+
+    override suspend fun rateMaterial(
+        studentId: Int,
+        materialId: Int,
+        rate: Int,
+        comment: String
+    ): Resource<String> {
+        return  remoteDataSource.rate(studentId,materialId,rate,comment)
     }
 
 }

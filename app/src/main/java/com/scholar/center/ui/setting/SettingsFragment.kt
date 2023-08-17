@@ -58,7 +58,7 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
                 viewModel.student.collect { student ->
                     student?.let {
                         binding.profileFragmentStudentName.text = student.fullName
-                        binding.profileWalletAmount.text = student.wallet ?: "0"
+                        student.wallet?.let { binding.profileWalletAmount.text = it.toString() }
                         student.image?.let {
                             Glide.with(requireContext())
                                 .load("${BASE_URL}${it}")
@@ -83,6 +83,10 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
 
         binding.profileFragmentCashListTile.root.setOnClickListener {
             navController?.navigate(MainFragmentDirections.actionMainToCredit())
+        }
+
+        binding.profileFragmentAccountListTile.root.setOnClickListener {
+            navController?.navigate(MainFragmentDirections.actionMainToProfile())
         }
 
 

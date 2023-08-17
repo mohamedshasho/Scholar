@@ -62,6 +62,7 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.teacher.collectLatest { teacher ->
                     teacher?.let {
+
                         val fragments = listOf(
                             PersonalFragment(it), QualificationsFragment(it),
                             TeacherMaterialsFragment()

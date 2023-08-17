@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialReviewAdapter
 import com.scholar.center.databinding.FragmentMaterialReviewsBinding
+import com.scholar.center.ui.dialogs.RateBottomSheetFragment
 import com.scholar.domain.model.Review
 import kotlinx.coroutines.launch
 
@@ -22,6 +23,13 @@ class MaterialReviewsFragment(private val viewModel:MaterialDetailVM) : Fragment
         val binding = FragmentMaterialReviewsBinding.bind(view)
 
         val reviewsAdapter = MaterialReviewAdapter()
+
+        binding.fab.setOnClickListener {
+            val bottomSheetFragment = RateBottomSheetFragment{rate,comment->
+                viewModel.rate(rate,comment)
+            }
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+        }
 
         binding.materialReviewRecyclerView.apply {
             layoutManager =

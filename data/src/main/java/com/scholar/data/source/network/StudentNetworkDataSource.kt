@@ -4,6 +4,8 @@ import com.scholar.data.service.ApiService
 import com.scholar.domain.model.MessageResponse
 import com.scholar.domain.model.NetworkResult
 import com.scholar.domain.model.Resource
+import com.scholar.domain.model.Student
+import com.scholar.domain.model.StudentNetwork
 import com.scholar.domain.model.SubjectNetwork
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -51,14 +53,64 @@ class StudentNetworkDataSource @Inject constructor(
     }
 
     suspend fun purchaseMaterial(
-      studentId: Int,
-      materialId: Int,
+        studentId: Int,
+        materialId: Int,
     ): Resource<MessageResponse> = accessMutex.withLock {
         return when (val response =
             apiService.purchaseMaterial(studentId, materialId)) {
             is NetworkResult.Success -> {
                 Resource.Success(response.data)
             }
+
+            is NetworkResult.Error -> {
+                Resource.Error(response.error)
+            }
+
+            is NetworkResult.Exception -> {
+                Resource.Error(response.e.message)
+            }
+        }
+    }
+
+    suspend fun sync(
+        studentId: Int,
+    ): Resource<StudentNetwork> = accessMutex.withLock {
+        return when (val response =
+            apiService.syncStudent(studentId)) {
+            is NetworkResult.Success -> {
+                Resource.Success(response.data.data)
+            }
+
+            is NetworkResult.Error -> {
+                Resource.Error(response.error)
+            }
+
+            is NetworkResult.Exception -> {
+                Resource.Error(response.e.message)
+            }
+        }
+    }
+
+    suspend fun update(
+        studentId: Int,
+        imagePath: String,
+        fullName: String,
+        phone: String,
+        birth: String
+    ): Resource<String> {
+        val fileRequestBody = imagePath.let {
+            val file = File(it)
+            file.asRequestBody()
+        }
+        val filePart =
+            MultipartBody.Part.createFormData("profileUser", imagePath, fileRequestBody)
+
+        return when (val response =
+            apiService.updateProfile(filePart, studentId, fullName, phone, birth)) {
+            is NetworkResult.Success -> {
+                Resource.Success(response.data.message)
+            }
+
             is NetworkResult.Error -> {
                 Resource.Error(response.error)
             }

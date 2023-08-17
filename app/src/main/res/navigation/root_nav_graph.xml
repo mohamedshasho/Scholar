@@ -111,6 +111,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_main_to_profile"
+            app:destination="@id/profileFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
 
@@ -337,4 +344,9 @@
         android:id="@+id/creditFragment"
         android:name="com.scholar.center.ui.credit.CreditFragment"
         android:label="CreditFragment" />
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.scholar.center.ui.profile.ProfileFragment"
+        android:label="fragment_student_profile"
+        tools:layout="@layout/fragment_student_profile" />
 </navigation>

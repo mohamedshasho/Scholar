@@ -4,7 +4,8 @@ package com.scholar.domain.model
 data class MaterialWithTeacherNetwork(
     override val material: Material,
     override val teacher: TeacherSmall,
-    override val totalRate: Double
+    override val totalRate: Double,
+
 )
     :MaterialWithTeacher
 

@@ -23,4 +23,17 @@ interface StudentRepository {
         studentId: Int,
         materialId: Int,
     ): Resource<String>
+
+
+    suspend fun syncStudent(
+        studentId: Int,
+    )
+
+    suspend fun update(
+        studentId: Int,
+        imagePath: String,
+        fullName: String,
+        phone: String,
+        birth: String,
+    ): Resource<String>
 }

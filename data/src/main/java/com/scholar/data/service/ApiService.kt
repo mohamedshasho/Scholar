@@ -108,10 +108,10 @@ interface ApiService {
     @POST("teacher/contact")
     @FormUrlEncoded
     suspend fun contact(
-        @Field("name")  name: String,
-        @Field("email")    email: String,
-        @Field("phone")   phone: String,
-        @Field("subject")  subject: String
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("phone") phone: String,
+        @Field("subject") subject: String
     ): NetworkResult<MessageResponse>
 
 
@@ -119,18 +119,47 @@ interface ApiService {
     @Multipart
     suspend fun purchaseCredit(
         @Part file: MultipartBody.Part,
-        @Part("studentId")  studentId: Int,
-        @Part("amount")    amount: Int,
-        @Part("paymentMethod")   paymentMethod: Int,
-        @Part("description")   description: String?,
+        @Part("studentId") studentId: Int,
+        @Part("amount") amount: Int,
+        @Part("paymentMethod") paymentMethod: Int,
+        @Part("description") description: String?,
     ): NetworkResult<MessageResponse>
 
     @POST("credit/buy-course/{studentId}/{materialId}")
     suspend fun purchaseMaterial(
-        @Path("studentId")  studentId: Int,
-        @Path("materialId")    materialId: Int,
+        @Path("studentId") studentId: Int,
+        @Path("materialId") materialId: Int,
+    ): NetworkResult<MessageResponse>
+
+    @GET("student/show/{studentId}")
+    suspend fun syncStudent(
+        @Path("studentId") studentId: Int,
+    ): NetworkResult<Data>
+
+
+    @POST("student/rate/{student}/{material}")
+    @FormUrlEncoded
+    suspend fun rateMaterial(
+        @Path("student") studentId: Int,
+        @Path("material") materialId: Int,
+        @Field("rate") rate: Int,
+        @Field("subject") comment: String
+    ): NetworkResult<MessageResponse>
+
+    @POST("student/edit-profile/{user}")
+    @Multipart
+    suspend fun updateProfile(
+        @Part file: MultipartBody.Part,
+        @Path("user") studentId: Int,
+        @Part("full_name") fullName: String,
+        @Part("phone") phone: String,
+        @Part("birth") birth: String,
     ): NetworkResult<MessageResponse>
 
 }
+
+data class Data(
+    val data: StudentNetwork
+)
 
 private const val PER_PAGE = 10

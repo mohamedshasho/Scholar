@@ -18,14 +18,22 @@ interface MaterialRepository {
     suspend fun getMaterialFromNetwork(id: Int)
 
 
-    suspend fun searchForMaterialFromNetwork(key:String): Flow<PagingData<MaterialWithTeacher>>
+    suspend fun searchForMaterialFromNetwork(key: String): Flow<PagingData<MaterialWithTeacher>>
     suspend fun filterMaterialFromNetwork(
-        stageId :Int?,
-        classroomId :Int?,
-        subjectId :Int?,
-        categoryId :Int?,
+        stageId: Int?,
+        classroomId: Int?,
+        subjectId: Int?,
+        categoryId: Int?,
     ): Flow<PagingData<MaterialWithTeacher>>
 
 
     suspend fun loadPDf(url: URL, pdfBytes: (File?) -> Unit)
+
+
+    suspend fun rateMaterial(
+        studentId: Int,
+        materialId: Int,
+        rate: Int,
+        comment: String
+    ): Resource<String>
 }

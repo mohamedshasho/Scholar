@@ -8,6 +8,7 @@ import com.scholar.domain.model.LoginState
 import com.scholar.domain.model.Resource
 import com.scholar.domain.repo.AuthRepository
 import com.scholar.domain.repo.DataStorePreference
+import com.scholar.domain.repo.StudentRepository
 import com.scholar.domain.usecase.ValidateLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,7 @@ class LoginVM @Inject constructor(
     private val dataStore: DataStorePreference,
     private val authRepository: AuthRepository,
     private val validateLoginUseCase: ValidateLoginUseCase,
+    private val studentRepository: StudentRepository,
 ) : ViewModel() {
     var loginState = MutableStateFlow(LoginState())
         private set

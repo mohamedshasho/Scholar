@@ -65,4 +65,8 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideCreditUseCase() = ValidateCreditUseCase()
+
+    @Singleton
+    @Provides
+    fun provideStudentUseCase() = ValidateStudentUseCase()
 }

@@ -73,12 +73,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         lifecycleScope.launch {
             viewModel.loading.collect { loading ->
                 if (loading) {
-                    categoriesShimmer.startShimmer()
+//                    categoriesShimmer.startShimmer()
                     materialsShimmer.startShimmer()
                 } else {
-                    categoriesShimmer.stopShimmer()
+//                    categoriesShimmer.stopShimmer()
                     materialsShimmer.stopShimmer()
-                    categoriesShimmer.visibility = View.GONE
+//                    categoriesShimmer.visibility = View.GONE
                     materialsShimmer.visibility = View.GONE
                 }
             }

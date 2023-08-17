@@ -54,31 +54,31 @@
             android:text="teacher name "
             android:textAppearance="@style/TextBody2" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            >
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingHorizontal="10dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:paddingBottom="5dp"-->
+<!--            >-->
 
-            <TextView
-                android:id="@+id/teacher_profile_number_views_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:padding="2dp"
-                android:text="100"
-                android:textAppearance="@style/TextSubTitle2"
-                />
-            <ImageView
-                android:id="@+id/teacher_profile_number_views_image"
-                android:layout_width="18dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_eye"
-                app:tint="?attr/colorPrimaryVariant" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/teacher_profile_number_views_text"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="end"-->
+<!--                android:padding="2dp"-->
+<!--                android:text="100"-->
+<!--                android:textAppearance="@style/TextSubTitle2"-->
+<!--                />-->
+<!--            <ImageView-->
+<!--                android:id="@+id/teacher_profile_number_views_image"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="16dp"-->
+<!--                android:src="@drawable/ic_eye"-->
+<!--                app:tint="?attr/colorPrimaryVariant" />-->
+<!--        </LinearLayout>-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

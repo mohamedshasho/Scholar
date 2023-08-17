@@ -12,7 +12,7 @@ data class TeacherNetwork(
     override val bio: String?,
     override val education: String?,
     override val phone: String?,
-    override val qualification: String?,
+    override val qualifications: String?,
     val subjects: List<SubjectNetwork>,
 ) : Teacher
 
@@ -25,5 +25,5 @@ interface Teacher {
     val bio: String?
     val image: String?
     val education: String?
-    val qualification: String?
+    val qualifications: String?
 }

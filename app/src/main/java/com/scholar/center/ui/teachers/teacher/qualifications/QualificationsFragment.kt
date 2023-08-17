@@ -15,7 +15,7 @@ class QualificationsFragment(val teacher: Teacher) :
         val binding = FragmentTeacherQualificationsBinding.bind(view)
 
         binding.teacherQualificationsEducation.text = teacher.education
-        binding.teacherQualifications.text = teacher.qualification
+        binding.teacherQualifications.text = teacher.qualifications
 
     }
 }

@@ -18,6 +18,7 @@ data class MaterialLocal(
     val subjectId: Int?,
     @ColumnInfo("teacher_id")
     val teacherId: Int?,
+    override val favorite: Boolean?,
     override val categoryId: Int?,
     override val title: String,
     override val description: String?,
@@ -41,6 +42,7 @@ fun MaterialNetwork.toLocal() = MaterialLocal(
     price = price,
     discount = discount,
     hoursNumberOfWeek = hoursNumberOfWeek,
+    favorite = favorite,
 )
 
 fun MaterialNetwork.content() =
@@ -48,18 +50,23 @@ fun MaterialNetwork.content() =
         1 -> {
             pdf
         }
+
         2 -> {
             summaries
         }
+
         3 -> {
             videos
         }
+
         4 -> {
             book
         }
+
         5 -> {
             exam
         }
+
         else -> null
     }
 
