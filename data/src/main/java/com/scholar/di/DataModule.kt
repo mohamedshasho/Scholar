@@ -88,36 +88,30 @@ object DataModule {
     fun provideTeacherRepository(
         teacherNetworkDataSource: TeacherNetworkDataSource,
         scholarDb: ScholarDb,
-        @DefaultDispatcher dispatcher: CoroutineDispatcher,
     ): TeacherRepository =
-        TeacherRepositoryImp(teacherNetworkDataSource, scholarDb, dispatcher)
+        TeacherRepositoryImp(teacherNetworkDataSource, scholarDb)
 
     @Singleton
     @Provides
     fun provideStoryRepository(
         storyNetworkDataSource: StoryNetworkDataSource, scholarDb: ScholarDb,
-        @DefaultDispatcher dispatcher: CoroutineDispatcher,
     ): StoryRepository =
-        StoryRepositoryImp(storyNetworkDataSource, scholarDb, dispatcher)
+        StoryRepositoryImp(storyNetworkDataSource, scholarDb)
 
     @Singleton
     @Provides
     fun provideMaterialRepository(
-        dataStorePreference: DataStorePreference,
         materialNetworkDataSource: MaterialNetworkDataSource,
         materialDao: MaterialDao,
         rateDao: RateDao, teacherDao: TeacherDao,
         @DefaultDispatcher dispatcher: CoroutineDispatcher,
-        @ApplicationContext context: Context,
     ): MaterialRepository =
         MaterialRepositoryImp(
-            dataStorePreference,
             materialNetworkDataSource,
             materialDao,
             rateDao,
             teacherDao,
-            dispatcher,
-            context
+            dispatcher
         )
 
     @Singleton
@@ -154,9 +148,8 @@ object DataModule {
         dataStorePreference: DataStorePreference,
         apiService: ApiService,
         studentDao: StudentDao,
-        materialDao: MaterialDao
     ): AuthRepository {
-        return AuthRepositoryImp(dataStorePreference,apiService, studentDao, materialDao)
+        return AuthRepositoryImp(dataStorePreference,apiService, studentDao)
     }
 
     @Singleton
@@ -171,8 +164,7 @@ object DataModule {
         dataStorePreference: DataStorePreference,
         studentDao: StudentDao,
         studentNetworkDataSource: StudentNetworkDataSource,
-        materialDao: MaterialDao
     ): StudentRepository {
-        return StudentRepositoryImp(dataStorePreference,studentNetworkDataSource, studentDao,materialDao)
+        return StudentRepositoryImp(dataStorePreference, studentNetworkDataSource, studentDao)
     }
 }

@@ -1,7 +1,6 @@
 package com.scholar.center.ui.auth.register
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import androidx.core.widget.addTextChangedListener
@@ -56,9 +55,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 viewModel.registerState.collect { state ->
                     val isLoginDestination =
                         navController.currentDestination?.id == R.id.registerFragment //to ensure that navigate call once
-                    Log.d("registerState", "isLoginDestination: $isLoginDestination")
-                    Log.d("registerState", "state.isSuccessfullyRegister: ${state.isSuccessfullyRegister}")
-                    Log.d("registerState", "mustPopBackStack: $mustPopBackStack")
                     if (state.isSuccessfullyRegister && isLoginDestination) {
                         if (mustPopBackStack) {
                             navController.popBackStack()

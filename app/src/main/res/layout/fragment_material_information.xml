@@ -23,7 +23,6 @@
             android:id="@+id/material_information_subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/subject"
             android:layout_marginBottom="5dp"
             android:layout_marginStart="5dp"
             android:textAppearance="@style/TextBody1"/>
@@ -33,7 +32,6 @@
         android:id="@+id/material_information_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
         android:layout_marginBottom="20dp"
         android:textAppearance="@style/TextBody1"/>
 
@@ -41,6 +39,5 @@
         android:id="@+id/material_information_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
         android:textAppearance="@style/TextBody2"/>
 </LinearLayout>

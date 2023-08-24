@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scholar.center.unit.Constants.STORY_ID_KEY
-import com.scholar.domain.model.Story
 import com.scholar.domain.model.StoryWithStudent
 import com.scholar.domain.repo.StoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

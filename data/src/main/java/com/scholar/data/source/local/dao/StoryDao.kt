@@ -6,7 +6,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.scholar.data.source.local.model.StoryLocal
 import com.scholar.data.source.local.model.StoryWithStudentLocal
-import com.scholar.domain.model.StoryWithStudent
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,9 +17,6 @@ interface StoryDao : BaseDao<StoryLocal> {
 
     @Query("SELECT * FROM stories LIMIT :pageSize OFFSET :offset")
     suspend fun getStories(offset: Int, pageSize: Int): List<StoryLocal>
-
-//    @Query("SELECT * FROM stories")
-//    fun getStoriesPaging(): PagingSource<Int, StoryLocal>
 
     @Transaction
     @Query("select * from stories")

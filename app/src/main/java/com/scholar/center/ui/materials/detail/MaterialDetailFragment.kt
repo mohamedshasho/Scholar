@@ -27,129 +27,129 @@ class MaterialDetailFragment : Fragment(R.layout.fragment_material_detail) {
 
     private val navController by lazy { findNavController() }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentMaterialDetailBinding.bind(view)
-
-        binding.materialToolbarBackButton.setOnClickListener {
-            navController.popBackStack()
-        }
-
-        val tabLayout = binding.materialTabLayout
-        val viewPager = binding.materialViewPager
-
-        val fragments = listOf(
-            MaterialInformationFragment(viewModel),
-            MaterialReviewsFragment(viewModel)
-        )
-        val materialAdapter = TeacherPagerAdapter(
-            fragments = fragments,
-            fragmentActivity = requireActivity()
-        )
-        viewPager.adapter = materialAdapter
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> getString(R.string.information)
-                1 -> getString(R.string.reviews)
-                else -> throw IllegalArgumentException("Invalid position: $position")
+        with(FragmentMaterialDetailBinding.bind(view)) {
+            materialToolbarBackButton.setOnClickListener {
+                navController.popBackStack()
             }
-        }.attach()
-        val loadingDialog = LoadingDialogFragment()
+            val tabLayout = materialTabLayout
+            val viewPager = materialViewPager
 
-        lifecycleScope.launch {
-            viewModel.loading.collect { loading ->
-                if (loading) {
-                    loadingDialog.show(parentFragmentManager, "loading_dialog")
-                } else {
-                    if (loadingDialog.isVisible)
-                        loadingDialog.dismiss()
+            val fragments = listOf(
+                MaterialInformationFragment(viewModel),
+                MaterialReviewsFragment(viewModel)
+            )
+            val materialAdapter = TeacherPagerAdapter(
+                fragments = fragments,
+                fragmentActivity = requireActivity()
+            )
+            viewPager.adapter = materialAdapter
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = when (position) {
+                    0 -> getString(R.string.information)
+                    1 -> getString(R.string.reviews)
+                    else -> throw IllegalArgumentException("Invalid position: $position")
+                }
+            }.attach()
+            val loadingDialog = LoadingDialogFragment()
+
+            lifecycleScope.launch {
+                viewModel.loading.collect { loading ->
+                    if (loading) {
+                        loadingDialog.show(parentFragmentManager, "loading_dialog")
+                    } else {
+                        if (loadingDialog.isVisible)
+                            loadingDialog.dismiss()
+                    }
                 }
             }
-        }
 
-        lifecycleScope.launch {
-            viewModel.message.collect { msg ->
-                msg?.let { Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show() }
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.alreadyBought.collect { alreadyBought ->
-                if (alreadyBought) {
-                    binding.materialPriceLayout.visibility = View.GONE
-                    binding.materialPriceButton.text = getString(R.string.view)
+            lifecycleScope.launch {
+                viewModel.message.collect { msg ->
+                    msg?.let { Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show() }
                 }
             }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.material.collect {
-                    it?.let { materialWithDetail ->
-//                todo        materialAdapter.ad
-                        val material = materialWithDetail.material
-                        binding.materialName.text = material.title
-                        binding.materialType.text = materialWithDetail.category
+            lifecycleScope.launch {
+                viewModel.alreadyBought.collect { alreadyBought ->
+                    if (alreadyBought) {
+                        materialPriceLayout.visibility = View.GONE
+                        materialPriceButton.text = getString(R.string.view)
+                    }
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.material.collect {
+                        it?.let { materialWithDetail ->
+                            val material = materialWithDetail.material
+                           materialName.text = material.title
+                            materialType.text = materialWithDetail.category
 
-                        binding.materialClassName.text = getString(
-                            R.string.material_class_name,
-                            materialWithDetail.stage,
-                            materialWithDetail.classroom
-                        )
-                        val discountedPrice =
-                            material.price?.applyDiscount(material.discount ?: 0)
-                        if (material.price != null && material.price != 0) {
-                            if (material.discount != null && material.discount != 0) {
-                                binding.materialDiscount.text = getString(
-                                    R.string.price_only, material.price
-                                )
-                                binding.materialDiscount.paintFlags =
-                                    binding.materialDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-                                binding.materialPriceValue.text = getString(
-                                    R.string.syr, discountedPrice
-                                )
-                            } else {
-                                binding.materialDiscount.visibility = View.GONE
-                                binding.materialPriceValue.text =
-                                    getString(R.string.syr, material.price)
-                            }
-
-                        } else {
-                            binding.materialPriceLayout.visibility = View.GONE
-                            binding.materialPriceButton.text = getText(R.string.view)
-                        }
-                        if (materialWithDetail.teacher.name != null) {
-                            binding.materialTeacherName.text = materialWithDetail.teacher.name
-                            materialWithDetail.teacher.image?.let { image ->
-                                Glide.with(requireContext())
-                                    .load("${BASE_URL}$image")
-                                    .placeholder(R.drawable.ic_person)
-                                    .error(R.drawable.ic_person)
-                                    .into(binding.materialTeacherImage)
-                            }
-                        } else {
-                            binding.materialTeacherLayout.visibility = View.GONE
-                        }
+                            materialClassName.text = getString(
+                                R.string.material_class_name,
+                                materialWithDetail.stage,
+                                materialWithDetail.classroom
+                            )
+                            val discountedPrice =
+                                material.price?.applyDiscount(material.discount ?: 0)
 
 
-                        binding.materialPriceButton.setOnClickListener {
-                            if (!viewModel.isUserLogged.value) {
-                                navController.navigate(
-                                    MaterialDetailFragmentDirections.actionMaterialDetailToLogin(
-                                        mustPopBackStack = true
+                            if (material.price != null && material.price != 0) {
+                                if (material.discount != null && material.discount != 0) {
+                                    materialDiscount.text = getString(
+                                        R.string.price_only, material.price
                                     )
-                                )
-                                return@setOnClickListener
+                                   materialDiscount.paintFlags =
+                                     materialDiscount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                                    materialPriceValue.text = getString(
+                                        R.string.syr, discountedPrice
+                                    )
+                                } else {
+                                    materialDiscount.visibility = View.GONE
+                                    materialPriceValue.text =
+                                        getString(R.string.syr, material.price)
+                                }
+                            } else {
+                                materialPriceLayout.visibility = View.GONE
+                                materialPriceButton.text = getText(R.string.view)
                             }
-                            if(viewModel.alreadyBought.value){
-                                navigateTo(materialId = material.id, material.categoryId)
-                            }else{
-                                viewModel.purchase()
+
+
+
+                            val teacher = materialWithDetail.teacher
+                            if (teacher?.name != null) {
+                                materialTeacherName.text = teacher.name
+                                teacher.image?.let { image ->
+                                    Glide.with(requireContext())
+                                        .load("${BASE_URL}$image")
+                                        .placeholder(R.drawable.ic_person)
+                                        .error(R.drawable.ic_person)
+                                        .into(materialTeacherImage)
+                                }
+                            } else {
+                                materialTeacherLayout.visibility = View.GONE
+                            }
+
+
+                            materialPriceButton.setOnClickListener {
+                                if (!viewModel.isUserLogged.value) {
+                                    navController.navigate(
+                                        MaterialDetailFragmentDirections.actionMaterialDetailToLogin(
+                                            mustPopBackStack = true
+                                        )
+                                    )
+                                    return@setOnClickListener
+                                }
+                                if (viewModel.alreadyBought.value) {
+                                    navigateTo(materialId = material.id, material.categoryId)
+                                } else {
+                                    viewModel.purchase()
+                                }
                             }
                         }
                     }
                 }
             }
         }
-
     }
 
     private fun navigateTo(materialId: Int, category: Int?) {

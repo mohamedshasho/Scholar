@@ -23,88 +23,86 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeVM by viewModels()
-    private val navController by lazy {  activity?.findNavController(R.id.root_nav_host_fragment) }
+    private val navController by lazy { activity?.findNavController(R.id.root_nav_host_fragment) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentHomeBinding.bind(view)
+        with(FragmentHomeBinding.bind(view)) {
+            val categoriesShimmer = homeMaterialsSubjectsShimmerLayout
+            val materialsShimmer =homeMaterialsShimmerLayout
 
-        val categoriesShimmer = binding.homeMaterialsSubjectsShimmerLayout
-        val materialsShimmer = binding.homeMaterialsShimmerLayout
-
-
-        val materialAdapter = MaterialAdapter(
-            navigateToTeacher = { teacherID ->
-                navController?.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
-            },
-            navigateToDetails = { id ->
-                navController?.navigate(MainFragmentDirections.actionMainToMaterial(id))
+            val materialAdapter = MaterialAdapter(
+                navigateToTeacher = { teacherID ->
+                    navController?.navigate(MainFragmentDirections.actionMainToTeacher(teacherId = teacherID))
+                },
+                navigateToDetails = { id ->
+                    navController?.navigate(MainFragmentDirections.actionMainToMaterial(id))
+                }
+            )
+            val categoryAdapter = CategoryAdapter { categoryId ->
+                navController?.navigate(MainFragmentDirections.actionHomeToMaterials(categoryId = categoryId))
             }
-        )
-        val categoryAdapter = CategoryAdapter { categoryId ->
-            navController?.navigate(MainFragmentDirections.actionHomeToMaterials(categoryId = categoryId))
-        }
 
-        binding.homeMaterialsSubjectsRecyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = categoryAdapter
-        }
-
-        val stagesAdapter = CardClassITemAdapter<Stage> { id ->
-            navController?.navigate(MainFragmentDirections.actionMainToClasses(id))
-        }
-
-        binding.homeStageRecyclerView.run {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = stagesAdapter
-        }
-
-        lifecycleScope.launch {
-            viewModel.materials.collect { materials ->
-                materialAdapter.setList(materials)
+            homeMaterialsSubjectsRecyclerView.apply {
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = categoryAdapter
             }
-        }
-        
-        lifecycleScope.launch {
-            viewModel.categories.collect { categories ->
-                categoryAdapter.setMaterialSubjectList(categories)
+
+            val stagesAdapter = CardClassITemAdapter<Stage> { id ->
+                navController?.navigate(MainFragmentDirections.actionMainToClasses(id))
             }
-        }
-        lifecycleScope.launch {
-            viewModel.loading.collect { loading ->
-                if (loading) {
-//                    categoriesShimmer.startShimmer()
-                    materialsShimmer.startShimmer()
-                } else {
-//                    categoriesShimmer.stopShimmer()
-                    materialsShimmer.stopShimmer()
-//                    categoriesShimmer.visibility = View.GONE
-                    materialsShimmer.visibility = View.GONE
+
+            homeStageRecyclerView.run {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = stagesAdapter
+            }
+
+            lifecycleScope.launch {
+                viewModel.materials.collect { materials ->
+                    materialAdapter.setList(materials)
                 }
             }
-        }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.stages.collect { stages ->
-                    stagesAdapter.setData(stages)
+            lifecycleScope.launch {
+                viewModel.categories.collect { categories ->
+                    categoriesShimmer.stopShimmer()
+                    categoriesShimmer.visibility = View.GONE
+                    categoryAdapter.setMaterialSubjectList(categories)
                 }
             }
-        }
+            lifecycleScope.launch {
+                viewModel.loading.collect { loading ->
+                    if (loading) {
+                        materialsShimmer.startShimmer()
+                    } else {
+                        materialsShimmer.stopShimmer()
+                        materialsShimmer.visibility = View.GONE
+                    }
+                }
+            }
 
-        binding.homeSubjectsRecyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = materialAdapter
-        }
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.CREATED) {
+                    viewModel.stages.collect { stages ->
+                        stagesAdapter.setData(stages)
+                    }
+                }
+            }
+
+            homeSubjectsRecyclerView.apply {
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = materialAdapter
+            }
 
 
-        binding.homeMaterialsSeeAllText.setOnClickListener {
-            navController?.navigate(MainFragmentDirections.actionHomeToMaterials())
-        }
+            homeMaterialsSeeAllText.setOnClickListener {
+                navController?.navigate(MainFragmentDirections.actionHomeToMaterials())
+            }
 
-        binding.searchViewLayout.setOnClickListener {
-            navController?.navigate(MainFragmentDirections.actionHomeToMaterials(searchFocus = true))
+            searchViewLayout.setOnClickListener {
+                navController?.navigate(MainFragmentDirections.actionHomeToMaterials(searchFocus = true))
+            }
         }
     }
 

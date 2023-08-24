@@ -18,6 +18,12 @@ class DataStorePreferenceImp(context: Context) : DataStorePreference {
         }
     }
 
+    override suspend fun <T> clearValue(key: Preferences.Key<T>) {
+        datastore.edit { preferences ->
+            preferences.remove(key)
+        }
+    }
+
     override fun <T> readValue(key: Preferences.Key<T>): Flow<T?> {
         return datastore.data
             .map { preferences ->

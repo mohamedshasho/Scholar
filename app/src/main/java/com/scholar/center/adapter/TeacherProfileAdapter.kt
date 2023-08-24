@@ -31,20 +31,21 @@ class TeacherProfileAdapter(
         val item = getItem(position)
 
         if (item != null) {
-            holder.itemView.setOnClickListener {
-//                val transitionName = ViewCompat.getTransitionName(holder.binding.teacherItemProfile)
-                onClick(item.teacher.id, holder.binding.teacherItemProfile)
+            with(holder.binding) {
 
-            }
-            holder.binding.teacherProfileNameText.text = item.teacher.fullName
+                root.setOnClickListener {
+                    onClick(item.teacher.id, teacherItemProfile)
+                }
+                teacherProfileNameText.text = item.teacher.fullName
 
-            holder.binding.teacherProfileSkillsText.text =
-                item.subjects.joinToString(", ") { it.name }
-            item.teacher.image?.let {image->
-                Glide.with(holder.itemView.context)
-                    .load("${Constants.BASE_URL}${image}")
-                    .placeholder(R.drawable.ic_person)
-                    .into(holder.binding.teacherItemProfile)
+                teacherProfileSkillsText.text =
+                    item.subjects.joinToString(", ") { it.name }
+                item.teacher.image?.let { image ->
+                    Glide.with(holder.itemView.context)
+                        .load("${Constants.BASE_URL}${image}")
+                        .placeholder(R.drawable.ic_person)
+                        .into(teacherItemProfile)
+                }
             }
         }
     }

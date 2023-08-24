@@ -9,13 +9,12 @@ import com.scholar.center.databinding.ConfirmDialogBinding
 class ConfirmDialog(val confirm: () -> Unit) : DialogFragment(R.layout.confirm_dialog) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = ConfirmDialogBinding.bind(view)
-
-        binding.okButton.setOnClickListener {
-            confirm()
-            dismiss()
+        with(ConfirmDialogBinding.bind(view)) {
+            okButton.setOnClickListener {
+                confirm()
+                dismiss()
+            }
+            closeButton.setOnClickListener { dismiss() }
         }
-        binding.closeButton.setOnClickListener { dismiss() }
     }
-
 }

@@ -25,4 +25,5 @@ interface DataStorePreference {
 
     suspend fun <T> saveValue(key: Preferences.Key<T>, value: T)
     fun <T> readValue(key: Preferences.Key<T>): Flow<T?>
+    suspend fun <T> clearValue(key: Preferences.Key<T>)
 }

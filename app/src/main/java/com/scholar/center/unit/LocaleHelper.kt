@@ -1,19 +1,16 @@
 package com.scholar.center.unit
 
 import android.content.Context
-import androidx.core.text.layoutDirection
-import java.util.*
+import java.util.Locale
 
 
 object LocaleHelper {
 
-    fun setLocale(context: Context,locale:Locale) {
-
+    @Suppress("DEPRECATION")
+    fun setLocale(context: Context, locale: Locale) {
         val config = context.resources.configuration
         config.setLocale(locale)
         config.setLayoutDirection(locale)
-        context.resources.updateConfiguration(config,null)
-
+        context.resources.updateConfiguration(config, null)
     }
-
 }

@@ -55,7 +55,7 @@ class SettingsVM @Inject constructor(
 
     fun logout() {
         viewModelScope.launch {
-            dataStore.saveValue(DataStorePreference.userId, 0)
+            dataStore.clearValue(DataStorePreference.userId)
             dataStore.saveValue(DataStorePreference.isUserLoggedIn, false)
         }
     }

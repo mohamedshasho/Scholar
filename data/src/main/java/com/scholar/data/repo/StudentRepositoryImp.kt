@@ -1,7 +1,6 @@
 package com.scholar.data.repo
 
 import com.google.gson.Gson
-import com.scholar.data.source.local.dao.MaterialDao
 import com.scholar.data.source.local.dao.StudentDao
 import com.scholar.data.source.local.model.toLocal
 import com.scholar.data.source.network.StudentNetworkDataSource
@@ -14,7 +13,6 @@ class StudentRepositoryImp(
     private val dataStore: DataStorePreference,
     private val networkDataSource: StudentNetworkDataSource,
     private val studentDao: StudentDao,
-    private val materialDao: MaterialDao,
 ) : StudentRepository {
     override suspend fun getStudentName(id: Int): String? {
         return studentDao.getStudentName(id)
@@ -52,7 +50,6 @@ class StudentRepositoryImp(
         return when (val response = networkDataSource.purchaseMaterial(studentId, materialId)) {
             is Resource.Success -> {
                 val myMaterialIds = dataStore.readValue(DataStorePreference.myMaterials).first()
-//                materialDao.setMaterialBought(materialId)
                 if (myMaterialIds == null) {
                     val newMaterialIds = listOf(materialId)
                     val gson = Gson()
@@ -80,30 +77,12 @@ class StudentRepositoryImp(
             is Resource.Success -> {
                 response.data?.let { student ->
                     studentDao.upsert(student.toLocal())
-//                    if (student.image == null) {
-//                        studentDao.updateWallet(
-//                            student.wallet ?: 0,
-//                            student.id,
-//                            student.fullName
-//                        )
-//                    } else {
-//                        studentDao.updateWallet(
-//                            student.wallet ?: 0,
-//                            student.id,
-//                            student.fullName,
-//                            student.image ?: ""
-//                        )
-//                    }
-//                    student.material?.forEach {
-//                        materialDao.setMaterialBought(it.id)
-//                    }
                     val myMaterialIds = student.material?.map { it.id }
                     val gson = Gson()
                     val myMaterials = gson.toJson(myMaterialIds)
                     dataStore.saveValue(DataStorePreference.myMaterials, myMaterials)
                 }
             }
-
             is Resource.Error -> {}
         }
     }

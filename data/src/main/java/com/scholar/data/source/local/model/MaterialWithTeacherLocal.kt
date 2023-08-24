@@ -2,7 +2,8 @@ package com.scholar.data.source.local.model
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.scholar.domain.model.*
+import com.scholar.domain.model.MaterialWithDetail
+import com.scholar.domain.model.MaterialWithTeacher
 
 data class MaterialWithTeacherLocal(
     @Embedded override val material: MaterialLocal,
@@ -13,7 +14,7 @@ data class MaterialWithTeacherLocal(
 
 data class MaterialWithDetailLocal(
     @Embedded override val material: MaterialLocal,
-    @Embedded override val teacher: TeacherSmallLocal,
+    @Embedded override val teacher: TeacherSmallLocal?,
     @Relation(
         parentColumn = "id",
         entityColumn = "material_id"

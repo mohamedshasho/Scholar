@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scholar.center.R
 import com.scholar.domain.model.LoginInputValidationType
-import com.scholar.domain.model.LoginState
 import com.scholar.domain.model.Resource
 import com.scholar.domain.model.StudentState
 import com.scholar.domain.repo.DataStorePreference
@@ -14,14 +13,12 @@ import com.scholar.domain.usecase.ValidateStudentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class StudentProfileVM @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val studentRepository: StudentRepository,
     private val dataStore: DataStorePreference,
     private val validate: ValidateStudentUseCase
@@ -115,6 +112,7 @@ class StudentProfileVM @Inject constructor(
                             studentState.update { currentState ->
                                 currentState.copy(isSuccessfullyLogin = true, isLoading = false)
                             }
+                            studentRepository.syncStudent(id)
                         }
                     }
 

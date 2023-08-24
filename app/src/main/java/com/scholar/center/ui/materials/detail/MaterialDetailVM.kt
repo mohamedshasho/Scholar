@@ -43,10 +43,6 @@ class MaterialDetailVM @Inject constructor(
     private val _message = MutableStateFlow<String?>(null)
     val message = _message.asStateFlow()
 
-
-    private var rate: Int? = null
-    private var comment: String? = null
-
     private val _alreadyBought = MutableStateFlow(false)
     val alreadyBought = _alreadyBought.asStateFlow()
 
@@ -54,7 +50,6 @@ class MaterialDetailVM @Inject constructor(
     val alreadyRated = _alreadyRated.asStateFlow()
 
     init {
-
         viewModelScope.launch {
             launch {
                 dataStore.readValue(DataStorePreference.myMaterials).collect {
@@ -66,7 +61,6 @@ class MaterialDetailVM @Inject constructor(
                     }
                 }
             }
-
             launch {
                 dataStore.readValue(DataStorePreference.isUserLoggedIn).collect {
                     _isUserLogged.value = it ?: false
@@ -74,17 +68,15 @@ class MaterialDetailVM @Inject constructor(
             }
             launch {
                 _loading.value = true
-                materialUseCase(materialId).collect {
-                    _material.value = it
-                    _loading.value = false
-                }
+                _material.value = materialUseCase(materialId)
+                _loading.value = false
             }
 
             launch {
                 dataStore.readValue(DataStorePreference.myRates).collect {
                     if (it != null) {
                         val myRates = Gson().fromJson(it, Array<Int>::class.java)
-                        if (myRates.contains(materialId)) {
+                        if (myRates!= null && myRates.contains(materialId)) {
                             _alreadyRated.value = true
                         }
                     }
@@ -100,17 +92,27 @@ class MaterialDetailVM @Inject constructor(
         viewModelScope.launch {
             val studentID = dataStore.readValue(DataStorePreference.userId).first()
             if (studentID == null || studentID == 0) return@launch
-            materialRepository.rateMaterial(studentID, materialId, rate, comment)
-            val gson = Gson()
-            val myRatesString = dataStore.readValue(DataStorePreference.myRates).first()
-            val myRates = gson.fromJson(myRatesString, Array<Int>::class.java)
-            val newRates = myRates.toMutableList()
-            newRates.add(materialId)
-            val newRatesString = gson.toJson(newRates)
-            dataStore.saveValue(DataStorePreference.myRates, newRatesString)
+            when (val result =
+                materialRepository.rateMaterial(studentID, materialId, rate, comment)) {
+                is Resource.Success -> {
+                    val gson = Gson()
+                    val myRatesString = dataStore.readValue(DataStorePreference.myRates).first()
+                    val myRates = gson.fromJson(myRatesString, Array<Int>::class.java)
+                    if (myRates.isNullOrEmpty()) {
+                        val newRates = listOf(materialId)
+                        val newRatesString = gson.toJson(newRates)
+                        dataStore.saveValue(DataStorePreference.myRates, newRatesString)
+                    } else {
+                        val newRates = myRates.toMutableList()
+                        newRates.add(materialId)
+                        val newRatesString = gson.toJson(newRates)
+                        dataStore.saveValue(DataStorePreference.myRates, newRatesString)
+                    }
+                    _message.value = result.message
+                }
+                is Resource.Error -> {}
+            }
         }
-
-
     }
 
     fun purchase() {

@@ -1,6 +1,5 @@
 package com.scholar.center.ui.materials
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -83,12 +82,11 @@ class MaterialsVM @Inject constructor(
 
     fun getMaterials() {
         viewModelScope.launch {
-
             materialRepository.filterMaterialFromNetwork(
-                stageId = if(selectedStage==0) null else selectedStage,
-                classroomId = if(selectedClassRoom==0) null else selectedClassRoom,
-                subjectId = if(selectedSubject==0) null else selectedSubject,
-                categoryId = if(selectedCategory==0) null else selectedCategory,
+                stageId = if (selectedStage == 0) null else selectedStage,
+                classroomId = if (selectedClassRoom == 0) null else selectedClassRoom,
+                subjectId = if (selectedSubject == 0) null else selectedSubject,
+                categoryId = if (selectedCategory == 0) null else selectedCategory,
             ).cachedIn(viewModelScope)
                 .collect { pagingData ->
                     _materials.value = pagingData
@@ -98,7 +96,6 @@ class MaterialsVM @Inject constructor(
 
     fun search(key: String?) {
         if (key.isNullOrEmpty()) return
-
         viewModelScope.launch {
             materialRepository.searchForMaterialFromNetwork(key)
                 .cachedIn(viewModelScope)
@@ -106,6 +103,5 @@ class MaterialsVM @Inject constructor(
                     _materials.value = pagingData
                 }
         }
-
     }
 }

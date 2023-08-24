@@ -24,6 +24,14 @@ data class TeacherLocal(
 ) : Teacher
 
 
+
+fun TeacherLocal.toSmall() =
+    TeacherSmallLocal(
+        id,
+        fullName,
+        image = image,
+    )
+
 fun TeacherNetwork.toLocal() =
     TeacherLocal(
         id,

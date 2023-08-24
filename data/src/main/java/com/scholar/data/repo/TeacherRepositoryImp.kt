@@ -14,8 +14,6 @@ import com.scholar.domain.model.Resource
 import com.scholar.domain.model.Teacher
 import com.scholar.domain.model.TeacherWithSubjects
 import com.scholar.domain.repo.TeacherRepository
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -23,20 +21,14 @@ import kotlinx.coroutines.flow.map
 class TeacherRepositoryImp(
     private val networkDataSource: TeacherNetworkDataSource,
     private val scholarDb: ScholarDb,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : TeacherRepository {
 
 
     override suspend fun observeTeachers(): Flow<List<Teacher>> {
         return scholarDb.teacherDao().getTeachers()
     }
-
     override suspend fun getTeacherByIdFromLocal(id: Int) =
         scholarDb.teacherDao().getTeacherById(id)
-
-    override suspend fun refresh() {
-
-    }
 
     override fun searchForTeachers(input: String): Flow<PagingData<TeacherWithSubjects>> {
         return Pager(

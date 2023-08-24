@@ -100,6 +100,10 @@ class SettingsFragment : Fragment(R.layout.fragment_profile) {
         }
 
 
+        binding.profileFragmentFavoriteListTile.root.visibility = View.GONE
+        binding.profileFragmentMaterialListTile.root.visibility = View.GONE
+
+
     }
 
 

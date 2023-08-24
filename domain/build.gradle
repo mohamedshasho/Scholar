@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
@@ -44,7 +43,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //Paging3
-    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     //DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")

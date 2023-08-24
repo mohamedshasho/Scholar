@@ -13,7 +13,7 @@ data class MaterialNetwork(
     override val hoursNumberOfWeek: Int?,
     @SerializedName("file_type")
     override val categoryId: Int?,
-    val teacher: TeacherNetwork,
+    val teacher: TeacherNetwork?,
     val rates : List<RateNetwork>,
     val classroom: ClassRoomCrossRefNetwork?,
     val subject: SubjectNetwork?,
@@ -23,7 +23,6 @@ data class MaterialNetwork(
     val book : String?,
     val exam : String?,
     override val content: String?,
-    override val favorite: Boolean?,
 ) : Material
 
 
@@ -36,5 +35,4 @@ interface Material {
     val hoursNumberOfWeek: Int?
     val categoryId: Int?
     val content: String?
-    val favorite :Boolean?
 }

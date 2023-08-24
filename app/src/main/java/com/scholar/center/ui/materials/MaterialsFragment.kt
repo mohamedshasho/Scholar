@@ -23,7 +23,6 @@ import com.scholar.center.R
 import com.scholar.center.adapter.MaterialPagingAdapter
 import com.scholar.center.adapter.MaterialsComparator
 import com.scholar.center.databinding.FragmentMaterialsBinding
-import com.scholar.center.model.UiState
 import com.scholar.center.ui.dialogs.MaterialFilterDialog
 import com.scholar.center.unit.Constants.SEARCH_FOCUS_KEY
 import com.scholar.center.unit.closeKeyboard
@@ -38,19 +37,18 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
 
     private val viewModel: MaterialsVM by viewModels()
 
-
     private val navController by lazy { findNavController() }
+    private lateinit var binding : FragmentMaterialsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val binding = FragmentMaterialsBinding.inflate(inflater)
+        binding = FragmentMaterialsBinding.inflate(inflater)
         val toolbar = binding.materialToolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -111,8 +109,6 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentMaterialsBinding.bind(view)
-
 
         val materialsAdapter = MaterialPagingAdapter(
             diffCallback = MaterialsComparator,
@@ -137,10 +133,6 @@ class MaterialsFragment : Fragment(R.layout.fragment_materials), MenuProvider {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = materialsAdapter
         }
-
-//        binding.subjectsToolbarBackButton.setOnClickListener {
-//            navController.popBackStack()
-//        }
         lifecycleScope.launch {
             viewModel.loading.collectLatest { loading ->
                 binding.materialsProgressBar.visibility = if (loading) View.VISIBLE else View.GONE

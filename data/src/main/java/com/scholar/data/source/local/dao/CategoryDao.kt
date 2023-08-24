@@ -10,4 +10,8 @@ interface CategoryDao : BaseDao<CategoryLocal> {
 
     @Query("select * from categories")
     fun getCategories() : Flow<List<CategoryLocal>>
+
+
+    @Query("select name from categories where id=:id")
+    suspend fun getName(id:Int) :String?
 }

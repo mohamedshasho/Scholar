@@ -45,7 +45,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient.Builder): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.101:8000/api/")
+            .baseUrl("http://192.168.185.170:8000/api/")
             .client(okHttpClient.build())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

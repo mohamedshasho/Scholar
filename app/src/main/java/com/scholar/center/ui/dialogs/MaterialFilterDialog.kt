@@ -1,9 +1,7 @@
 package com.scholar.center.ui.dialogs
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
@@ -48,92 +46,94 @@ class MaterialFilterDialog(
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
-    ): View {
-        binding = DialogMaterialFilterBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(DialogMaterialFilterBinding.bind(view)) {
+            filterCancel.setOnClickListener { dismiss() }
+            filterOk.setOnClickListener {
+                viewModel.selectedClassRoom = filterSpinnerClassRooms.selectedItemPosition
+                viewModel.selectedCategory = filterSpinnerCategories.selectedItemPosition
+                viewModel.selectedStage = filterSpinnerStages.selectedItemPosition
+                viewModel.selectedSubject = filterSpinnerSubjects.selectedItemPosition
+                onClickOK()
+                dismiss()
+            }
+            filterSpinnerClassRooms.isEnabled = false
+            filterSpinnerClassRooms.adapter = classRoomsAdapter
+            addClassRooms()
+            filterSpinnerSubjects.adapter = subjectsAdapter
 
-        binding.filterCancel.setOnClickListener { dismiss() }
-        binding.filterOk.setOnClickListener {
-            viewModel.selectedClassRoom = binding.filterSpinnerClassRooms.selectedItemPosition
-            viewModel.selectedCategory = binding.filterSpinnerCategories.selectedItemPosition
-            viewModel.selectedStage = binding.filterSpinnerStages.selectedItemPosition
-            viewModel.selectedSubject = binding.filterSpinnerSubjects.selectedItemPosition
-            onClickOK()
-            dismiss()
-        }
-        binding.filterSpinnerClassRooms.isEnabled = false
-        binding.filterSpinnerClassRooms.adapter = classRoomsAdapter
-        binding.filterSpinnerClassRooms.onItemSelectedListener =
-            adapterSelectedListener { position ->
-            }
-        addClassRooms()
-        binding.filterSpinnerSubjects.adapter = subjectsAdapter
-        binding.filterSpinnerSubjects.onItemSelectedListener = adapterSelectedListener { position ->
-        }
-        binding.filterSpinnerCategories.adapter = categoriesAdapter
-        binding.filterSpinnerCategories.onItemSelectedListener =
-            adapterSelectedListener { position ->
-            }
-        binding.filterSpinnerStages.adapter = stageAdapter
-        binding.filterSpinnerStages.onItemSelectedListener =
-            adapterSelectedListener(skipThisPosition = -1) { position ->
-                when (position) {
-                    0 -> {
-                        binding.filterSpinnerClassRooms.isEnabled = false
-                    }
-                    1 -> {
-                        binding.filterSpinnerClassRooms.isEnabled = true
-                        val classrooms = viewModel.classrooms.value
-                        addClassRooms(classrooms.map { it.name })
-                    }
-                    else -> {
-                        binding.filterSpinnerClassRooms.isEnabled = true
-                        val classrooms = viewModel.classrooms.value.filter { it.id < 4 }
-                        addClassRooms(classrooms.map { it.name })
-                    }
-                }
-                if (viewModel.selectedStage == 0 || viewModel.selectedStage != position) {
-                    binding.filterSpinnerClassRooms.setSelection(0)
-                } else {
-                    binding.filterSpinnerClassRooms.setSelection(viewModel.selectedClassRoom)
-                }
-            }
+            filterSpinnerCategories.adapter = categoriesAdapter
 
-        lifecycleScope.launch {
-            launch {
-                viewModel.stages.collectLatest { stages ->
-                    val stagesData = stages.map { it.name }.toMutableList()
-                    stagesData.add(0, getString(R.string.select_stage))
-                    stageAdapter.clear()
-                    stageAdapter.addAll(stagesData)
-                    stageAdapter.notifyDataSetChanged()
-                    binding.filterSpinnerStages.setSelection(viewModel.selectedStage)
+            filterSpinnerStages.adapter = stageAdapter
+
+            filterSpinnerStages.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                        when (position) {
+                            0 -> {
+                                filterSpinnerClassRooms.isEnabled = false
+                            }
+                            1 -> {
+                                filterSpinnerClassRooms.isEnabled = true
+                                val classrooms = viewModel.classrooms.value
+                                addClassRooms(classrooms.map { it.name })
+                            }
+
+                            else -> {
+                                filterSpinnerClassRooms.isEnabled = true
+                                val classrooms = viewModel.classrooms.value.filter { it.id < 4 }
+                                addClassRooms(classrooms.map { it.name })
+                            }
+                        }
+                        if (viewModel.selectedStage == 0 || viewModel.selectedStage != position) {
+                            filterSpinnerClassRooms.setSelection(0)
+                        } else {
+                            filterSpinnerClassRooms.setSelection(viewModel.selectedClassRoom)
+                        }
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
-            }
-            launch {
-                viewModel.categories.collectLatest { categories ->
-                    val categoriesData = categories.map { it.name }.toMutableList()
-                    categoriesData.add(0, getString(R.string.select_category))
-                    categoriesAdapter.clear()
-                    categoriesAdapter.addAll(categoriesData)
-                    categoriesAdapter.notifyDataSetChanged()
-                    binding.filterSpinnerCategories.setSelection(viewModel.selectedCategory)
+
+
+
+            lifecycleScope.launch {
+                launch {
+                    viewModel.stages.collectLatest { stages ->
+                        val stagesData = stages.map { it.name }.toMutableList()
+                        stagesData.add(0, getString(R.string.select_stage))
+                        stageAdapter.clear()
+                        stageAdapter.addAll(stagesData)
+                        stageAdapter.notifyDataSetChanged()
+                        filterSpinnerStages.setSelection(viewModel.selectedStage)
+                    }
                 }
-            }
-            launch {
-                viewModel.subjects.collectLatest { subjects ->
-                    if (subjects.isNotEmpty()) {
-                        val subjectsData = subjects.map { it.name }.toMutableList()
-                        subjectsData.add(0, getString(R.string.select_subject))
-                        subjectsAdapter.clear()
-                        subjectsAdapter.addAll(subjectsData)
-                        subjectsAdapter.notifyDataSetChanged()
-                        binding.filterSpinnerSubjects.setSelection(viewModel.selectedSubject)
+                launch {
+                    viewModel.categories.collectLatest { categories ->
+                        val categoriesData = categories.map { it.name }.toMutableList()
+                        categoriesData.add(0, getString(R.string.select_category))
+                        categoriesAdapter.clear()
+                        categoriesAdapter.addAll(categoriesData)
+                        categoriesAdapter.notifyDataSetChanged()
+                        filterSpinnerCategories.setSelection(viewModel.selectedCategory)
+                    }
+                }
+                launch {
+                    viewModel.subjects.collectLatest { subjects ->
+                        if (subjects.isNotEmpty()) {
+                            val subjectsData = subjects.map { it.name }.toMutableList()
+                            subjectsData.add(0, getString(R.string.select_subject))
+                            subjectsAdapter.clear()
+                            subjectsAdapter.addAll(subjectsData)
+                            subjectsAdapter.notifyDataSetChanged()
+                            filterSpinnerSubjects.setSelection(viewModel.selectedSubject)
+                        }
                     }
                 }
             }
@@ -147,23 +147,5 @@ class MaterialFilterDialog(
         classRoomsAdapter.addAll(mutableData)
         classRoomsAdapter.notifyDataSetChanged()
     }
-
-    private fun adapterSelectedListener(
-        skipThisPosition: Int = 0,
-        selectedPosition: (Int) -> Unit,
-    ) =
-        object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                if (position == skipThisPosition) return // for label
-                selectedPosition(position)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
 
 }

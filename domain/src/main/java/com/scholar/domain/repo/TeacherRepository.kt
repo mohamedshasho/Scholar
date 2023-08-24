@@ -8,22 +8,13 @@ import com.scholar.domain.model.TeacherWithSubjects
 import kotlinx.coroutines.flow.Flow
 
 interface TeacherRepository {
-
-
     suspend fun observeTeachers(): Flow<List<Teacher>>
 
-
     fun getTeachersPagination(): Flow<PagingData<TeacherWithSubjects>>
-//    fun getTeacherWithSubjects(): Flow<TeacherWithSubject>
-
-
-    suspend fun refresh()
 
     suspend fun getTeacherByIdFromLocal(id: Int): Teacher?
 
-
     fun searchForTeachers(input: String): Flow<PagingData<TeacherWithSubjects>>
-
 
     suspend fun contact(
         name: String,

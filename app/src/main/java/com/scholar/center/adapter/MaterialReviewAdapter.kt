@@ -25,9 +25,10 @@ class MaterialReviewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.binding.materialReviewRatingBar.rating = item.rate.toFloat()
-        holder.binding.materialReviewStudentComment.text = item.comment
-
+        with(holder.binding) {
+            materialReviewRatingBar.rating = item.rate.toFloat()
+            materialReviewStudentComment.text = item.comment
+        }
     }
 
     class ViewHolder(val binding: MaterialReviewItemBinding) :

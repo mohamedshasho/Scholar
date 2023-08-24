@@ -28,20 +28,17 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         val storyAdapter = StoryAdapter(StoryComparator) { id ->
             navController?.navigate(MainFragmentDirections.actionMainToStoryDetail(storyId = id))
         }
-
-        binding.storiesFragmentRecyclerView.run {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = storyAdapter
-        }
-
-
         lifecycleScope.launch {
             viewModel.stories.collectLatest { pagingData ->
                 storyAdapter.submitData(pagingData)
             }
         }
 
+        binding.storiesFragmentRecyclerView.run {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = storyAdapter
+        }
 
         binding.storiesFragmentAdd.setOnClickListener {
             navController?.navigate(MainFragmentDirections.actionMainToAddStory())

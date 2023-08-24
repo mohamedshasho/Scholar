@@ -9,12 +9,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeachersVM @Inject constructor(
-    private val teacherRepository: TeacherRepository,
+    teacherRepository: TeacherRepository,
 ) : ViewModel() {
-
 
     val teachers = teacherRepository.getTeachersPagination()
         .cachedIn(viewModelScope)
-
-
 }

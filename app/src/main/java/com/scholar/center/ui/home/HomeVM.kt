@@ -2,19 +2,16 @@ package com.scholar.center.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.scholar.domain.model.*
+import com.scholar.domain.model.Category
+import com.scholar.domain.model.Stage
+import com.scholar.domain.model.MaterialWithTeacher
 import com.scholar.domain.repo.DataStorePreference
 import com.scholar.domain.repo.MaterialRepository
 import com.scholar.domain.usecase.CategoryUseCase
 import com.scholar.domain.usecase.StageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,11 +41,6 @@ class HomeVM @Inject constructor(
     val error = _error.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            dataStore.readValue(DataStorePreference.myMaterials).collect {
-
-            }
-        }
         getStages()
         fetchData()
     }
@@ -62,31 +54,18 @@ class HomeVM @Inject constructor(
 
     private fun fetchData() {
         viewModelScope.launch {
-
             launch {
                 categoryUseCase().collect {
                     _categories.value = it
                 }
             }
-//            launch {
-//                dataStore.readValue(DataStorePreference.myMaterials).collect{
-//                    myMaterials = Gson().fromJson(it,Array<Int>::class.java).toList()
-//                }
-//            }
             launch {
                 _loading.value = true
-
-
-
                 materialRepository.getSomeMaterials().collect { materials ->
                     _materials.value = materials
-//                    _materials.value.onEach {
-//                        myMaterials.contains(it.material.id)
-//                    }
                     _loading.value = false
                 }
             }
         }
     }
-
 }

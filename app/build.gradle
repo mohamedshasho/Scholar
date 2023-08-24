@@ -70,19 +70,17 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.15.1'
 
     //Paging3
-    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
-    //
+    //Circle Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")// todo try to delete this
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
-
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-
+    
 
     implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:3.0.8'
 

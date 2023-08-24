@@ -11,23 +11,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scholar.center.R
 import com.scholar.center.adapter.MaterialAdapter
 import com.scholar.center.databinding.FragmentTeacherMaterialsBinding
-import com.scholar.center.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class TeacherMaterialsFragment : Fragment(R.layout.fragment_teacher_materials) {
+class TeacherMaterialsFragment(private val teacherID :Int?) : Fragment(R.layout.fragment_teacher_materials) {
 
     private val viewModel  : TeacherMaterialsVM by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (teacherID != null) {
+            viewModel.getMaterials(teacherID)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTeacherMaterialsBinding.bind(view)
 
-        val materialsAdapter = MaterialAdapter(
-            navigateToDetails = {}
-        )
+        val materialsAdapter = MaterialAdapter{}
 
         binding.teacherMaterialsRecyclerView.run {
             layoutManager =
@@ -38,15 +42,7 @@ class TeacherMaterialsFragment : Fragment(R.layout.fragment_teacher_materials) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.uiState.collectLatest { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            state.data?.let { list ->
-//                                materialsAdapter.setList(list)
-                            }
-                        }
-                        is UiState.Error -> {}
-                        else -> {}
-                    }
+                    materialsAdapter.setList(state)
                 }
             }
         }

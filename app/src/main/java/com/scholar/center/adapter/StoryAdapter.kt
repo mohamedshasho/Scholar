@@ -28,24 +28,24 @@ class StoryAdapter(
         // Note that item can be null. ViewHolder must support binding a
         // null item as a placeholder.
         if (item != null) {
-
-            holder.itemView.setOnClickListener { onClick(item.story.id) }
-
-            holder.binding.storyItemNameText.text = item.story.title
-            holder.binding.storyItemDescriptionText.text = item.story.description
-            holder.binding.storyItemDateText.text = item.story.datePublication
-            holder.binding.storyItemStudentName.text = item.student.fullName
-            item.story.image?.let { cover ->
-                Glide.with(holder.itemView.context).load("${BASE_URL}${cover}")
-                    .placeholder(R.drawable.story_placeholder)
-                    .error(R.drawable.story_placeholder)
-                    .into(holder.binding.storyItemCover)
-            }
-            item.student.image?.let { image ->
-                Glide.with(holder.itemView.context).load("${BASE_URL}${image}")
-                    .placeholder(R.drawable.ic_person)
-                    .error(R.drawable.ic_person)
-                    .into(holder.binding.storyItemStudentImage)
+            with(holder.binding) {
+                root.setOnClickListener { onClick(item.story.id) }
+                storyItemNameText.text = item.story.title
+                storyItemDescriptionText.text = item.story.description
+                storyItemDateText.text = item.story.datePublication
+              storyItemStudentName.text = item.student.fullName
+                item.story.image?.let { cover ->
+                    Glide.with(holder.itemView.context).load("${BASE_URL}${cover}")
+                        .placeholder(R.drawable.story_placeholder)
+                        .error(R.drawable.story_placeholder)
+                        .into(storyItemCover)
+                }
+                item.student.image?.let { image ->
+                    Glide.with(holder.itemView.context).load("${BASE_URL}${image}")
+                        .placeholder(R.drawable.ic_person)
+                        .error(R.drawable.ic_person)
+                        .into(storyItemStudentImage)
+                }
             }
         }
     }

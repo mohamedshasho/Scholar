@@ -62,57 +62,56 @@ class ProfileFragment : Fragment(R.layout.fragment_student_profile) {
                 filePath?.let { viewModel.onImageInputChanged(it) }
             }
         }
-
-        binding.profileBrithEditText.setOnClickListener {
-            Toast.makeText(requireContext(), "ssssssssss", Toast.LENGTH_SHORT).show()
-            openDatePicker()
-        }
-        binding.profileStudentImageEdit.setOnClickListener {
-            if (permissionGranted()) {
-                imagePickerLauncher.launch("image/*")
-            } else {
-                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        with(binding) {
+            profileBrithEditText.setOnClickListener {
+                Toast.makeText(requireContext(), "ssssssssss", Toast.LENGTH_SHORT).show()
+                openDatePicker()
+            }
+            profileStudentImageEdit.setOnClickListener {
+                if (permissionGranted()) {
+                    imagePickerLauncher.launch("image/*")
+                } else {
+                    permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                }
             }
 
-        }
+            profileFullNameEditText.addTextChangedListener {
+                viewModel.onNameInputChanged(it.toString())
+            }
+            profilePhoneEditText.addTextChangedListener {
+                viewModel.onPhoneInputChanged(it.toString())
+            }
+
+            profileUpdateBtn.setOnClickListener {
+                viewModel.onUpdateClick()
+            }
+            lifecycleScope.launch {
+                viewModel.studentState.collect { state ->
+                    if (state.imageInput.isNotEmpty()) {
+                        Glide.with(requireContext())
+                            .load(state.imageInput)
+                            .error(R.drawable.ic_profile)
+                            .into(profileStudentImage)
+                    } else {
+                        Glide.with(requireContext())
+                            .load("${BASE_URL}${state.image}")
+                            .error(R.drawable.ic_profile)
+                            .into(profileStudentImage)
+                    }
+
+                    profileEmailEditText.setText(state.emailInput)
+                    profileFullNameEditText.setText(state.fullNameInput)
+                    profileBrithEditText.setText(state.brithInput)
+                    profilePhoneEditText.setText(state.phoneInput)
 
 
-        binding.profileFullNameEditText.addTextChangedListener {
-            viewModel.onNameInputChanged(it.toString())
-        }
-        binding.profilePhoneEditText.addTextChangedListener {
-            viewModel.onPhoneInputChanged(it.toString())
-        }
+                    if (state.isInputValid || state.errorMessageInput == null) hideTextError() else showTextError()
+                    state.errorMessageInput?.let { error ->
+                        profileErrorText.text = getString(error)
+                    }
 
-        binding.profileUpdateBtn.setOnClickListener {
-            viewModel.onUpdateClick()
-        }
-        lifecycleScope.launch {
-            viewModel.studentState.collect { state ->
-                if (state.imageInput.isNotEmpty()) {
-                    Glide.with(requireContext())
-                        .load(state.imageInput)
-                        .error(R.drawable.ic_profile)
-                        .into(binding.profileStudentImage)
-                } else {
-                    Glide.with(requireContext())
-                        .load("${BASE_URL}${state.image}")
-                        .error(R.drawable.ic_profile)
-                        .into(binding.profileStudentImage)
+
                 }
-
-                binding.profileEmailEditText.setText(state.emailInput)
-                binding.profileFullNameEditText.setText(state.fullNameInput)
-                binding.profileBrithEditText.setText(state.brithInput)
-                binding.profilePhoneEditText.setText(state.phoneInput)
-
-
-                if (state.isInputValid || state.errorMessageInput == null) hideTextError() else showTextError()
-                state.errorMessageInput?.let { error ->
-                    binding.profileErrorText.text = getString(error)
-                }
-
-
             }
         }
 
@@ -159,7 +158,7 @@ class ProfileFragment : Fragment(R.layout.fragment_student_profile) {
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            DatePickerDialog.OnDateSetListener { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(selectedYear, selectedMonth, selectedDay)
 

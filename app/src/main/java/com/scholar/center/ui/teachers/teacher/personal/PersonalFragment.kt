@@ -11,16 +11,14 @@ class PersonalFragment(val teacher: Teacher) : Fragment(R.layout.fragment_teache
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val binding = FragmentTeacherPersonalBinding.bind(view)
-
-        binding.teacherPersonalName.text = teacher.fullName
-        binding.teacherPersonalBio.text = teacher.bio
-        binding.teacherPersonalPhone.text = teacher.phone
-        binding.teacherPersonalEmail.text = teacher.email
-        teacher.birth?.let {
-            binding.teacherPersonalAge.text = it.toString()
+        with(FragmentTeacherPersonalBinding.bind(view)) {
+            teacherPersonalName.text = teacher.fullName
+            teacherPersonalBio.text = teacher.bio
+            teacherPersonalPhone.text = teacher.phone
+            teacherPersonalEmail.text = teacher.email
+            teacher.birth?.let {
+                teacherPersonalAge.text = it.toString()
+            }
         }
-
     }
 }

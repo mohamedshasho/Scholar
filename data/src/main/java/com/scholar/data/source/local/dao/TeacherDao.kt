@@ -14,7 +14,7 @@ interface TeacherDao : BaseDao<TeacherLocal> {
     @Query("select * from teachers")
     fun getTeachers(): Flow<List<TeacherLocal>>
 
-
+    @Transaction
     @Query("select * from teachers")
     fun getTeachersPaging(): PagingSource<Int, TeacherWithSubjectsLocal>
 
@@ -25,10 +25,6 @@ interface TeacherDao : BaseDao<TeacherLocal> {
     @Query("select * from teachers where teacher_id=:id")
     suspend fun getTeacherById(id: Int): TeacherLocal
 
-
-    @Transaction
-    @Query("select * from teachers where teacher_id=:id")
-    suspend fun getTeacherWithSubjects(id: Int): TeacherWithSubjectsLocal
 
     @Query("delete from teachers")
     suspend fun deleteAll()

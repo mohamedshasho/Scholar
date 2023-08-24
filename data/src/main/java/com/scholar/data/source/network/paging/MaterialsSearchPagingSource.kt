@@ -20,7 +20,7 @@ class MaterialsSearchPagingSource(
             val materialsWithTeacher= response.map {
                 MaterialWithTeacherNetwork(
                     material = it,
-                    teacher = it.teacher.toSmall(),
+                    teacher = it.teacher?.toSmall(),
                     totalRate = it.rates.sumOf { rate-> rate.rate }.div(it.rates.size.toDouble())
 
                 )

@@ -23,37 +23,37 @@ class StoryDetailFragment : Fragment(R.layout.fragment_story_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentStoryDetailBinding.bind(view)
 
-        binding.storyDetailBackButton.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        with(binding) {
 
-        lifecycleScope.launch {
-            viewModel.story.collectLatest {
-                it?.let { storyWithStudent ->
-                    binding.storyItemDateText.text = storyWithStudent.story.datePublication
-                    binding.storyDetailStudentName.text = storyWithStudent.student.fullName
-                    binding.storyDetailDescription.text = storyWithStudent.story.description
-                    binding.storyDetailTitle.text = storyWithStudent.story.title
+            storyDetailBackButton.setOnClickListener {
+                findNavController().popBackStack()
+            }
 
+            lifecycleScope.launch {
+                viewModel.story.collectLatest {
+                    it?.let { storyWithStudent ->
+                        storyItemDateText.text = storyWithStudent.story.datePublication
+                        storyDetailStudentName.text = storyWithStudent.student.fullName
+                        storyDetailDescription.text = storyWithStudent.story.description
+                        storyDetailTitle.text = storyWithStudent.story.title
 
-                    Glide.with(requireContext())
-                        .load("${BASE_URL}${storyWithStudent.student.image}")
-                        .placeholder(R.drawable.ic_person)
-                        .error(R.drawable.ic_person)
-                        .into(binding.storyDetailStudentImage)
+                        Glide.with(requireContext())
+                            .load("${BASE_URL}${storyWithStudent.student.image}")
+                            .placeholder(R.drawable.ic_person)
+                            .error(R.drawable.ic_person)
+                            .into(storyDetailStudentImage)
 
-                    Glide.with(requireContext())
-                        .load("${BASE_URL}${storyWithStudent.story.image}")
-                        .placeholder(R.drawable.story_placeholder)
-                        .error(R.drawable.story_placeholder)
-                        .into(binding.storyDetailCover)
+                        Glide.with(requireContext())
+                            .load("${BASE_URL}${storyWithStudent.story.image}")
+                            .placeholder(R.drawable.story_placeholder)
+                            .error(R.drawable.story_placeholder)
+                            .into(storyDetailCover)
+
+                    }
 
                 }
-
             }
         }
-
-
     }
 
 }

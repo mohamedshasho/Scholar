@@ -32,7 +32,7 @@ class PdfFragment : Fragment(R.layout.fragment_pdf) {
         binding = FragmentPdfBinding.bind(view)
 
         launcher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data ->
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
                 findNavController().popBackStack()
             }
         val loadingDialog = LoadingDialogFragment()
@@ -61,11 +61,13 @@ class PdfFragment : Fragment(R.layout.fragment_pdf) {
         launcher.launch(browserIntent)
     }
 
+    /*
     private fun openPdfByWebView(pdfLink: String) {
-//      binding.webView.settings.javaScriptEnabled = true
-//      binding.webView.settings.builtInZoomControls = true
-//      binding.webView.settings.displayZoomControls = false
-//      val pdfUrl = "${BASE_URL}${link}"
-//      binding.webView.loadUrl("https://docs.google.com/gview?embedded=true&url=pdfLink")
+      binding.webView.settings.javaScriptEnabled = true
+      binding.webView.settings.builtInZoomControls = true
+      binding.webView.settings.displayZoomControls = false
+      val pdfUrl = "${BASE_URL}${link}"
+      binding.webView.loadUrl("https://docs.google.com/gview?embedded=true&url=pdfLink")
     }
+     */
 }

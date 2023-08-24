@@ -12,10 +12,9 @@ class QualificationsFragment(val teacher: Teacher) :
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentTeacherQualificationsBinding.bind(view)
-
-        binding.teacherQualificationsEducation.text = teacher.education
-        binding.teacherQualifications.text = teacher.qualifications
-
+        with(FragmentTeacherQualificationsBinding.bind(view)) {
+            teacherQualificationsEducation.text = teacher.education
+            teacherQualifications.text = teacher.qualifications
+        }
     }
 }

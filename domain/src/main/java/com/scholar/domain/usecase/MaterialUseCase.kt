@@ -3,16 +3,17 @@ package com.scholar.domain.usecase
 import com.scholar.domain.model.MaterialWithDetail
 import com.scholar.domain.model.NetworkConnectivity
 import com.scholar.domain.repo.MaterialRepository
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class MaterialUseCase(
     private val repository: MaterialRepository,
     private val networkConnectivity: NetworkConnectivity,
 ) {
-    suspend operator fun invoke(id: Int): Flow<MaterialWithDetail> {
+    suspend operator fun invoke(id: Int): MaterialWithDetail {
         if (networkConnectivity.isNetworkAvailable()) {
-            repository.getMaterialFromNetwork(id)
+              repository.getMaterialFromNetwork(id)
         }
-        return repository.getMaterialFromLocal(id)
+
+        return repository.getMaterialFromLocal(id).first()
     }
 }

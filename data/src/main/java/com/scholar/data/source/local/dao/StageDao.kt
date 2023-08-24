@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface StageDao : BaseDao<StageLocal> {
 
-//    @Transaction
-//    @Query("SELECT * FROM stages")
-//    suspend fun getStageWithClassMates(): List<StageWithClassMates>
     @Query("select * from stages")
     fun observeStages() : Flow<List<StageLocal>>
+
+    @Query("select name from stages where id=:id")
+    suspend fun getName(id:Int) :String?
     @Query("delete from stages")
     suspend fun deleteAll()
 }

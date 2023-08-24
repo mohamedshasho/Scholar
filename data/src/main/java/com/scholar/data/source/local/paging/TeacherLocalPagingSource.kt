@@ -3,7 +3,6 @@ package com.scholar.data.source.local.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.scholar.data.source.local.dao.TeacherDao
-import com.scholar.domain.model.Teacher
 import com.scholar.domain.model.TeacherWithSubjects
 
 class TeacherLocalPagingSource(

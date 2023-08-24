@@ -30,6 +30,7 @@ fun Context.getThemeColor(resId: Int): Int {
 }
 
 fun Int.applyDiscount(discountPercentage: Int): Int {
+    if (this <= 0) return 0
     val discountAmount = (discountPercentage.toDouble() / 100) * this
     return this - discountAmount.toInt()
 }

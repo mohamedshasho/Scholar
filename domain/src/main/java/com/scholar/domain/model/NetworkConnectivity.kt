@@ -27,6 +27,7 @@ class NetworkConnectivityChecker(val context: Context) : NetworkConnectivity {
                 else -> false
             }
         } else {
+            @Suppress("DEPRECATION")
             return connectivityManager.activeNetworkInfo?.isConnected ?: false
         }
     }

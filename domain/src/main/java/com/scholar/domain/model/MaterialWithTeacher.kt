@@ -3,7 +3,7 @@ package com.scholar.domain.model
 
 data class MaterialWithTeacherNetwork(
     override val material: Material,
-    override val teacher: TeacherSmall,
+    override val teacher: TeacherSmall?,
     override val totalRate: Double,
 
 )
@@ -32,12 +32,12 @@ interface TeacherSmall {
 interface MaterialWithTeacher {
     val material: Material
     val totalRate: Double
-    val teacher: TeacherSmall
+    val teacher: TeacherSmall?
 }
 
 interface MaterialWithDetail {
     val material: Material
-    val teacher: TeacherSmall
+    val teacher: TeacherSmall?
     val rates :List<Rate>
     val classroom :String?
     val stage :String?
