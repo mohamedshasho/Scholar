@@ -8,19 +8,19 @@ import androidx.room.Index
 
 @Entity(
     tableName = "teacher_subject", primaryKeys = ["subject_id", "teacher_id"],
-    foreignKeys = [
-        ForeignKey(
-            entity = SubjectLocal::class,
-            parentColumns = ["subject_id"],
-            childColumns = ["subject_id"]
-        ),
-        ForeignKey(
-            entity = TeacherLocal::class,
-            parentColumns = ["teacher_id"],
-            childColumns = ["teacher_id"]
-        ),
-    ],
-    indices = [Index("teacher_id")]
+//    foreignKeys = [
+//        ForeignKey(
+//            entity = SubjectLocal::class,
+//            parentColumns = ["subject_id"],
+//            childColumns = ["subject_id"]
+//        ),
+//        ForeignKey(
+//            entity = TeacherLocal::class,
+//            parentColumns = ["teacher_id"],
+//            childColumns = ["teacher_id"]
+//        ),
+//    ],
+//    indices = [Index("teacher_id")]
 )
 data class TeacherSubjectCrossRef(
     @ColumnInfo(name = "subject_id")

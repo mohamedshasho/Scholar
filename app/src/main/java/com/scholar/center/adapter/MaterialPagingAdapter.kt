@@ -67,7 +67,9 @@ class MaterialPagingAdapter(
                     }
                 }
 
-                materialSubjectStarText.text = item.totalRate.toString()
+                materialSubjectStarText.text =
+                    if (item.totalRate.isNaN()) "0" else item.totalRate.toString()
+
                 item.teacher?.image?.let { image ->
                     Glide.with(holder.itemView)
                         .load("${Constants.BASE_URL}${image}")

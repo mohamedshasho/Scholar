@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorSecondary"
                 app:tabIndicatorColor="?attr/colorSecondaryVariant"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabSelectedTextColor="?attr/colorSecondaryVariant"
                 app:tabTextColor="?attr/colorOnSecondary" />
 
