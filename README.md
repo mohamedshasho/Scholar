@@ -3,7 +3,22 @@
 
 ## About The Project
 
-An online education management system to help students and teachers for example: Educational videos, summaries, and motivational stories written by students. It also allows teachers to promote themselves, as the teacher publishes his own books, notes, videos, and solving course questions. The student has a material portfolio, and he has the choice to buy anything he wants from the site for a very small amount that is spent from Before the wallet he owns.
+An online education management system to help students and teachers for example: Educational videos, summaries, and motivational stories written by students. It also allows teachers to promote themselves, as the teacher publishes his own books, notes, videos, and solving course questions. The student has a material portfolio, and he has the choice to buy anything he wants from the site for a very small amount that is spent from the wallet he owns.
+
+## Screenshots
+
+<div style="display: flex;">
+<img  width="200" src="images/screen1.jpg" alt="Screenshot 1"/> 
+<img  width="200" src="images/screen2.jpg" alt="Screenshot 2"/>
+<img  width="200" src="images/screen3.jpg" alt="Screenshot 3"/>
+  <img  width="200" src="images/screen4.jpg" alt="Screenshot 4"/>
+</div>
+<div style="display: flex;">
+<img  width="200" src="images/screen5.jpg" alt="Screenshot 5"/> 
+<img  width="200" src="images/screen6.jpg" alt="Screenshot 6"/>
+<img  width="200" src="images/screen7.jpg" alt="Screenshot 7"/>
+</div>
+<br/>
 
 ## Features
 
